@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nz.ac.vuw.ecs.swen225.a3.application","l":"Game"},{"p":"nz.ac.vuw.ecs.swen225.a3.maze","l":"Maze"},{"p":"nz.ac.vuw.ecs.swen225.a3.persistence","l":"Persistence"},{"p":"nz.ac.vuw.ecs.swen225.a3.render","l":"Render"}]

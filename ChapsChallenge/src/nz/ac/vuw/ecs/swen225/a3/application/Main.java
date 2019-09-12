@@ -1,5 +1,8 @@
 package nz.ac.vuw.ecs.swen225.a3.application;
 
+/**
+ * The Main class.
+ */
 public class Main {
 
     public void test() {
