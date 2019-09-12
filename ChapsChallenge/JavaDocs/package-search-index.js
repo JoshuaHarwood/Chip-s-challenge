@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nz.ac.vuw.ecs.swen225.a3.application"},{"l":"nz.ac.vuw.ecs.swen225.a3.maze"},{"l":"nz.ac.vuw.ecs.swen225.a3.persistence"},{"l":"nz.ac.vuw.ecs.swen225.a3.render"}]
