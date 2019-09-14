@@ -1,17 +1,22 @@
 package nz.ac.vuw.ecs.swen225.a3.application;
 
+import nz.ac.vuw.ecs.swen225.a3.render.controller.MainFrameController;
+
+
 /**
  * The Main class.
  */
 public class Main {
 
-    public void test() {
-        System.out.println("test");
+    public Main() {
+        MainFrameController mainFrameController = new MainFrameController();
+        mainFrameController.showMainFrameWindow();
+
+        mainFrameController.generateMap();
     }
 
     public static void main(String[] args) {
         Main game = new Main();
-        game.test();
     }
 
 }
