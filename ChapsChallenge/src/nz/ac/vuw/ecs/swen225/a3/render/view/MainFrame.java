@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    public static final int WIDTH = 800;
+    public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
 
     private JPanel mainPanel;
@@ -25,7 +25,9 @@ public class MainFrame extends JFrame {
     private JLabel levelLabelValue;
     private JLabel timeLabelValue;
     private JLabel defaultChipsLeftLabelValue;
-    private JPanel infoPanel;
+    private JPanel infoPanel1;
+    private JPanel infoPanel2;
+    private JPanel infoPanel3;
 
 
     public MainFrame() {

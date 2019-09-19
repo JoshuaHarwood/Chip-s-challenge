@@ -12,7 +12,7 @@ public class Main {
         MainFrameController mainFrameController = new MainFrameController();
         mainFrameController.showMainFrameWindow();
 
-        mainFrameController.generateMap();
+        mainFrameController.createBoard();
     }
 
     public static void main(String[] args) {
