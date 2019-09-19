@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.render.controller;
 
+import nz.ac.vuw.ecs.swen225.a3.render.view.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.view.MainFrame;
 
 import javax.swing.*;
@@ -14,6 +15,9 @@ public class MainFrameController {
     private JTextArea testTextArea;
 
     private JPanel leftPanel;
+
+    private BoardCanvas canvas;
+    private Graphics g;
 
     public MainFrameController() {
         initComponents();
@@ -40,29 +44,46 @@ public class MainFrameController {
     /**
      * Temporary method for testing GUI map generation
      */
-    public void generateMap() {
+    public void createBoard() {
 
-        GridLayout gl = new GridLayout(10,10);
-        gl.setHgap(0);
-        gl.setVgap(0);
+//        GridLayout gl = new GridLayout(10,10);
+//        gl.setHgap(0);
+//        gl.setVgap(0);
+//
+//        JPanel grid = new JPanel(gl);
+//
+//        ImageIcon image = new ImageIcon("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\key_cyan.png");
+//        for (int i = 0; i < 100; i++) {
+//            grid.add(new JLabel(image));
+//        }
+//
+//        leftPanel.add(grid);
 
-        JPanel grid = new JPanel(gl);
+        JPanel board = new JPanel();
 
-        ImageIcon image = new ImageIcon("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\key_cyan.png");
-        for (int i = 0; i < 100; i++) {
-            grid.add(new JLabel(image));
-        }
+        canvas = new BoardCanvas(681,681);
 
-        leftPanel.add(grid);
+        board.add(canvas);
+
+        leftPanel.add(board);
 
         showMainFrameWindow();
 
     }
 
+    public void redrawBoard() {
+        canvas.drawBoard(canvas.getGraphics());
+    }
+
     private class TestButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            testTextArea.append("\nButton Pressed");
+
+//            testTextArea.append("\nButton Pressed, drawing test line");
+//            canvas.drawTestLine(canvas.getGraphics());
+
+            testTextArea.append("\nButton Pressed, Drawing Test Grid");
+            redrawBoard();
         }
     }
 }
