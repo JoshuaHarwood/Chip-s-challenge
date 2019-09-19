@@ -97,6 +97,11 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jj445\OneDrive\Documents\GitHub\swen225-group-project\ChapsChallenge\Assets" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -119,12 +124,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1568868380064</updated>
-      <workItem from="1568868381368" duration="805000" />
+      <workItem from="1568868381368" duration="1070000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="805000" />
+    <option name="totallyTimeSpent" value="1070000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="138" y="97" width="1764" height="1134" extended-state="0" />
