@@ -8,10 +8,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.Random;
 
-
+/**
+ * this class is a custom canvas, this is where the tiles will be displayed and the game will take place
+ * @author joshua harwood
+ */
 public class BoardCanvas extends Canvas {
 
-    private int tileSize = 64;
+    private int tileSize = 32;
     private Tile[][] tiles;
     private int width, height;
     public BoardCanvas(int width, int height, Tile[][] tiles) {
