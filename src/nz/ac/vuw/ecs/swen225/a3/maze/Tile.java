@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
+import java.util.List;
+
 public class Tile {
 	
 	public final TileType type;
@@ -31,5 +33,26 @@ public class Tile {
 	
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+
+	public boolean chapCanMoveHere(List<TileType> keys, boolean gotAllTreasure) {
+		if(type == TileType.Empty || type == TileType.Treasure
+				|| type == TileType.Info || type == TileType.Exit
+				|| type == TileType.Key1 || type == TileType.Key2
+				|| type == TileType.Key3 || type == TileType.Key4)
+			return true;
+		if(type == TileType.Door1 && keys.contains(TileType.Key1)) 
+			return true;
+		if(type == TileType.Door2 && keys.contains(TileType.Key2)) 
+			return true;
+		if(type == TileType.Door3 && keys.contains(TileType.Key3)) 
+			return true;
+		if(type == TileType.Door4 && keys.contains(TileType.Key4)) 
+			return true;
+		if(type == TileType.ExitLock && gotAllTreasure)
+			return true;
+		
+		return false;		
 	}
 }
