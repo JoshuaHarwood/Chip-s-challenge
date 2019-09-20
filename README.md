@@ -11,7 +11,8 @@ The prototype may have one or many of the following limitations:
 *  the game timeout functionality is missing
 
 
-`Requirements:
+```
+Requirements:
 *   The Maze
         - responsible for maintaining game state
             - made up of the maze itself and the current location of current items
@@ -52,4 +53,5 @@ The prototype may have one or many of the following limitations:
 *   Quality Assurance
         - Code coverage of JUnit tests. Aim for >75%
         - SpotBugs. Ensure no bugs shown with SpotBugs
-        - Javadoc. Javadoc violations will be measured using the Eclipse JavaDoc analysis`
+        - Javadoc. Javadoc violations will be measured using the Eclipse JavaDoc analysis
+```
