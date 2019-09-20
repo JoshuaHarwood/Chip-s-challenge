@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
+import java.awt.*;
 import java.util.List;
 
 public class Tile {
@@ -78,5 +79,10 @@ public class Tile {
 			return true;
 
 		return false;		
+	}
+
+	public Image getImage() {
+
+		return null;
 	}
 }

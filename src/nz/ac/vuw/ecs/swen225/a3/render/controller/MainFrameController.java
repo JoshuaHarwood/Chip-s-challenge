@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.render.controller;
 
+import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.render.view.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.view.MainFrame;
 
@@ -19,7 +20,11 @@ public class MainFrameController {
     private BoardCanvas canvas;
     private Graphics g;
 
-    public MainFrameController() {
+    private Tile[][] tiles;
+
+    public MainFrameController(Tile[][] tiles) {
+        this.tiles = tiles;
+
         initComponents();
         initListeners();
     }
@@ -61,7 +66,7 @@ public class MainFrameController {
 
         JPanel board = new JPanel();
 
-        canvas = new BoardCanvas(681,681);
+        canvas = new BoardCanvas(tiles[0].length, tiles.length, tiles);
 
         board.add(canvas);
 
