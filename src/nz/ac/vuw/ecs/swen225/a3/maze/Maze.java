@@ -12,17 +12,17 @@ public class Maze {
 
 	/**
 	 * Creates a maze.
-	 * @param map this level's map as a string
+	 * @param board this level's board as a string
 	 */
-	public Maze(String map) {
-		generateBoard(map);
+	public Maze(String board) {
+		generateBoard(board);
 	}
 
 	/**
 	 * Generates the board for this level.
-	 * @param map this level's map as a string
+	 * @param board this level's board as a string
 	 */
-	public void generateBoard(String map) {
+	public void generateBoard(String board) {
 		//create a map of char to TileType
 		HashMap<Character, TileType> lettersToTiles = new HashMap<Character, TileType>() {
 			private static final long serialVersionUID = 1L;
@@ -46,20 +46,20 @@ public class Maze {
 			}
 		};
 		//get the height and width
-		char[] mapAsChar = map.toCharArray();
+		char[] mapAsChar = board.toCharArray();
 		int height = Integer.parseInt((String.valueOf(mapAsChar[0])).concat(String.valueOf(mapAsChar[1])));
 		int width = Integer.parseInt((String.valueOf(mapAsChar[2])).concat(String.valueOf(mapAsChar[3])));
-		board = new Tile[height][width];
+		this.board = new Tile[height][width];
 		int x = 0, y = 0;
 		//fill the board
 		for(int i = 4; i < mapAsChar.length; i++) {
 			//for Chap
 			if(lettersToTiles.get(mapAsChar[i]) == TileType.Chap) {
 				chap = new Chap(x, y);
-				board[y][x] = chap;
+				this.board[y][x] = chap;
 			} else {
-				board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
-				if(board[y][x].type == TileType.Treasure)
+				this.board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
+				if(this.board[y][x].type == TileType.Treasure)
 					treasureLeft++;	
 			}
 			x++;
@@ -120,6 +120,12 @@ public class Maze {
 		return true;
 	}
 
-
+	/**
+	 * Gets this game's board
+	 * @return the board
+	 */
+	public Tile[][] getBoard() {
+		return board;
+	}
 
 }
