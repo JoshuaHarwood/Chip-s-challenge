@@ -39,6 +39,7 @@ public class MainFrame extends JFrame {
         setContentPane(mainPanel);
         setLocationRelativeTo(null);
 
+
     }
 
     public JMenuItem getTestButton() {

@@ -22,6 +22,9 @@ public class Main {
         mainFrameController.showMainFrameWindow();
 
         mainFrameController.createBoard();
+
+        mainFrameController.redrawBoard();
+        
     }
 
     public static void main(String[] args) {

@@ -8,24 +8,33 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.Random;
 
+
 public class BoardCanvas extends Canvas {
 
-    private int tileSize = 32;
+    private int tileSize = 64;
     private Tile[][] tiles;
-
+    private int width, height;
     public BoardCanvas(int width, int height, Tile[][] tiles) {
         this.tiles = tiles;
-        this.setSize(width, height);
+        this.width = width;
+        this.height = height;
+        this.setSize(width*tileSize, height*tileSize);
     }
 
+    /**
+     * when called this will go through the board and draw each tile
+     * @param g - the graphics to be drawn on
+     */
     public void drawBoard(Graphics g) {
-
-        for (int i = 0; i < this.getWidth(); i++) {
-            for (int j = 0; j < this.getHeight(); j++) {
-
+        System.out.println("DRAWING     WIDTH: " + width + "  HEIGHT: " + height);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+//
                 Image tileImg = tiles[j][i].getImage();
                 int x = i * tileSize;
                 int y = j * tileSize;
+
+
                 g.drawImage(tileImg, x, y, tileSize, tileSize, null);
 
 
