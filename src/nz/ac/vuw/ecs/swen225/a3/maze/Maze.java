@@ -7,17 +7,26 @@ public class Maze {
 	private Tile behindChap;
 	private Chap chap;
 	private int treasureLeft = 0;
-	
+
 	//TODO add checks for invalid characters/boards
-	
-	//create maze from string
+
+	/**
+	 * Creates a maze.
+	 * @param map this level's map as a string
+	 */
 	public Maze(String map) {
 		generateBoard(map);
 	}
-	
+
+	/**
+	 * Generates the board for this level.
+	 * @param map this level's map as a string
+	 */
 	public void generateBoard(String map) {
 		//create a map of char to TileType
 		HashMap<Character, TileType> lettersToTiles = new HashMap<Character, TileType>() {
+			private static final long serialVersionUID = 1L;
+
 			{
 				put('C', TileType.Chap);
 				put('W', TileType.Wall);
@@ -44,8 +53,9 @@ public class Maze {
 		int x = 0, y = 0;
 		//fill the board
 		for(int i = 4; i < mapAsChar.length; i++) {
+			//for Chap
 			if(lettersToTiles.get(mapAsChar[i]) == TileType.Chap) {
-				chap = new Chap(TileType.Chap, x, y);
+				chap = new Chap(x, y);
 				board[y][x] = chap;
 			} else {
 				board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
@@ -59,17 +69,23 @@ public class Maze {
 			}
 		}
 	}
-	
+
+	/**
+	 * Tries to move Chap to a tile on the board.
+	 * @param x The x-coordinate of the tile to move Chap to.
+	 * @param y The y-coordinate of the tile to move Chap to.
+	 * @return If Chap has been moved or not
+	 */
 	public boolean moveChap(int x, int y) {
+		//the tile is too far away from Chap
 		if(Math.abs(chap.getX() - x) + Math.abs(chap.getY() - y) != 1)
 			return false;
+		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return false;
-		
-		//TODO change exitlock icon to full hole if treasure left == 0
-		
+		//remove Chap from the board
 		board[chap.getY()][chap.getX()] = behindChap;
-		
+
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
 		else if(board[y][x].type == TileType.Key1)
@@ -88,21 +104,22 @@ public class Maze {
 			chap.removeKey(TileType.Key3);
 		else if(board[y][x].type == TileType.Door4)
 			chap.removeKey(TileType.Key4);
-		
-		if(board[y][x].type == TileType.Exit) {}
-			//TODO ENDGAME
-		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitLock)
+
+		if(board[y][x].type == TileType.Exit)
+		{}	//TODO ENDGAME
+		//update the tile behind Chap
+		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitLock) //TODO change exitlock icon to full hole if treasure left == 0
 			behindChap = board[y][x];
 		else
 			behindChap = new Tile(TileType.Empty, x, y);
-		
-			board[y][x] = chap;
-			chap.setX(x);
-			chap.getY(y);
-		
+		//updates Chap's position
+		board[y][x] = chap;
+		chap.setX(x);
+		chap.setY(y);
+
 		return true;
 	}
 
-	
-	
+
+
 }
