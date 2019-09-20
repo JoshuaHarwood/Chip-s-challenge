@@ -22,8 +22,13 @@ public class BoardCanvas extends Canvas {
 
         for (int i = 0; i < this.getWidth(); i++) {
             for (int j = 0; j < this.getHeight(); j++) {
+
                 Image tileImg = tiles[j][i].getImage();
-               // g.drawImage()
+                int x = i * tileSize;
+                int y = j * tileSize;
+                g.drawImage(tileImg, x, y, tileSize, tileSize, null);
+
+
 
 //                Random r = new Random();
 //
