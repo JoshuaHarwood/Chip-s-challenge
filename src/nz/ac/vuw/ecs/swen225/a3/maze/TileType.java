@@ -15,5 +15,6 @@ public enum TileType {
 	Treasure,
 	Exit,
 	ExitLock,
+	ExitUnlock,
 	Info
 }

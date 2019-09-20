@@ -9,6 +9,7 @@ public class Maze {
 	private int treasureLeft = 0;
 
 	//TODO add checks for invalid characters/boards
+	//TODO add a timer
 
 	/**
 	 * Creates a maze.
@@ -108,8 +109,10 @@ public class Maze {
 		if(board[y][x].type == TileType.Exit)
 		{}	//TODO ENDGAME
 		//update the tile behind Chap
-		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitLock) //TODO change exitlock icon to full hole if treasure left == 0
+		else if(board[y][x].type == TileType.Info)
 			behindChap = board[y][x];
+		else if(board[y][x].type == TileType.ExitLock)
+			behindChap = new Tile(TileType.ExitUnlock, x, y);
 		else
 			behindChap = new Tile(TileType.Empty, x, y);
 		//updates Chap's position

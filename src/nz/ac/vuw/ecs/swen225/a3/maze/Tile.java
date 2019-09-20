@@ -1,7 +1,10 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 public class Tile {
 
@@ -63,7 +66,8 @@ public class Tile {
 		if(type == TileType.Empty || type == TileType.Treasure
 				|| type == TileType.Info || type == TileType.Exit
 				|| type == TileType.Key1 || type == TileType.Key2
-				|| type == TileType.Key3 || type == TileType.Key4)
+				|| type == TileType.Key3 || type == TileType.Key4 
+				|| type == TileType.ExitUnlock)
 			return true;
 		//Chap can move to the tile if he has the right key
 		if(type == TileType.Door1 && keys.contains(TileType.Key1)) 
@@ -81,8 +85,17 @@ public class Tile {
 		return false;		
 	}
 
+	/**
+	 * Gets the image associated with this tile.
+	 * @return the image
+	 */
 	public Image getImage() {
 
-		return null;
+		try {
+			return ImageIO.read(getClass().getResource("/icons/" + type.name() + ".png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
