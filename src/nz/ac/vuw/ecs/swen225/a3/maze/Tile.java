@@ -92,7 +92,7 @@ public class Tile {
 	public Image getImage() {
 
 		try {
-			return ImageIO.read(getClass().getResource("/icons/" + type.name() + ".png"));
+			return ImageIO.read(getClass().getResource("icons/" + type.name() + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
