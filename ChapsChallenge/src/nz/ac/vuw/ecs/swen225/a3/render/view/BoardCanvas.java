@@ -2,6 +2,8 @@ package nz.ac.vuw.ecs.swen225.a3.render.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.util.Random;
 
 public class BoardCanvas extends Canvas {
@@ -32,6 +34,11 @@ public class BoardCanvas extends Canvas {
                 g.setColor(c);
 
                 g.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
+//                Image image = new Image("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\key_cyan.png");
+
+//                BufferedImage img = new BufferedImage(30,30,);
+
+//                g.drawImage(j * tileSize, i * tileSize, tileSize, tileSize, image);
 
             }
         }
