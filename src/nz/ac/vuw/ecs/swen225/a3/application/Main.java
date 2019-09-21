@@ -12,10 +12,10 @@ import java.awt.event.ActionEvent;
  * The Main class.
  */
 public class Main {
-    JPanel leftPanel;
-    JTextArea testTextArea;
-    Maze maze;
-    Chap chap;
+    private JPanel leftPanel;
+    private JTextArea testTextArea;
+    private Maze maze;
+    private Chap chap;
 
     String map = "0809WWWWXWWWWWEEWLWEEWWEEEEEEEWWEEECEEEWW5EEEEEEWWWWWWW1WWWTEEEEEEWWWWWWWWWW";
 
@@ -54,7 +54,7 @@ public class Main {
         AbstractAction s = new Saction();
         leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"),"SPressed");
         leftPanel.getActionMap().put("SPressed",s);
-        //
+
 
         AbstractAction d = new Daction();
         leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"),"DPressed");
@@ -71,12 +71,9 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            int x = chap.getX();
-            int y = chap.getY();
-
+            chap.move("UP");
             testTextArea.append("\n W has been pressed!");
-            maze.moveChap(x,y+1);
+
         }
     }
 
@@ -84,6 +81,7 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            chap.move("LEFT");
             testTextArea.append("\n A has been pressed!");
         }
     }
@@ -92,6 +90,7 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            chap.move("DOWN");
             testTextArea.append("\n S has been pressed!");
         }
     }
@@ -100,6 +99,7 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            chap.move("RIGHT");
             testTextArea.append("\n D has been pressed!");
         }
     }
