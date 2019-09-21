@@ -59,4 +59,7 @@ public class BoardCanvas extends Canvas {
 
     }
 
+    public void updateTiles(Tile[][] tiles) {
+        this.tiles = tiles;
+    }
 }

@@ -77,7 +77,8 @@ public class MainFrameController {
         return testTextArea;
     }
 
-    public void redrawBoard() {
+    public void redrawBoard(Tile[][] tiles) {
+        canvas.updateTiles(tiles);
         canvas.drawBoard(canvas.getGraphics(), leftPanel.getWidth(), leftPanel.getHeight());
     }
 
