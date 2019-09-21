@@ -82,7 +82,7 @@ public class Maze {
 	 * @param dir The direction to move Chap ("UP", "DOWN", "LEFT", "RIGHT")
 	 * @return if the move is valid and therefore if Chap was moved
 	 */
-	public boolean moveChap(String dir) {
+	public Boolean moveChap(String dir) {
 
 		int x = chap.getX();
 		int y = chap.getY();
@@ -121,7 +121,7 @@ public class Maze {
 		board[chap.getY()][chap.getX()] = behindChap;
 
 		if(board[y][x].type == TileType.Exit)
-		{}	//TODO ENDGAME		
+			return null;	//TODO ENDGAME		
 
 		//update the tile behind Chap
 		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitUnlock)
