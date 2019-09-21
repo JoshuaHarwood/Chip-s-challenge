@@ -51,19 +51,6 @@ public class MainFrameController {
      */
     public void createBoard() {
 
-//        GridLayout gl = new GridLayout(10,10);
-//        gl.setHgap(0);
-//        gl.setVgap(0);
-//
-//        JPanel grid = new JPanel(gl);
-//
-//        ImageIcon image = new ImageIcon("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\key_cyan.png");
-//        for (int i = 0; i < 100; i++) {
-//            grid.add(new JLabel(image));
-//        }
-//
-//        leftPanel.add(grid);
-
         JPanel board = new JPanel();
 
         canvas = new BoardCanvas(tiles[0].length, tiles.length, tiles);
@@ -77,15 +64,12 @@ public class MainFrameController {
     }
 
     public void redrawBoard() {
-        canvas.drawBoard(canvas.getGraphics());
+        canvas.drawBoard(canvas.getGraphics(), leftPanel.getWidth(), leftPanel.getHeight());
     }
 
     private class TestButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-//            testTextArea.append("\nButton Pressed, drawing test line");
-//            canvas.drawTestLine(canvas.getGraphics());
 
             testTextArea.append("\nButton Pressed, Drawing Test Grid");
             redrawBoard();

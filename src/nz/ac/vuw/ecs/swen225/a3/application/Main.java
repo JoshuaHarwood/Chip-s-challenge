@@ -9,9 +9,7 @@ import nz.ac.vuw.ecs.swen225.a3.render.controller.MainFrameController;
  */
 public class Main {
 
-    String map = "0202" +
-            "EE" +
-            "EE";
+    String map = "0809WWWWXWWWWWEEWLWEEWWEEEEEEEWWEEECEEEWW5EEEEEEWWWWWWW1WWWTEEEEEEWWWWWWWWWW";
 
 
     public Main() {
