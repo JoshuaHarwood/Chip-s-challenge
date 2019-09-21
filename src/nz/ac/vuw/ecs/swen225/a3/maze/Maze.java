@@ -75,12 +75,20 @@ public class Maze {
 	}
 
 	/**
-	 * Tries to move Chap to a tile on the board.
-	 * @param x The x-coordinate of the tile to move Chap to.
-	 * @param y The y-coordinate of the tile to move Chap to.
-	 * @return If Chap has been moved or not
+	 * Tries to move Chap to a tile on the board. given a direction
+	 * @param dir - the direction;   UP, DOWN, LEFT, RIGHT
+	 * @return - if moved
 	 */
-	public boolean moveChap(int x, int y) {
+	public boolean moveChap(String dir) {
+
+		int y = (dir.equalsIgnoreCase("UP")) ? chap.getY() - 1 : 0;
+		y = (dir.equalsIgnoreCase("DOWN")) ? chap.getY() + 1 : y;
+
+		int x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() - 1 : 0;
+		x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() + 1 : x;
+
+
+
 		//the tile is too far away from Chap
 		if(Math.abs(chap.getX() - x) + Math.abs(chap.getY() - y) != 1)
 			return false;
