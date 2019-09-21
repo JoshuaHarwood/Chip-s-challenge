@@ -71,7 +71,6 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent e) {
             maze.moveChap("UP");
-            testTextArea.append("\n W has been pressed!");
 
             mainFrameController.redrawBoard(maze.getBoard());
 
@@ -83,7 +82,7 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent e) {
             maze.moveChap("LEFT");
-            testTextArea.append("\n A has been pressed!");
+
 
             mainFrameController.redrawBoard(maze.getBoard());
 
@@ -95,7 +94,7 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent e) {
             maze.moveChap("DOWN");
-            testTextArea.append("\n S has been pressed!");
+
 
             mainFrameController.redrawBoard(maze.getBoard());
 
@@ -107,7 +106,6 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent e) {
             maze.moveChap("RIGHT");
-            testTextArea.append("\n D has been pressed!");
 
             mainFrameController.redrawBoard(maze.getBoard());
 
