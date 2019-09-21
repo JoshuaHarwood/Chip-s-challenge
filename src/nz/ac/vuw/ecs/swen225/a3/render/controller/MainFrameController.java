@@ -46,6 +46,7 @@ public class MainFrameController {
     }
 
     private void initKeys(){
+
         AbstractAction w = new Waction();
         leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"),"WPressed");
         leftPanel.getActionMap().put("WPressed",w);
@@ -61,7 +62,6 @@ public class MainFrameController {
         AbstractAction d = new Daction();
         leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"),"DPressed");
         leftPanel.getActionMap().put("DPressed",d);
-
 
     }
 
@@ -104,7 +104,8 @@ public class MainFrameController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("W has been pressed!");
+
+            testTextArea.append("W has been pressed!");
         }
     }
 
@@ -112,7 +113,7 @@ public class MainFrameController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("A has been pressed!");
+            testTextArea.append("A has been pressed!");
         }
     }
 
@@ -120,7 +121,7 @@ public class MainFrameController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("S has been pressed!");
+            testTextArea.append("S has been pressed!");
         }
     }
 
@@ -128,7 +129,7 @@ public class MainFrameController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("D has been pressed!");
+            testTextArea.append("D has been pressed!");
         }
     }
 
