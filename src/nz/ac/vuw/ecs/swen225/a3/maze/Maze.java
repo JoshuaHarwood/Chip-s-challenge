@@ -63,6 +63,7 @@ public class Maze {
 			if(lettersToTiles.get(mapAsChar[i]) == TileType.Chap) {
 				chap = new Chap(x, y);
 				this.board[y][x] = chap;
+				behindChap = new Tile(TileType.Empty, x, y);
 			} else {
 				this.board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
 				if(this.board[y][x].type == TileType.Treasure)
@@ -88,10 +89,6 @@ public class Maze {
 		
 		y = (dir.equalsIgnoreCase("UP")) ? y - 1 : (dir.equalsIgnoreCase("DOWN")) ? y + 1 : y;
 		x = (dir.equalsIgnoreCase("LEFT")) ? x - 1 : (dir.equalsIgnoreCase("RIGHT")) ? x + 1 : x;
-
-		//the tile is too far away from Chap
-		if(Math.abs(chap.getX() - x) + Math.abs(chap.getY() - y) != 1)
-			return false;
 		
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
