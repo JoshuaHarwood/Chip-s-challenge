@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
+import nz.ac.vuw.ecs.swen225.a3.render.controller.MainFrameController;
+
 import java.util.HashMap;
 
 /**
@@ -75,12 +77,20 @@ public class Maze {
 	}
 
 	/**
-	 * Tries to move Chap to a tile on the board.
-	 * @param x The x-coordinate of the tile to move Chap to.
-	 * @param y The y-coordinate of the tile to move Chap to.
-	 * @return If Chap has been moved or not
+	 * Tries to move Chap to a tile on the board. given a direction
+	 * @param dir - the direction;   UP, DOWN, LEFT, RIGHT
+	 * @return - if moved
 	 */
-	public boolean moveChap(int x, int y) {
+	public boolean moveChap(String dir) {
+
+		int y = (dir.equalsIgnoreCase("UP")) ? chap.getY() - 1 : chap.getY();
+		y = (dir.equalsIgnoreCase("DOWN")) ? chap.getY() + 1 : y;
+
+		int x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() - 1 : chap.getX();
+		x = (dir.equalsIgnoreCase("RIGHT")) ? chap.getX() + 1 : x;
+
+
+
 		//the tile is too far away from Chap
 		if(Math.abs(chap.getX() - x) + Math.abs(chap.getY() - y) != 1)
 			return false;
@@ -120,8 +130,13 @@ public class Maze {
 			behindChap = new Tile(TileType.Empty, x, y);
 		//updates Chap's position
 		board[y][x] = chap;
+		board[chap.getY()][chap.getX()] = behindChap;
 		chap.setX(x);
 		chap.setY(y);
+
+		//TODO Call mainframeController.redraw() here ?
+
+
 
 		return true;
 	}

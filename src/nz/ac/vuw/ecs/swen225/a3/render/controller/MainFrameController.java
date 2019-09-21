@@ -35,6 +35,9 @@ public class MainFrameController {
         testButton = mainFrame.getTestButton();
         testTextArea = mainFrame.getTestTextArea();
         leftPanel = mainFrame.getLeftPanel();
+
+        testTextArea.setEnabled(false);
+
     }
 
     private void initListeners()
@@ -58,7 +61,7 @@ public class MainFrameController {
 
         JPanel board = new JPanel();
 
-        canvas = new BoardCanvas(tiles[0].length, tiles.length, tiles);
+        canvas = new BoardCanvas(tiles);
 
         board.add(canvas);
 
@@ -77,8 +80,9 @@ public class MainFrameController {
         return testTextArea;
     }
 
-    public void redrawBoard() {
-        canvas.drawBoard(canvas.getGraphics(), leftPanel.getWidth(), leftPanel.getHeight());
+    public void redrawBoard(Tile[][] tiles) {
+        canvas.updateTiles(tiles);
+        canvas.drawBoard(canvas.getGraphics(), mainFrame.getLeftPanel().getWidth(), mainFrame.getLeftPanel().getHeight());
     }
 
     private class TestButtonListener implements ActionListener {
@@ -86,7 +90,7 @@ public class MainFrameController {
         public void actionPerformed(ActionEvent e) {
 
             testTextArea.append("\nButton Pressed, Drawing Test Grid");
-            redrawBoard();
+            redrawBoard(tiles);
         }
     }
 
