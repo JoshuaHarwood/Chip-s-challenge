@@ -87,7 +87,7 @@ public class MainFrameController {
         public void actionPerformed(ActionEvent e) {
 
             testTextArea.append("\nButton Pressed, Drawing Test Grid");
-            redrawBoard();
+           // redrawBoard();
         }
     }
 

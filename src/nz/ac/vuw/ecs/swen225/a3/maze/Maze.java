@@ -131,6 +131,9 @@ public class Maze {
 		chap.setX(x);
 		chap.setY(y);
 
+		//TODO Call mainframeController.redraw() here ?
+
+
 		return true;
 	}
 

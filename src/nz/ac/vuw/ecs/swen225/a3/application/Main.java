@@ -15,7 +15,7 @@ public class Main {
     private JPanel leftPanel;
     private JTextArea testTextArea;
     private Maze maze;
-    private Chap chap;
+    private MainFrameController mainFrameController;
 
     String map = "0809WWWWXWWWWWEEWLWEEWWEEEEEEEWWEEECEEEWW5EEEEEEWWWWWWW1WWWTEEEEEEWWWWWWWWWW";
 
@@ -23,14 +23,13 @@ public class Main {
     public Main() {
 
         maze = new Maze(map);
-        chap = maze.getChap();
 
-        MainFrameController mainFrameController = new MainFrameController(maze.getBoard());
+        mainFrameController = new MainFrameController(maze.getBoard());
         mainFrameController.showMainFrameWindow();
 
         mainFrameController.createBoard();
 
-        mainFrameController.redrawBoard();
+        mainFrameController.redrawBoard(maze.getBoard());
 
 
        leftPanel = mainFrameController.getLeftPanel();
@@ -71,8 +70,10 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            chap.move("UP");
+            maze.moveChap("UP");
             testTextArea.append("\n W has been pressed!");
+
+            mainFrameController.redrawBoard(maze.getBoard());
 
         }
     }
@@ -81,8 +82,11 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            chap.move("LEFT");
+            maze.moveChap("LEFT");
             testTextArea.append("\n A has been pressed!");
+
+            mainFrameController.redrawBoard(maze.getBoard());
+
         }
     }
 
@@ -90,8 +94,11 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            chap.move("DOWN");
+            maze.moveChap("DOWN");
             testTextArea.append("\n S has been pressed!");
+
+            mainFrameController.redrawBoard(maze.getBoard());
+
         }
     }
 
@@ -99,8 +106,11 @@ public class Main {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            chap.move("RIGHT");
+            maze.moveChap("RIGHT");
             testTextArea.append("\n D has been pressed!");
+
+            mainFrameController.redrawBoard(maze.getBoard());
+
         }
     }
 }
