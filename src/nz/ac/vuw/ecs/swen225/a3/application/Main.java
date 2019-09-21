@@ -18,7 +18,7 @@ public class Main {
     Chap chap;
 
     String map = "0809WWWWXWWWWWEEWLWEEWWEEEEEEEWWEEECEEEWW5EEEEEEWWWWWWW1WWWTEEEEEEWWWWWWWWWW";
-
+    //map for board
 
     public Main() {
 
