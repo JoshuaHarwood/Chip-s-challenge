@@ -37,8 +37,32 @@ public class MainFrameController {
         leftPanel = mainFrame.getLeftPanel();
     }
 
-    private void initListeners() {
+    private void initListeners()
+    {
+
+        initKeys();
+
         testButton.addActionListener(new TestButtonListener());
+    }
+
+    private void initKeys(){
+        AbstractAction w = new Waction();
+        leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"),"WPressed");
+        leftPanel.getActionMap().put("WPressed",w);
+
+        AbstractAction a = new Aaction();
+        leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"),"APressed");
+        leftPanel.getActionMap().put("APressed",a);
+
+        AbstractAction s = new Saction();
+        leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"),"SPressed");
+        leftPanel.getActionMap().put("SPressed",s);
+
+        AbstractAction d = new Daction();
+        leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"),"DPressed");
+        leftPanel.getActionMap().put("DPressed",d);
+
+
     }
 
     public void showMainFrameWindow() {
@@ -75,4 +99,38 @@ public class MainFrameController {
             redrawBoard();
         }
     }
+
+    private class Waction extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("W has been pressed!");
+        }
+    }
+
+    private class Aaction extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("A has been pressed!");
+        }
+    }
+
+    private class Saction extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("S has been pressed!");
+        }
+    }
+
+    private class Daction extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("D has been pressed!");
+        }
+    }
+
+
 }
