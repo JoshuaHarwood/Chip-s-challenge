@@ -92,12 +92,15 @@ public class Maze {
 		//the tile is too far away from Chap
 		if(Math.abs(chap.getX() - x) + Math.abs(chap.getY() - y) != 1)
 			return false;
+		
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return false;
+		
 		//remove Chap from the board
 		board[chap.getY()][chap.getX()] = behindChap;
 
+		
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
 		else if(board[y][x].type == TileType.Key1)
@@ -117,8 +120,12 @@ public class Maze {
 		else if(board[y][x].type == TileType.Door4)
 			chap.removeKey(TileType.Key4);
 
+
+		board[chap.getY()][chap.getX()] = behindChap;
+
 		if(board[y][x].type == TileType.Exit)
-		{}	//TODO ENDGAME
+		{}	//TODO ENDGAME		
+
 		//update the tile behind Chap
 		else if(board[y][x].type == TileType.Info)
 			behindChap = board[y][x];
@@ -126,14 +133,14 @@ public class Maze {
 			behindChap = new Tile(TileType.ExitUnlock, x, y);
 		else
 			behindChap = new Tile(TileType.Empty, x, y);
+
 		//updates Chap's position
 		board[y][x] = chap;
-		board[chap.getY()][chap.getX()] = behindChap;
 		chap.setX(x);
 		chap.setY(y);
 
-		//TODO Call mainframeController.redraw() here ?
 
+		//TODO Call mainframeController.redraw() here ?
 
 
 		return true;
