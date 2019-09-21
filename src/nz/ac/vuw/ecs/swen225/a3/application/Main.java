@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.application;
 
+import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.render.controller.MainFrameController;
@@ -13,12 +14,16 @@ import java.awt.event.ActionEvent;
 public class Main {
     JPanel leftPanel;
     JTextArea testTextArea;
+    Maze maze;
+    Chap chap;
+
     String map = "0809WWWWXWWWWWEEWLWEEWWEEEEEEEWWEEECEEEWW5EEEEEEWWWWWWW1WWWTEEEEEEWWWWWWWWWW";
 
 
     public Main() {
 
-        Maze maze = new Maze(map);
+        maze = new Maze(map);
+        chap = maze.getChap();
 
         MainFrameController mainFrameController = new MainFrameController(maze.getBoard());
         mainFrameController.showMainFrameWindow();
@@ -66,7 +71,11 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            int x = chap.getX();
+            int y = chap.getY();
+
             testTextArea.append("\n W has been pressed!");
+            maze.moveChap(x,y+1);
         }
     }
 

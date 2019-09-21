@@ -133,6 +133,10 @@ public class Maze {
 	public Tile[][] getBoard() {
 		return board;
 	}
+
+	public Chap getChap(){
+		return chap;
+	}
 	
 	/**
 	 * Gets the number of treasures left to collect
