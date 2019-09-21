@@ -94,10 +94,6 @@ public class Maze {
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return false;
 		
-		//remove Chap from the board
-		board[chap.getY()][chap.getX()] = behindChap;
-
-		
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
 		else if(board[y][x].type == TileType.Key1)
@@ -117,14 +113,14 @@ public class Maze {
 		else if(board[y][x].type == TileType.Door4)
 			chap.removeKey(TileType.Key4);
 
-
+		//remove Chap from the board
 		board[chap.getY()][chap.getX()] = behindChap;
 
 		if(board[y][x].type == TileType.Exit)
 		{}	//TODO ENDGAME		
 
 		//update the tile behind Chap
-		else if(board[y][x].type == TileType.Info)
+		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitUnlock)
 			behindChap = board[y][x];
 		else if(board[y][x].type == TileType.ExitLock)
 			behindChap = new Tile(TileType.ExitUnlock, x, y);
