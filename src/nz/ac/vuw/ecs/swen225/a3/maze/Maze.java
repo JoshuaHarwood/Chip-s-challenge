@@ -81,10 +81,10 @@ public class Maze {
 	 */
 	public boolean moveChap(String dir) {
 
-		int y = (dir.equalsIgnoreCase("UP")) ? chap.getY() - 1 : 0;
+		int y = (dir.equalsIgnoreCase("UP")) ? chap.getY() - 1 : chap.getY();
 		y = (dir.equalsIgnoreCase("DOWN")) ? chap.getY() + 1 : y;
 
-		int x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() - 1 : 0;
+		int x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() - 1 : chap.getX();
 		x = (dir.equalsIgnoreCase("RIGHT")) ? chap.getX() + 1 : x;
 
 
@@ -128,6 +128,7 @@ public class Maze {
 			behindChap = new Tile(TileType.Empty, x, y);
 		//updates Chap's position
 		board[y][x] = chap;
+		board[chap.getY()][chap.getX()] = behindChap;
 		chap.setX(x);
 		chap.setY(y);
 
