@@ -83,13 +83,11 @@ public class Maze {
 	 */
 	public boolean moveChap(String dir) {
 
-		int y = (dir.equalsIgnoreCase("UP")) ? chap.getY() - 1 : chap.getY();
-		y = (dir.equalsIgnoreCase("DOWN")) ? chap.getY() + 1 : y;
-
-		int x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() - 1 : chap.getX();
-		x = (dir.equalsIgnoreCase("RIGHT")) ? chap.getX() + 1 : x;
-
-
+		int x = chap.getX();
+		int y = chap.getY();
+		
+		y = (dir.equalsIgnoreCase("UP")) ? y - 1 : (dir.equalsIgnoreCase("DOWN")) ? y + 1 : y;
+		x = (dir.equalsIgnoreCase("LEFT")) ? x - 1 : (dir.equalsIgnoreCase("RIGHT")) ? x + 1 : x;
 
 		//the tile is too far away from Chap
 		if(Math.abs(chap.getX() - x) + Math.abs(chap.getY() - y) != 1)

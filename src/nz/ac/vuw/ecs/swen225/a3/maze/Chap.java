@@ -37,11 +37,6 @@ public class Chap extends Tile{
 		inventory.remove(inventory.indexOf(key));
 		Collections.sort(inventory);
 	}
-
-	public void move(String dir){
-
-
-	}
 	
 	/**
 	 * Returns an unmodifiable version of Chap's current inventory.
