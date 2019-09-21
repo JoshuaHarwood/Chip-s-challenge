@@ -78,9 +78,9 @@ public class Maze {
 	}
 
 	/**
-	 * Tries to move Chap to a tile on the board. given a direction
-	 * @param dir - the direction;   UP, DOWN, LEFT, RIGHT
-	 * @return - if moved
+	 * Tries to move Chap to a tile on the board given a direction.
+	 * @param dir The direction to move Chap ("UP", "DOWN", "LEFT", "RIGHT")
+	 * @return if the move is valid and therefore if Chap was moved
 	 */
 	public boolean moveChap(String dir) {
 
@@ -89,6 +89,10 @@ public class Maze {
 		
 		y = (dir.equalsIgnoreCase("UP")) ? y - 1 : (dir.equalsIgnoreCase("DOWN")) ? y + 1 : y;
 		x = (dir.equalsIgnoreCase("LEFT")) ? x - 1 : (dir.equalsIgnoreCase("RIGHT")) ? x + 1 : x;
+		
+		//no move is being made
+		if(x == chap.getX() && y == chap.getY())
+			return false;
 		
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
@@ -132,27 +136,29 @@ public class Maze {
 		chap.setX(x);
 		chap.setY(y);
 
-
 		//TODO Call mainframeController.redraw() here ?
-
 
 		return true;
 	}
 
 	/**
-	 * Gets this game's board
+	 * Gets this game's board.
 	 * @return the board
 	 */
 	public Tile[][] getBoard() {
 		return board;
 	}
 
+	/**
+	 * Gets the Chap tile.
+	 * @return Chap
+	 */
 	public Chap getChap(){
 		return chap;
 	}
 	
 	/**
-	 * Gets the number of treasures left to collect
+	 * Gets the number of treasures left to collect.
 	 * @return the treasure left to collect
 	 */
 	public int getTreasureLeft() {
