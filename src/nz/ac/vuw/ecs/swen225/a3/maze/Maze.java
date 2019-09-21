@@ -85,7 +85,7 @@ public class Maze {
 		y = (dir.equalsIgnoreCase("DOWN")) ? chap.getY() + 1 : y;
 
 		int x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() - 1 : 0;
-		x = (dir.equalsIgnoreCase("LEFT")) ? chap.getX() + 1 : x;
+		x = (dir.equalsIgnoreCase("RIGHT")) ? chap.getX() + 1 : x;
 
 
 
