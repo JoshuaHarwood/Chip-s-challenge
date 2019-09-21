@@ -54,6 +54,7 @@ public class Main {
         AbstractAction s = new Saction();
         leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"),"SPressed");
         leftPanel.getActionMap().put("SPressed",s);
+        //
 
         AbstractAction d = new Daction();
         leftPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"),"DPressed");
