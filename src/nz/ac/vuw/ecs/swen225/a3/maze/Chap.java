@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Joshua Hindley
+ */
 public class Chap extends Tile{
 	//Chap's inventory (the 'keys' he has)
 	private ArrayList<TileType> inventory = new ArrayList<TileType>();

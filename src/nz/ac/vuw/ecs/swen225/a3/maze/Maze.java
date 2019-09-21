@@ -2,6 +2,9 @@ package nz.ac.vuw.ecs.swen225.a3.maze;
 
 import java.util.HashMap;
 
+/**
+ * @author Joshua Hindley
+ */
 public class Maze {
 	private Tile[][] board; //board[y][x]
 	private Tile behindChap;
@@ -129,6 +132,14 @@ public class Maze {
 	 */
 	public Tile[][] getBoard() {
 		return board;
+	}
+	
+	/**
+	 * Gets the number of treasures left to collect
+	 * @return the treasure left to collect
+	 */
+	public int getTreasureLeft() {
+		return treasureLeft;
 	}
 
 }
