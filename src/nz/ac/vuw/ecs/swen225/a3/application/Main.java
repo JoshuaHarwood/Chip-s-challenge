@@ -71,7 +71,6 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent e) {
             maze.moveChap("UP");
-
             mainFrameController.redrawBoard(maze.getBoard());
 
         }

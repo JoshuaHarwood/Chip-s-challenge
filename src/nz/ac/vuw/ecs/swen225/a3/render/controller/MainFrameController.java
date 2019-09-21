@@ -35,6 +35,9 @@ public class MainFrameController {
         testButton = mainFrame.getTestButton();
         testTextArea = mainFrame.getTestTextArea();
         leftPanel = mainFrame.getLeftPanel();
+
+        testTextArea.setEnabled(false);
+
     }
 
     private void initListeners()
