@@ -20,15 +20,13 @@ public class BoardCanvas extends Canvas {
 
     /**
      * constructor
-     * @param width - the amount of tiles wide
-     * @param height - the amount of tiles high
      * @param tiles - the tiles array
      */
-    public BoardCanvas(int width, int height, Tile[][] tiles) {
+    public BoardCanvas(Tile[][] tiles) {
         this.tiles = tiles;
-        this.tilesW = width;
-        this.tilesH = height;
-        this.setSize(width*tileSize, height*tileSize);
+        this.tilesW = tiles[0].length;
+        this.tilesH = tiles.length;
+        this.setSize(tilesW*tileSize, tilesH*tileSize);
     }
 
     /**
