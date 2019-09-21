@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+/**
+ * @author Joshua Hindley
+ */
 public class Tile {
 
 	public final TileType type;
@@ -90,7 +93,6 @@ public class Tile {
 	 * @return the image
 	 */
 	public Image getImage() {
-
 		try {
 			return ImageIO.read(getClass().getResource("icons/" + type.name() + ".png"));
 		} catch (IOException e) {
