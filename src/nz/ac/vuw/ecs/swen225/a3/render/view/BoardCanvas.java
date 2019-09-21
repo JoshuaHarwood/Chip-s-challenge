@@ -17,6 +17,13 @@ public class BoardCanvas extends Canvas {
     private int tileSize = 32;
     private Tile[][] tiles;
     private int tilesW, tilesH;
+
+    /**
+     * constructor
+     * @param width - the amount of tiles wide
+     * @param height - the amount of tiles high
+     * @param tiles - the tiles array
+     */
     public BoardCanvas(int width, int height, Tile[][] tiles) {
         this.tiles = tiles;
         this.tilesW = width;
@@ -38,15 +45,15 @@ public class BoardCanvas extends Canvas {
         tileSize = (scaledSizeH < scaledSizeW) ? scaledSizeH : scaledSizeW; //get the smallest of the 2 (so we dont draw off the edge)
         this.setSize(scaledSizeW * tilesW, scaledSizeH * tilesH); //set the size
 
+        //go through each of the tiles and draw them
         for (int i = 0; i < tilesW; i++) {
             for (int j = 0; j < tilesH; j++) {
 //
-                Image tileImg = tiles[j][i].getImage();
-                int x = i * tileSize;
+                Image tileImg = tiles[j][i].getImage(); // get the image
+                int x = i * tileSize; //work the X and Y
                 int y = j * tileSize;
 
-
-                g.drawImage(tileImg, x, y, tileSize, tileSize, null);
+                g.drawImage(tileImg, x, y, tileSize, tileSize, null); //draw the image
             }
         }
 
