@@ -119,7 +119,7 @@ public class Maze {
 		board[chap.getY()][chap.getX()] = behindChap;
 
 		if(board[y][x].type == TileType.Exit)
-			return null;	//TODO ENDGAME		
+			return null;
 
 		//update the tile behind Chap
 		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitUnlock)

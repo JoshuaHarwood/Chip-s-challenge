@@ -4,7 +4,8 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 
 import javax.swing.*;
 
-import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * The Main class.
@@ -41,66 +42,48 @@ public class Main {
     }
 
     private void initKeys(){
-
-        AbstractAction w = new Waction();
-        gui.getLeftPanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("W"),"WPressed");
-        gui.getLeftPanel().getActionMap().put("WPressed",w);
-
-        AbstractAction a = new Aaction();
-        gui.getLeftPanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"),"APressed");
-        gui.getLeftPanel().getActionMap().put("APressed",a);
-
-        AbstractAction s = new Saction();
-        gui.getLeftPanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"),"SPressed");
-        gui.getLeftPanel().getActionMap().put("SPressed",s);
-
-
-        AbstractAction d = new Daction();
-        gui.getLeftPanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"),"DPressed");
-        gui.getLeftPanel().getActionMap().put("DPressed",d);
-
+    	gui.canvas.requestFocus();
+    	gui.canvas.addKeyListener(new KeyAdapter() {
+    		@Override
+            public void keyPressed(KeyEvent e) {
+    			boolean levelComplete = false;
+    			int action = e.getKeyCode();
+            	switch(action) {
+            		case KeyEvent.VK_W:
+            		case KeyEvent.VK_UP:
+            			if(maze.moveChap("UP") == null)
+            				levelComplete = true;
+            			break;
+            		case KeyEvent.VK_S:
+            		case KeyEvent.VK_DOWN:
+            			if(maze.moveChap("DOWN") == null)
+            				levelComplete = true;
+            			break;
+            		case KeyEvent.VK_A:
+            		case KeyEvent.VK_LEFT:
+            			if(maze.moveChap("LEFT") == null)
+            				levelComplete = true;
+            			break;
+            		case KeyEvent.VK_D:
+            		case KeyEvent.VK_RIGHT:
+            			if(maze.moveChap("RIGHT") == null)
+            				levelComplete = true;
+            			break;
+            	}
+            	if(levelComplete) {
+            		Object[] options = {"OK"};
+            		JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now Exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+            		System.exit(0);
+            	}
+            	gui.drawBoard();
+    		}
+    	});
     }
 
     public static void main(String[] args) {
-        Main game = new Main();
+        /*Main game = */new Main();
     }
 
-
-    private class Waction extends AbstractAction{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            maze.moveChap("UP");
-            gui.drawBoard();
-        }
-    }
-
-    private class Aaction extends AbstractAction{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            maze.moveChap("LEFT");
-            gui.drawBoard();
-        }
-    }
-
-    private class Saction extends AbstractAction{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            maze.moveChap("DOWN");
-            gui.drawBoard();
-        }
-    }
-
-    private class Daction extends AbstractAction{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            maze.moveChap("RIGHT");
-            gui.drawBoard();
-        }
-    }
 }
 
 
