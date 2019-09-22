@@ -1,6 +1,7 @@
 package tests;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
+import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assertions.*;
@@ -287,5 +288,430 @@ class GameTests {
                         "WTEEEEEEW" +
                         "WWWWWWWWW"
         );
+    }
+
+    // ------------------------------- TILE INTERACTIONS ------------------------------------------
+    /**
+     * Test a legal door1 unlock
+     */
+    @Test
+    void unlockDoor1Legal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        maze.getChap().addKey(TileType.Key1);
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                 "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWWCWW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test a legal door2 unlock
+     */
+    @Test
+    void unlockDoor2Legal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW2WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        maze.getChap().addKey(TileType.Key2);
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWWCWW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test a legal door3 unlock
+     */
+    @Test
+    void unlockDoor3Legal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW3WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        maze.getChap().addKey(TileType.Key3);
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWWCWW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test a legal door4 unlock
+     */
+    @Test
+    void unlockDoor4Legal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW4WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        maze.getChap().addKey(TileType.Key4);
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWWCWW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test an illegal door1 unlock
+     */
+    @Test
+    void unlockDoor1Illegal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEECEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test an illegal door2 unlock
+     */
+    @Test
+    void unlockDoor2Illegal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW2WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEECEW" +
+                        "WWWWWW2WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test an illegal door3 unlock
+     */
+    @Test
+    void unlockDoor3Illegal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW3WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEECEW" +
+                        "WWWWWW3WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test an illegal door4 unlock
+     */
+    @Test
+    void unlockDoor4Illegal() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEECEW" +
+                "WWWWWW4WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
+
+
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEECEW" +
+                        "WWWWWW4WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test picking up key 1
+     */
+    @Test
+    void pickupKey1() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEE5EW" +
+                "W5EEEECEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
+        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key1));
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEECEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test picking up key 2
+     */
+    @Test
+    void pickupKey2() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEE6EW" +
+                "W5EEEECEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
+        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key2));
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEECEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test picking up key 3
+     */
+    @Test
+    void pickupKey3() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEE7EW" +
+                "W5EEEECEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
+        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key3));
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEECEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test picking up key 4
+     */
+    @Test
+    void pickupKey4() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEE8EW" +
+                "W5EEEECEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
+        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key4));
+        Assertions.assertEquals(maze.toString(),
+                "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEEEEEEW" +
+                        "WEEEEECEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test exiting with all treasure
+     */
+    @Test
+    void exitLockWithTreasure() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEEE8EW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WEEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
+    }
+
+    /**
+     * Test exiting with treasure left
+     */
+    @Test
+    void exitLockWithoutTreasure() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEEEEEW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
+        Assertions.assertEquals(maze.toString(),
+                 "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEECEEEW" +
+                        "WEEEEEEEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
+    /**
+     * Test exiting
+     */
+    @Test
+    void exit() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWCWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEE8EW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WEEEEEEEW" +
+                "WWWWWWWWW");
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.DONE) ;
     }
 }
