@@ -15,11 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.border.LineBorder;
 import java.awt.event.WindowStateListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.HierarchyBoundsAdapter;
-import java.awt.event.HierarchyEvent;
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
@@ -34,7 +31,7 @@ public class GUI {
 	private JPanel boardPanel;
 
 	private JFrame frame;
-	private final JTextArea textPanel = new JTextArea();
+	//private final JTextArea textPanel = new JTextArea();
 	private JPanel leftPanel;
 
 	/**
@@ -132,8 +129,8 @@ public class GUI {
 		JPanel rightPanel = new JPanel();
 		frame.getContentPane().add(rightPanel, BorderLayout.EAST);
 		rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		textPanel.setText("asdf");
-		rightPanel.add(textPanel);
+		//textPanel.setText("asdf");
+		//rightPanel.add(textPanel);
 		
 		JButton btnNewButton = new JButton("New button");
 		rightPanel.add(btnNewButton);
@@ -141,5 +138,9 @@ public class GUI {
 
 	public JPanel getLeftPanel() {
 		return leftPanel;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 }
