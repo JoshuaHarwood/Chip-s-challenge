@@ -1,9 +1,11 @@
 package nz.ac.vuw.ecs.swen225.a3.render;
 
+import com.sun.javafx.fxml.builder.JavaFXImageBuilder;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * this class is a custom canvas, this is where the tiles will be displayed and the game will take place
@@ -35,16 +37,15 @@ public class BoardCanvas extends Canvas {
 
     /**
      * when called this will go through the board and draw each tile. and scale them to fit
-     * @param g - the graphics object to be drawn on
      * @param w - the width of the plane behind (so that we can scale to fit that)
      * @param h - the height of the plane behind (so that we can scale to fit that)
      */
-    public void draw(Graphics g, int w, int h) {
+    public void draw(int w, int h) {
 
         tiles = maze.getBoard();
         cols = tiles[0].length;
         rows = tiles.length;
-    	
+
         System.out.println("DRAWING     WIDTH: " + cols + "  HEIGHT: " + rows);
 
         int scaledSizeW = w / cols; //finding the scaled width
@@ -54,6 +55,12 @@ public class BoardCanvas extends Canvas {
 
         this.setSize(scaledSizeW * cols, scaledSizeH * rows); //set the size
 
+
+        //create a buffered image to reduce the flickering when drawing
+        BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
+        Graphics2D imgG = image.createGraphics();
+        imgG.setColor(this.getBackground());
+
         //go through each of the tiles and draw them
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
@@ -62,8 +69,11 @@ public class BoardCanvas extends Canvas {
                 int x = i * tileSize; //work the X and Y
                 int y = j * tileSize;
 
-                g.drawImage(tileImg, x, y, tileSize, tileSize, null); //draw the image
+                imgG.drawImage(tileImg, x, y, tileSize, tileSize, this); //draw the image
             }
         }
+
+        this.getGraphics().drawImage(image, 0, 0, this);
+        imgG.dispose();
     }
 }

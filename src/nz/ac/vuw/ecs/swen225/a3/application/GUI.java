@@ -34,7 +34,7 @@ public class GUI {
 	private JPanel boardPanel;
 
 	private JFrame frame;
-	private final JTextArea textPanel = new JTextArea();
+	//private final JTextArea textPanel = new JTextArea();
 	private JPanel leftPanel;
 
 	/**
@@ -81,7 +81,7 @@ public class GUI {
 	}
 	
 	public void drawBoard() {
-	    canvas.draw(canvas.getGraphics(), leftPanel.getWidth(), leftPanel.getHeight());
+	    canvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
         showGUI();
     }
 
@@ -132,8 +132,8 @@ public class GUI {
 		JPanel rightPanel = new JPanel();
 		frame.getContentPane().add(rightPanel, BorderLayout.EAST);
 		rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		textPanel.setText("asdf");
-		rightPanel.add(textPanel);
+		//textPanel.setText("asdf");
+		//rightPanel.add(textPanel);
 		
 		JButton btnNewButton = new JButton("New button");
 		rightPanel.add(btnNewButton);
