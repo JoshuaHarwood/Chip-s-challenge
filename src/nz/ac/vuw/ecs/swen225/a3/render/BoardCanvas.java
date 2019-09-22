@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 public class BoardCanvas extends Canvas {
 
     private int tileSize = 32;
+    private int minTileSize = 32;
     private Tile[][] tiles;
     private int cols, rows;
     
@@ -45,6 +46,7 @@ public class BoardCanvas extends Canvas {
         tiles = maze.getBoard();
         cols = tiles[0].length;
         rows = tiles.length;
+        Tile view[][];
 
         System.out.println("DRAWING     WIDTH: " + cols + "  HEIGHT: " + rows);
 
@@ -53,7 +55,26 @@ public class BoardCanvas extends Canvas {
 
         tileSize = Math.min(scaledSizeH, scaledSizeW); //get the smallest of the 2 (so we dont draw off the edge)
 
-        this.setSize(scaledSizeW * cols, scaledSizeH * rows); //set the size
+        if(tileSize < minTileSize){
+            tileSize = minTileSize;
+
+            int viewW = this.getWidth() / minTileSize;
+            int viewH = this.getHeight() / minTileSize;
+            view = new Tile[viewH][viewW]; //the new view of the player, this will leave out some
+
+            int chapX = maze.getChap().getX();
+            int chapY = maze.getChap().getY();
+
+            
+
+
+        } else {
+            view = tiles;
+        }
+
+
+
+        this.setSize(tileSize * cols, tileSize * rows); //set the size
 
 
         //create a buffered image to reduce the flickering when drawing
@@ -62,10 +83,10 @@ public class BoardCanvas extends Canvas {
         imgG.setColor(this.getBackground());
 
         //go through each of the tiles and draw them
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
+        for (int i = 0; i < view[0].length; i++) {
+            for (int j = 0; j < view.length; j++) {
 //
-                Image tileImg = tiles[j][i].getImage(); // get the image
+                Image tileImg = view[j][i].getImage(); // get the image
                 int x = i * tileSize; //work the X and Y
                 int y = j * tileSize;
 
