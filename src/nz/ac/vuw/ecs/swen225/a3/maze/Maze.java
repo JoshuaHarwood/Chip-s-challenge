@@ -163,4 +163,20 @@ public class Maze {
 		return treasureLeft;
 	}
 
+	/**
+	 * Converts the board to a string of letters
+	 * @return
+	 */
+	public String toString() {
+		String boardText = "";
+
+		for (int i = 0; i < board.length ; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				boardText += board[i][j].toString();
+			}
+		}
+
+		return boardText;
+	}
+
 }

@@ -100,4 +100,46 @@ public class Tile {
 			return null;
 		}
 	}
+
+	/**
+	 * Converts the tile to a string letter
+	 * @return
+	 */
+	public String toString() {
+		switch(type) {
+			case Empty:
+				return "E";
+			case Chap:
+				return "C";
+			case Wall:
+				return "W";
+			case Door1:
+				return "1";
+			case Door2:
+				return "2";
+			case Door3:
+				return "3";
+			case Door4:
+				return "4";
+			case Key1:
+				return "5";
+			case Key2:
+				return "6";
+			case Key3:
+				return "7";
+			case Key4:
+				return "8";
+			case Treasure:
+				return "T";
+			case Exit:
+				return "X";
+			case ExitLock:
+				return "L";
+			case ExitUnlock:
+				break;
+			case Info:
+				return "I";
+		}
+		return "@";
+	}
 }
