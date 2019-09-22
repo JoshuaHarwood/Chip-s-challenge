@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.application;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
+import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 
 import javax.swing.*;
 
@@ -51,28 +52,28 @@ public class Main {
             	switch(action) {
             		case KeyEvent.VK_W:
             		case KeyEvent.VK_UP:
-            			if(maze.moveChap("UP") == null)
+            			if(maze.moveChap("UP") == Trinary.DONE)
             				levelComplete = true;
             			break;
             		case KeyEvent.VK_S:
             		case KeyEvent.VK_DOWN:
-            			if(maze.moveChap("DOWN") == null)
+            			if(maze.moveChap("DOWN") == Trinary.DONE)
             				levelComplete = true;
             			break;
             		case KeyEvent.VK_A:
             		case KeyEvent.VK_LEFT:
-            			if(maze.moveChap("LEFT") == null)
+            			if(maze.moveChap("LEFT") == Trinary.DONE)
             				levelComplete = true;
             			break;
             		case KeyEvent.VK_D:
             		case KeyEvent.VK_RIGHT:
-            			if(maze.moveChap("RIGHT") == null)
+            			if(maze.moveChap("RIGHT") == Trinary.DONE)
             				levelComplete = true;
             			break;
             	}
             	if(levelComplete) {
             		Object[] options = {"OK"};
-            		JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now Exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+            		JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
             		System.exit(0);
             	}
             	gui.drawBoard();

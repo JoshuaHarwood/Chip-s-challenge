@@ -80,7 +80,7 @@ public class Maze {
 	 * @param dir The direction to move Chap ("UP", "DOWN", "LEFT", "RIGHT")
 	 * @return if the move is valid and therefore if Chap was moved
 	 */
-	public Boolean moveChap(String dir) {
+	public Trinary moveChap(String dir) {
 
 		int x = chap.getX();
 		int y = chap.getY();
@@ -90,11 +90,11 @@ public class Maze {
 		
 		//no move is being made
 		if(x == chap.getX() && y == chap.getY())
-			return false;
+			return Trinary.FALSE;
 		
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
-			return false;
+			return Trinary.FALSE;
 		
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
@@ -119,7 +119,7 @@ public class Maze {
 		board[chap.getY()][chap.getX()] = behindChap;
 
 		if(board[y][x].type == TileType.Exit)
-			return null;
+			return Trinary.DONE;
 
 		//update the tile behind Chap
 		else if(board[y][x].type == TileType.Info || board[y][x].type == TileType.ExitUnlock)
@@ -136,7 +136,7 @@ public class Maze {
 
 		//TODO Call mainframeController.redraw() here ?
 
-		return true;
+		return Trinary.TRUE;
 	}
 
 	/**
