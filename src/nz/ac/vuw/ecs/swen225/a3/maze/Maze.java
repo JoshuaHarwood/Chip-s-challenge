@@ -1,7 +1,5 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
-import nz.ac.vuw.ecs.swen225.a3.render.controller.MainFrameController;
-
 import java.util.HashMap;
 
 /**
