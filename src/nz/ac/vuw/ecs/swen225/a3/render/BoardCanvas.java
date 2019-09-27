@@ -50,8 +50,6 @@ public class BoardCanvas extends Canvas {
         rows = tiles.length;
         Tile view[][];
 
-        System.out.println("DRAWING     WIDTH: " + cols + "  HEIGHT: " + rows);
-
         int scaledSizeW = w / cols; //finding the scaled width
         int scaledSizeH = h / rows; //finding the scaled height
 
@@ -60,24 +58,16 @@ public class BoardCanvas extends Canvas {
         if(tileSize < minTileSize){
             tileSize = minTileSize;
 
-            int viewW = w / minTileSize;
-            int viewH = h / minTileSize;
+            int viewCol = w / minTileSize;
+            int viewRow = h / minTileSize;
 
-            int tilesToLeft = maze.getChap().getX() -1;
-            int tilesToRight = tiles[0].length - (maze.getChap().getX() + 1);
-            int tilesToTop = maze.getChap().getY() -1;
-            int tilesToBottom = tiles.length - maze.getChap().getY();
-
-            view = adjustView(viewH, viewW, tilesToLeft, tilesToRight, tilesToTop, tilesToBottom);
+            view = adjustView(viewCol, viewRow);
 
         } else {
             view = tiles;
         }
 
-
-
         this.setSize(tileSize * cols, tileSize * rows); //set the size
-
 
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
@@ -106,49 +96,33 @@ public class BoardCanvas extends Canvas {
      * generate a view given the parameters
      * @param viewH - the height of the view (tiles high)
      * @param viewW - the width of the view (tiles wide)
-     * @param tilesToLeft - tiles to the left of the player (on the board)
-     * @param tilesToRight - tiles to the right of the player (on the board)
-     * @param tilesToTop - tiles above the player (on the board)
-     * @param tilesToBottom - tiles below the player (on the board)
      * @return - returns a view within toes parameters
      */
-    private Tile[][] adjustView(int viewH, int viewW, int tilesToLeft, int tilesToRight, int tilesToTop, int tilesToBottom) {
+    private Tile[][] adjustView(int viewCol, int viewRow) {
 
-        Tile[][] view = new Tile[viewH][viewW]; //the new view of the player, this will leave out some
+        Tile[][] view = new Tile[viewRow][viewCol]; //the new view of the player, this will leave out some
 
-        System.out.println("ADJUSTING VIEW:   H:" + viewH + "   W:" + viewW);
             //int windowSize = Math.min(viewH, viewW);
             //System.out.println("    WINDOW SIZE" + windowSize);
             //getting the tiles above and on the chap
         int vX = 0, vY = 0; // position in the view
 
-        int y = maze.getChap().getY() - viewH/2; //we want to start getting
-        int x = maze.getChap().getX() - viewW/2;
+        int y = maze.getChap().getY() - viewRow/2; //we want to start getting
+        int x = maze.getChap().getX() - viewCol/2;
         int extraY = 0;
         int extraX = 0;
 
-        if (viewH/2 > tilesToTop) {
-            extraY = viewH/2 - tilesToTop;
-            System.out.println("EXTRA Y: " + extraY);
-            y = 0;
-        }
-        if (viewW/2 > tilesToLeft) {
-            extraX = viewW/2 - tilesToLeft;
-            System.out.println("EXTRA X: " + extraX);
-            x = 0;
-        }
 
 
-
-        outer : while(true){
+        while(true){
             if(y >= 0 && y < tiles.length){ // if we have not gone out of the array
-                for (; x < maze.getChap().getX() + viewW/2; x++) { //same for X
-                    if(x >= 0 && x < tiles[0].length){ //we haven't gone out of the array
-
+                for (; x <  tiles[0].length; x++){ //maze.getChap().getX() + viewW/2; x++) { //same for X
+                    if(x >= 0 && vX < view[0].length){ //we haven't gone out of the array
+                        System.out.println("vY: " + vY + " vX: " + vX + "     X: " + x + " Y: " + y);
                         view[vY][vX++] = tiles[y][x]; //update the view
                     }
                 }
-                x = (viewW/2 > tilesToLeft) ? 0 : maze.getChap().getX() - viewW/2;
+                x = 0;
                 vY++;
                 vX = 0;
             }
