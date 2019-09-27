@@ -49,7 +49,7 @@ public class BoardCanvas extends Canvas {
         cols = tiles[0].length;
         rows = tiles.length;
         Tile view[][];
-        int viewWindow = 7;
+        int viewWindow = 7; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
 
         int scaledSizeW = w / (viewWindow+1); //finding the scaled width
         int scaledSizeH = h / (viewWindow+1); //finding the scaled height
@@ -139,7 +139,6 @@ public class BoardCanvas extends Canvas {
             while(minY++ <= maxY){
 
                 while (x <= maxX){
-                    System.out.println("ERROR: \n   ViewX: " + viewX + "    ViewY: " + viewY+ "\n    x: " + x + "    y: " + y);
                     view[viewY][viewX++] = tiles[y][x++];
                 }
 
