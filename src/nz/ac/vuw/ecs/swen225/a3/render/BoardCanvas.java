@@ -111,7 +111,7 @@ public class BoardCanvas extends Canvas {
 
             if((chapX + fromChap) >= tiles[0].length){ //if it is over the right of the array
                 maxX = tiles[0].length-1;
-                minX -= (tiles[0].length - (chapX + fromChap));
+                minX += (tiles[0].length - (chapX + fromChap));
             } else {
                 maxX += chapX + fromChap;
             }
@@ -125,7 +125,7 @@ public class BoardCanvas extends Canvas {
 
             if((chapY + fromChap) >= tiles.length){ //if it is over the right of the array
                 maxY = tiles.length-1;
-                minY -= (tiles.length - (chapY + fromChap));
+                minY += (tiles.length - (chapY + fromChap));
             } else {
                 maxY += chapY + fromChap;
             }
