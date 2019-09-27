@@ -58,7 +58,7 @@ public class BoardCanvas extends Canvas {
 
         view = adjustView(viewWindow);
 
-        this.setSize(tileSize * cols, tileSize * rows); //set the size
+        this.setSize(tileSize * viewWindow, tileSize * viewWindow); //set the size
 
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
@@ -99,7 +99,7 @@ public class BoardCanvas extends Canvas {
 
             int viewX = 0, viewY = 0;
 
-            //TODO: change this so that when it is over the edge of the array it adds to the other end
+            //** find the window dimensions
             int minX = 0, maxX = 0, minY = 0, maxY = 0;
 
             if((chapX - fromChap) < 0){ //if it over the left of the array
@@ -115,7 +115,6 @@ public class BoardCanvas extends Canvas {
             } else {
                 maxX += chapX + fromChap;
             }
-//////
             if((chapY - fromChap) < 0){ //if it over the left of the array
                 minY = 0;
                 maxY += fromChap - chapY;
@@ -134,6 +133,7 @@ public class BoardCanvas extends Canvas {
                 System.out.println("ERROR: \n   minX: " + minX + "    maxX: " + maxX+ "\n    minY: " + minY + "    maxY: " + maxY);
                 return tiles;
             }
+            //**
 
             int x = minX, y = minY;
             while(minY++ <= maxY){
@@ -150,37 +150,10 @@ public class BoardCanvas extends Canvas {
 
             }
 
-
-
-
             return view;
         } else {
             return tiles;
         }
-
-
-            //int windowSize = Math.min(viewH, viewW);
-            //System.out.println("    WINDOW SIZE" + windowSize);
-            //getting the tiles above and on the chap
-//        int vX = 0, vY = 0; // position in the view
-//
-//        int y = maze.getChap().getY() - viewRow/2; //we want to start getting
-//        int x = maze.getChap().getX() - viewCol/2;
-//        y = (y >= 0 ) ? y : 0;
-//        x = (x >= 0 ) ? x : 0;
-//
-//        System.out.println("vY: " + vY + " vX: " + vX + "     X: " + x + " Y: " + y);
-//        while(y < tiles.length && vY < view.length){
-//                for (; (x + vX) <  tiles[0].length; vX++){ //maze.getChap().getX() + viewW/2; x++) { //same for X
-//                    if(vX < view[0].length){ //we haven't gone out of the array
-//                        x = (tiles[0][x + vX] != null) ? x : --x;
-//                        view[vY][vX] = tiles[y + vY][x + vX]; //update the view
-//                    }
-//                }
-//                vY++;
-//                y = (tiles[y + vY][0] != null) ? y : --y;
-//                vX = 0;
-//        }
 
     }
 }
