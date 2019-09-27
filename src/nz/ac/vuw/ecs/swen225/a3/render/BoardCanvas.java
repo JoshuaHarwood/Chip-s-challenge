@@ -49,23 +49,14 @@ public class BoardCanvas extends Canvas {
         cols = tiles[0].length;
         rows = tiles.length;
         Tile view[][];
+        int viewWindow = 7;
 
-        int scaledSizeW = w / cols; //finding the scaled width
-        int scaledSizeH = h / rows; //finding the scaled height
+        int scaledSizeW = w / (viewWindow+1); //finding the scaled width
+        int scaledSizeH = h / (viewWindow+1); //finding the scaled height
 
         tileSize = Math.min(scaledSizeH, scaledSizeW); //get the smallest of the 2 (so we dont draw off the edge)
 
-        if(tileSize < minTileSize){
-            tileSize = minTileSize;
-
-            int viewCol = w / minTileSize;
-            int viewRow = h / minTileSize;
-
-            view = adjustView(viewCol, viewRow);
-
-        } else {
-            view = tiles;
-        }
+        view = adjustView(viewWindow);
 
         this.setSize(tileSize * cols, tileSize * rows); //set the size
 
@@ -94,42 +85,102 @@ public class BoardCanvas extends Canvas {
 
     /**
      * generate a view given the parameters
-     * @param viewH - the height of the view (tiles high)
-     * @param viewW - the width of the view (tiles wide)
+     * @param viewWindow - this is the size of the view window that the player will see
      * @return - returns a view within toes parameters
      */
-    private Tile[][] adjustView(int viewCol, int viewRow) {
+    private Tile[][] adjustView(int viewWindow) {
 
-        Tile[][] view = new Tile[viewRow][viewCol]; //the new view of the player, this will leave out some
+        Tile[][] view = new Tile[viewWindow][viewWindow]; //the new view of the player, this will leave out some
+
+
+        if(tiles.length > viewWindow && tiles[0].length > viewWindow) {
+            int fromChap = viewWindow/2;
+            int chapX = maze.getChap().getX(), chapY = maze.getChap().getY();
+
+            int viewX = 0, viewY = 0;
+
+            //TODO: change this so that when it is over the edge of the array it adds to the other end
+            int minX = 0, maxX = 0, minY = 0, maxY = 0;
+
+            if((chapX - fromChap) < 0){ //if it over the left of the array
+                minX = 0;
+                maxX += fromChap - chapX;
+            } else {
+                minX += (chapX - fromChap);
+            }
+
+            if((chapX + fromChap) >= tiles[0].length){ //if it is over the right of the array
+                maxX = tiles[0].length-1;
+                minX -= (tiles[0].length - (chapX + fromChap));
+            } else {
+                maxX += chapX + fromChap;
+            }
+//////
+            if((chapY - fromChap) < 0){ //if it over the left of the array
+                minY = 0;
+                maxY += fromChap - chapY;
+            } else {
+                minY += (chapY - fromChap);
+            }
+
+            if((chapY + fromChap) >= tiles.length){ //if it is over the right of the array
+                maxY = tiles.length-1;
+                minY -= (tiles.length - (chapY + fromChap));
+            } else {
+                maxY += chapY + fromChap;
+            }
+
+            if(minX < 0 || maxX > tiles[0].length || minY < 0 || maxY > tiles.length){
+                System.out.println("ERROR: \n   minX: " + minX + "    maxX: " + maxX+ "\n    minY: " + minY + "    maxY: " + maxY);
+                return tiles;
+            }
+
+            int x = minX, y = minY;
+            while(minY++ <= maxY){
+
+                while (x <= maxX){
+                    System.out.println("ERROR: \n   ViewX: " + viewX + "    ViewY: " + viewY+ "\n    x: " + x + "    y: " + y);
+                    view[viewY][viewX++] = tiles[y][x++];
+                }
+
+                viewX = 0;
+                x = minX;
+                y++;
+                viewY++;
+
+            }
+
+
+
+
+            return view;
+        } else {
+            return tiles;
+        }
+
 
             //int windowSize = Math.min(viewH, viewW);
             //System.out.println("    WINDOW SIZE" + windowSize);
             //getting the tiles above and on the chap
-        int vX = 0, vY = 0; // position in the view
+//        int vX = 0, vY = 0; // position in the view
+//
+//        int y = maze.getChap().getY() - viewRow/2; //we want to start getting
+//        int x = maze.getChap().getX() - viewCol/2;
+//        y = (y >= 0 ) ? y : 0;
+//        x = (x >= 0 ) ? x : 0;
+//
+//        System.out.println("vY: " + vY + " vX: " + vX + "     X: " + x + " Y: " + y);
+//        while(y < tiles.length && vY < view.length){
+//                for (; (x + vX) <  tiles[0].length; vX++){ //maze.getChap().getX() + viewW/2; x++) { //same for X
+//                    if(vX < view[0].length){ //we haven't gone out of the array
+//                        x = (tiles[0][x + vX] != null) ? x : --x;
+//                        view[vY][vX] = tiles[y + vY][x + vX]; //update the view
+//                    }
+//                }
+//                vY++;
+//                y = (tiles[y + vY][0] != null) ? y : --y;
+//                vX = 0;
+//        }
 
-        int y = maze.getChap().getY() - viewRow/2; //we want to start getting
-        int x = maze.getChap().getX() - viewCol/2;
-        int extraY = 0;
-        int extraX = 0;
-
-
-
-        while(true){
-            if(y >= 0 && y < tiles.length){ // if we have not gone out of the array
-                for (; x <  tiles[0].length; x++){ //maze.getChap().getX() + viewW/2; x++) { //same for X
-                    if(x >= 0 && vX < view[0].length){ //we haven't gone out of the array
-                        System.out.println("vY: " + vY + " vX: " + vX + "     X: " + x + " Y: " + y);
-                        view[vY][vX++] = tiles[y][x]; //update the view
-                    }
-                }
-                x = 0;
-                vY++;
-                vX = 0;
-            }
-            if(++y >= tiles.length || vY >= view.length){ //if we have reached chap
-                break; //break out
-            }
-        }
-      return view;
     }
 }
