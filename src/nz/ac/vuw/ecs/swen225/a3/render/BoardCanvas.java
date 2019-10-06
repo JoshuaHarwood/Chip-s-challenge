@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  */
 public class BoardCanvas extends Canvas {
 
-    private int tileSize = 32;
+    private int tileSize = 7;
     private int minTileSize = 64;
     private Tile[][] tiles;
     private int cols, rows;
@@ -94,7 +94,7 @@ public class BoardCanvas extends Canvas {
 
 
         if(tiles.length > viewWindow && tiles[0].length > viewWindow) {
-            int fromChap = viewWindow/2;
+            int fromChap = (int)((viewWindow/2));
             int chapX = maze.getChap().getX(), chapY = maze.getChap().getY();
 
             int viewX = 0, viewY = 0;
@@ -111,10 +111,11 @@ public class BoardCanvas extends Canvas {
 
             if((chapX + fromChap) >= tiles[0].length){ //if it is over the right of the array
                 maxX = tiles[0].length-1;
-                minX += (tiles[0].length - (chapX + fromChap));
+                minX += (tiles[0].length - (chapX + fromChap) -1);
             } else {
                 maxX += chapX + fromChap;
             }
+
             if((chapY - fromChap) < 0){ //if it over the left of the array
                 minY = 0;
                 maxY += fromChap - chapY;
