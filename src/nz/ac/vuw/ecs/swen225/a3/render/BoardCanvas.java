@@ -1,6 +1,5 @@
 package nz.ac.vuw.ecs.swen225.a3.render;
 
-import com.sun.javafx.fxml.builder.JavaFXImageBuilder;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
