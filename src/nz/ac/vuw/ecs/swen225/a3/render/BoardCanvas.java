@@ -116,16 +116,16 @@ public class BoardCanvas extends Canvas {
                 maxX += chapX + fromChap;
             }
 
-            if((chapY - fromChap) < 0){ //if it over the left of the array
+            if((chapY - fromChap) < 0){ //if it over the top of the array
                 minY = 0;
                 maxY += fromChap - chapY;
             } else {
                 minY += (chapY - fromChap);
             }
 
-            if((chapY + fromChap) >= tiles.length){ //if it is over the right of the array
+            if((chapY + fromChap) >= tiles.length){ //if it is over the bottom of the array
                 maxY = tiles.length-1;
-                minY += (tiles.length - (chapY + fromChap));
+                minY += (tiles.length - (chapY + fromChap) -1);
             } else {
                 maxY += chapY + fromChap;
             }
