@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 public class BoardCanvas extends Canvas {
 
-    private int tileSize = 7;
+    private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
     private int minTileSize = 64;
     private Tile[][] tiles;
     private int cols, rows;
@@ -34,7 +34,7 @@ public class BoardCanvas extends Canvas {
         this.cols = maze.getBoard()[0].length;
         this.rows = maze.getBoard().length;
 
-        this.setSize(cols*tileSize, rows*tileSize);
+        this.setSize(cols*viewWindow, rows*viewWindow);
     }
 
     /**
@@ -44,11 +44,11 @@ public class BoardCanvas extends Canvas {
      */
     public void draw(int w, int h) {
 
+        int tileSize;
         tiles = maze.getBoard();
         cols = tiles[0].length;
         rows = tiles.length;
         Tile view[][];
-        int viewWindow = 7; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
 
         int scaledSizeW = w / (viewWindow+1); //finding the scaled width
         int scaledSizeH = h / (viewWindow+1); //finding the scaled height
