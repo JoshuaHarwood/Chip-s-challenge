@@ -64,9 +64,8 @@ public class Persistence {
             }
         }
 
-       // JsonArray tileArr = convertTiles(specialTiles); //
+       JsonArray tileArr = convertTiles(specialTiles);
 
-        JsonArray tileArr = Json.createArrayBuilder().build();
 
 
 
@@ -119,29 +118,24 @@ public class Persistence {
 
     }
 
-    /*private static JsonArray convertTiles(List<Tile> list){
+    private static JsonArray convertTiles(List<Tile> list){
 
         JsonArray tileArray = Json.createArrayBuilder().build();
-                tileArray.add(Json.createObjectBuilder()
-                        .add("test","test")
-                        .build());
-
-
 
 
         for(Tile tile : list){
 
-                    //tileArray.add(Json.createObjectBuilder()
-                    //.add("Type: ", "type") //tile.type.toString()
-                    //.add("x: ", "x") //tile.getX()
-                    //.add("y", "y") //tile.getY())
-                    //.build());
+                    tileArray.add(Json.createObjectBuilder()
+                    .add("Type: ", "type") //tile.type.toString()
+                    .add("x: ", "x") //tile.getX()
+                    .add("y", "y") //tile.getY())
+                    .build());
         }
 
         System.out.println("Successfully converted Tiles");
         return tileArray;
 
-    }*/
+    }
 
 
 
