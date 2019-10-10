@@ -43,7 +43,7 @@ public class Main {
 //			public void run() {
 //				try {
 
-                    maze = new Maze(map);
+                    maze = new Maze(map, 30);
 					
 					gui = new GUI(maze);
                     gui.drawBoard();
