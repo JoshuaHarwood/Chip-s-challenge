@@ -6,6 +6,7 @@ package nz.ac.vuw.ecs.swen225.a3.maze;
 public enum TileType {
 	Empty,
 	Chap,
+	Enemy,
 	Wall,
 	Door1,
 	Door2,
