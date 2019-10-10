@@ -85,7 +85,7 @@ public class Persistence {
 
         System.out.println("Successfully saved to Json");
 
-        writeToFile(json);
+        writeToFile(json,"test save");
 
 
         //Todo - Remove this after completion
@@ -156,11 +156,11 @@ public class Persistence {
     }
 
     //Handles write of a json object into a file
-    static void writeToFile(JsonObject json) {
+    static void writeToFile(JsonObject json, String saveName) {
 
         try{
 
-            FileWriter fileWriter = new FileWriter("Savegame.json");
+            FileWriter fileWriter = new FileWriter(saveName+".json");
             JsonWriter writer = Json.createWriter(fileWriter);
             writer.write(json);
             System.out.println("Successfully wrote to file");
@@ -193,9 +193,6 @@ public class Persistence {
 
     private static JsonArrayBuilder convertTiles(List<Tile> list){
 
-
-
-        //JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder tilesBuilder = Json.createArrayBuilder();
 
         for(Tile t : list){
