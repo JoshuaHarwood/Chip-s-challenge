@@ -1,5 +1,4 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
-import jdk.nashorn.internal.parser.JSONParser;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
@@ -7,11 +6,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import javax.json.*;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Persistence {
@@ -31,14 +26,13 @@ public class Persistence {
 
 
 
+
     //get Chaps information
         //Need to store: x,y and inventory
         Chap c = maze.getChap();
 
         int chapX = c.getX();
         int chapY = c.getY();
-
-
 
 
         List<TileType> keys = c.getAllKeys();
@@ -49,9 +43,9 @@ public class Persistence {
         System.out.println("Successfully saved chap");
 
 
+
     //Next, get information regarding 'special' tiles
         //Need to store: x,y and type (and status?? - maybe)
-
 
 
         Tile[][] board = maze.getBoard();
@@ -72,8 +66,6 @@ public class Persistence {
         JsonArrayBuilder tile = convertTiles(specialTiles);
         JsonArray tileArr = tile.build();
         System.out.println("Successfully saved tiles");
-
-
 
 
 
@@ -101,7 +93,9 @@ public class Persistence {
 
     }
 
-    //Handles conversion of a Json type file into a maze object
+
+
+    //Handles loading of a Json type file into a maze object
     static Maze load(JsonObject json){
 
         //First get game state information
