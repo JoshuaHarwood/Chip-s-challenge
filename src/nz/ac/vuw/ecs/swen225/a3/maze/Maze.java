@@ -386,4 +386,8 @@ public class Maze implements Runnable {
 		return 1; //TODO: will need to return the level
 	}
 
+	public boolean getMazeIsCurrent() {
+		//Todo ?
+		return false;
+	}
 }
