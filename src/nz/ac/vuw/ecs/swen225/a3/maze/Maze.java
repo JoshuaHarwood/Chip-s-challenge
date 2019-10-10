@@ -265,6 +265,8 @@ public class Maze implements Runnable {
 					chap = (Chap) tile;
 				else if(tile.type == TileType.Treasure)
 					treasureLeft++;
+				else if(tile instanceof Enemy)
+					enemies.add((Enemy)tile);
 
 		//updates time left
 		timeStarted = System.currentTimeMillis();
@@ -306,6 +308,15 @@ public class Maze implements Runnable {
 	public int getY(){
 		return board.length;
 	}
+
+	public void setTile(int x, int y, TileType tile){
+	    Tile t = new Tile(tile,x,y);
+	    board[y][x] = t;
+    }
+
+    public void setChap(Chap c){
+	    this.chap = c;
+    }
 
 	/**
 	 * Gets the number of seconds that the user has left to complete the level.
