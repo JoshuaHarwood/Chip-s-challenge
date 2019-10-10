@@ -63,7 +63,7 @@ public class GUI {
 		
 		this.maze = maze;
 		this.boardCanvas = new BoardCanvas(maze);
-		this.inventoryCanvas = new InventoryCanvas();
+		this.inventoryCanvas = new InventoryCanvas(maze);
 		initialize();
 
 		addBoard();
@@ -94,7 +94,8 @@ public class GUI {
 	}
 	
 	public void drawBoard() {
-	    boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
+	    canvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
+	    inventoryCanvas.draw(rightPanel.getWidth(), rightPanel.getHeight());
         showGUI();
     }
 
