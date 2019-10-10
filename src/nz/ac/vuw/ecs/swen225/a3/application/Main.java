@@ -2,7 +2,9 @@ package nz.ac.vuw.ecs.swen225.a3.application;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
+import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 
+import javax.json.JsonObject;
 import javax.swing.*;
 
 import java.awt.event.KeyAdapter;
@@ -14,8 +16,8 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    private Maze maze;
-    private GUI gui;
+    public static Maze maze;
+    private static GUI gui;
     private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
     String level1 = "1614" + 
@@ -47,13 +49,19 @@ public class Main {
 //				try {
 
                     maze = new Maze(level1, 60);
-					
-					gui = new GUI(maze);
-					maze.addGUI(gui);
-                    gui.drawBoard();
-                    
-                    Thread t1 = new Thread(maze);
-                    t1.start();
+                    init(maze);
+                    initKeys();
+
+					//JsonObject save = Persistence.save(maze, "test");
+					//maze = Persistence.load(save);
+
+					//gui = new GUI(maze);
+					//maze.addGUI(gui);
+					//gui.drawBoard();
+
+
+                    //newM.updateVariables(60);
+
 
 //				} catch (Exception e) {
 //					e.printStackTrace();
@@ -61,8 +69,18 @@ public class Main {
 //			}
 //		});
 
-       initKeys();
 
+
+    }
+
+    public static void init(Maze m){
+
+        gui = new GUI(maze);
+        maze.addGUI(gui);
+        gui.drawBoard();
+
+        Thread t1 = new Thread(maze);
+        t1.start();
     }
 
     private void initKeys(){
@@ -140,6 +158,8 @@ public class Main {
     		}
     	});
     }
+
+
 
     public static void main(String[] args) {
         /*Main game = */new Main();

@@ -128,7 +128,6 @@ public class Persistence {
         if(chapInv != null) {
             for (int i = 0; i < chapInv.size(); i++) {
                 JsonObject c = chapInv.getJsonObject(i);
-
                 String key = c.getString("key:");
 
             }
@@ -185,10 +184,11 @@ public class Persistence {
 
 
 
-                //Todo - This should be replaced with the saved timeleft
+        //Todo - This should be replaced with the saved timeleft
         //newMaze.updateVariables(0);
 
-        //Todo - Finally, update the Maze in 'Main' to the loaded maze
+        //Todo - Still need to delete old instance of game
+
         Main.init(newMaze);
 
     }
