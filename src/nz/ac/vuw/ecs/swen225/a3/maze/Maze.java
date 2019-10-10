@@ -1,5 +1,8 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,39 +25,11 @@ public class Maze implements Runnable {
 	//TODO add checks for invalid characters/boards
 
 	public void run(){
-		Tile newBehind;
-		char nextMove;
-		int x, y, newX, newY;
-		gameOver:
 		while(mazeIsCurrent) {
 			try {
 				Thread.sleep(500);
-				for(Enemy enemy : enemies) {
-					x = enemy.getX();
-					y = enemy.getY();
-					newX = x;
-					newY = y;
-					nextMove = enemy.getNextMove();
-					if(nextMove == 'L')
-						newX--;
-					else if(nextMove == 'R')
-						newX++;
-					else if(nextMove == 'U')
-						newY--;
-					else if(nextMove == 'D')
-						newY++;
-
-					newBehind = board[newY][newX];
-					if(newBehind instanceof Chap) {
-						break gameOver;
-					}
-
-					board[newY][newX] = enemy;
-					board[y][x] = enemy.getTileBehindEnemy();
-					enemy.setTileBehindEnemy(newBehind);
-					enemy.setX(newX);
-					enemy.setY(newY);
-				}
+				if(!takeEnemyTurn())
+					break;
 				gui.drawBoard();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -84,6 +59,55 @@ public class Maze implements Runnable {
 	 */
 	public Maze(int width, int height) {
 		board = new Tile[height][width];
+	}
+	
+	/**
+	 * Takes the enemy's turn
+	 * @return a boolean. True if the game is still playing
+	 * 		False if time ran out or ch
+	 */
+	public boolean takeEnemyTurn() {
+		Tile newBehind;
+		char nextMove;
+		int x, y, newX, newY;
+		for(Enemy enemy : enemies) {
+			x = enemy.getX();
+			y = enemy.getY();
+			newX = x;
+			newY = y;
+			nextMove = enemy.getNextMove();
+			if(nextMove == 'L')
+				newX--;
+			else if(nextMove == 'R')
+				newX++;
+			else if(nextMove == 'U')
+				newY--;
+			else if(nextMove == 'D')
+				newY++;
+
+			newBehind = board[newY][newX];
+			if(newBehind instanceof Chap) {
+				return false;
+			}
+			
+			if(getTimeLeft() < 0) {
+				Robot robot;
+				try {
+					robot = new Robot();
+					robot.keyPress(KeyEvent.VK_ALT);
+				} catch (AWTException e) {
+					e.printStackTrace();
+				}	
+				return false;
+			}
+
+			board[newY][newX] = enemy;
+			board[y][x] = enemy.getTileBehindEnemy();
+			enemy.setTileBehindEnemy(newBehind);
+			enemy.setX(newX);
+			enemy.setY(newY);
+		}
+		return true;
 	}
 
 	/**
@@ -343,6 +367,10 @@ public class Maze implements Runnable {
      */
     public void setChap(Chap c){
 	    this.chap = c;
+    }
+    public void setBehindChap(Tile t){
+
+	    behindChap = t;
     }
 
 	/**

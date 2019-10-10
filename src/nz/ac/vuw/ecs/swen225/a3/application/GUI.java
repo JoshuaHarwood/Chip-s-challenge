@@ -2,12 +2,18 @@ package nz.ac.vuw.ecs.swen225.a3.application;
 
 import java.awt.*;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
+import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
@@ -18,11 +24,15 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowStateListener;
+import java.io.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
+import java.util.stream.Stream;
+
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
@@ -39,20 +49,20 @@ public class GUI {
 	private JPanel rightPanel;
 	private JPanel inventoryPanel;
 	private JPanel labelPanel;
-	
+
 	private InventoryCanvas inventoryCanvas;
 	private LabelCanvas labelCanvas;
 	private BoardCanvas boardCanvas;
 	private JPanel boardPanel;
-	
+
 	private Color bgColor = new Color(92, 175, 219);
-	
-	
+
+
 	private String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
 	private JMenuItem mnPause;
 	private JMenuItem mnQuit;
 	private final Action action = new SwingAction();
-	
+
 
 	/**
 	 * Run GUI on its own.
@@ -77,7 +87,7 @@ public class GUI {
 	public GUI(Maze maze) {
 
 		this.maze = maze;
-		
+
 		initialize();
 
 		showGUI();
@@ -99,7 +109,7 @@ public class GUI {
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
 	    inventoryCanvas.draw();
 	    labelCanvas.draw();
-	    
+
         showGUI();
         //TODO update the timer, update the treasureleft
         //TODO if getTimeLeft < 0 user loses that level
@@ -127,7 +137,7 @@ public class GUI {
 
 		JMenu menuGame = new JMenu("Game");
 		menuBar.add(menuGame);
-		
+
 		mnPause = new JMenuItem("Pause");
 		mnPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,11 +145,11 @@ public class GUI {
 			}
 		});
 		menuGame.add(mnPause);
-		
+
 		mnQuit = new JMenuItem("Quit");
 		mnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int input = JOptionPane.showConfirmDialog(frame, "Are you sure you want to QUIT any UNSAVED progress will be LOST", "Quit?", JOptionPane.YES_NO_OPTION);			
+				int input = JOptionPane.showConfirmDialog(frame, "Are you sure you want to QUIT any UNSAVED progress will be LOST", "Quit?", JOptionPane.YES_NO_OPTION);
 				if(input==0) {
 					System.exit(0);
 				}
@@ -157,7 +167,44 @@ public class GUI {
 				drawBoard();
 			}
 		});
+
+		JMenuItem saveButton = new JMenuItem("Save Game");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String name = JOptionPane.showInputDialog("Please enter a name for the save");
+				Persistence.save(maze, name);
+			}
+		});
+
+		JMenuItem loadButton = new JMenuItem("Load game");
+		loadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JsonObject obj = null;
+
+				final JFileChooser fc = new JFileChooser();
+				fc.showOpenDialog(frame);
+				File f = fc.getSelectedFile();
+
+
+				try {
+					InputStream i = new FileInputStream(f);
+
+					 obj = Json.createReader(new FileInputStream(f))
+							.readObject();
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+
+
+				Persistence.load(obj);
+			}
+		});
+
 		menuOptions.add(menuOptionsRedraw);
+		menuOptions.add(saveButton);
+		menuOptions.add(loadButton);
 
 		JMenu menuLevel = new JMenu("Level");
 		menuBar.add(menuLevel);
@@ -166,10 +213,10 @@ public class GUI {
 		menuHelp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				String help = goal + getLevelHelp() +  "good luck!\n\n" +
 							"Movement: Use the W, A, S, D to move Chap\n";
-				
+
 				JOptionPane.showMessageDialog(frame, help, "Help", 3);
 			}
 		});
@@ -181,7 +228,7 @@ public class GUI {
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
-		
+
 		leftPanel = new JPanel();
 		leftPanel.setBackground(bgColor);
 		GridBagConstraints gbc_leftPanel = new GridBagConstraints();
@@ -191,15 +238,15 @@ public class GUI {
 		gbc_leftPanel.gridy = 0;
 		frame.getContentPane().add(leftPanel, gbc_leftPanel);
 		leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		boardPanel = new JPanel();
 		boardPanel.setBackground(bgColor);
 		boardPanel.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		leftPanel.add(boardPanel);
-		
+
 		boardCanvas = new BoardCanvas(maze);
 		boardPanel.add(boardCanvas);
-		
+
 		rightPanel = new JPanel();
 		rightPanel.setBackground(bgColor);
 		GridBagConstraints gbc_rightPanel = new GridBagConstraints();
@@ -213,7 +260,7 @@ public class GUI {
 		gbl_rightPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_rightPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		rightPanel.setLayout(gbl_rightPanel);
-		
+
 		inventoryPanel = new JPanel();
 		inventoryPanel.setBackground(bgColor);
 		GridBagConstraints gbc_inventoryPanel = new GridBagConstraints();
@@ -223,10 +270,10 @@ public class GUI {
 		gbc_inventoryPanel.gridx = 0;
 		gbc_inventoryPanel.gridy = 1;
 		rightPanel.add(inventoryPanel, gbc_inventoryPanel);
-		
+
 		inventoryCanvas = new InventoryCanvas(maze);
 		inventoryPanel.add(inventoryCanvas);
-		
+
 		labelPanel = new JPanel();
 		labelPanel.setBackground(bgColor);
 		GridBagConstraints gbc_labelPanel = new GridBagConstraints();
@@ -236,7 +283,7 @@ public class GUI {
 		gbc_labelPanel.gridx = 0;
 		gbc_labelPanel.gridy = 3;
 		rightPanel.add(labelPanel, gbc_labelPanel);
-		
+
 		labelCanvas = new LabelCanvas(maze);
 		labelPanel.add(labelCanvas);
 	}
@@ -256,7 +303,7 @@ public class GUI {
 	public JFrame getFrame() {
 		return frame;
 	}
-	
+
 	/**
 	 * Gets the right panel.
 	 * @return the right panel
@@ -280,10 +327,10 @@ public class GUI {
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * this will get the specific help for the current level.
 	 * @return - returns the help for the current level.
