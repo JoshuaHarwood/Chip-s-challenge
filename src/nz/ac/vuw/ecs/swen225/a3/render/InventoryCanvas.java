@@ -39,10 +39,8 @@ public class InventoryCanvas extends Canvas {
     
     /**
      * draw the inventory on the canvas
-     * @param w
-     * @param h
      */
-	public void draw(int w, int h) {
+	public void draw() {
 		List<TileType> keys = maze.getChap().getAllKeys();
 		
 		
@@ -68,23 +66,6 @@ public class InventoryCanvas extends Canvas {
         this.getGraphics().drawImage(image, 0, 0, this);
         imgG.dispose();
 		
-	}
-	
-	
-	
-	
-	private void fixTitleSize(int w, int h) {
-		if(w > 0 && h > 0 && tileSize > 0) {
-			int tW = (w/tileSize);
-			int tH = (h/tileSize);
-			
-			if((tW > 0) && (tH > 0) && (tW+tH <= maze.getChap().getAllKeys().size())) {
-				return;
-			} else {
-				tileSize = tileSize/2;
-				fixTitleSize(w, h);
-			}
-		}
 	}
 	
 	/**

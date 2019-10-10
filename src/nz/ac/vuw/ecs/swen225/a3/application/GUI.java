@@ -69,6 +69,7 @@ public class GUI {
 		this.boardCanvas = new BoardCanvas(maze);
 		this.inventoryCanvas = new InventoryCanvas(maze);
 		this.labelCanvus = new LabelCanvas(maze);
+		
 		initialize();
 
 		addBoard();
@@ -95,7 +96,10 @@ public class GUI {
 	}
 	
 	public void addLabels() {
-		
+		labelPanel = new JPanel();
+		labelPanel.setBackground(new Color(237, 201, 175));
+		labelPanel.add(labelCanvus);
+		rightPanel.add(labelPanel);
 	}
 
 	public void showGUI() {
@@ -104,7 +108,7 @@ public class GUI {
 
 	public void drawBoard() {
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
-	    inventoryCanvas.draw(rightPanel.getWidth(), rightPanel.getHeight());
+	    inventoryCanvas.draw();
 	    
         showGUI();
         //TODO update the timer, update the treasureleft
