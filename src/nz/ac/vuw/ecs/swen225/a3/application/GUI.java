@@ -84,7 +84,7 @@ public class GUI {
 
 	public void addInventoryPanel() {
 		inventoryPanel = new JPanel();
-		inventoryPanel.setBackground(Color.GREEN);
+		inventoryPanel.setBackground(new Color(237, 201, 175));
 		inventoryPanel.add(inventoryCanvas);
 		rightPanel.add(inventoryPanel);
 	}
@@ -152,8 +152,8 @@ public class GUI {
 		//textPanel.setText("asdf");
 		//rightPanel.add(textPanel);
 
-		JButton btnNewButton = new JButton("New button");
-		gameStatsPanel.add(btnNewButton);
+		//JButton btnNewButton = new JButton("New button");
+		//gameStatsPanel.add(btnNewButton);
 	}
 
 	public JPanel getLeftPanel() {

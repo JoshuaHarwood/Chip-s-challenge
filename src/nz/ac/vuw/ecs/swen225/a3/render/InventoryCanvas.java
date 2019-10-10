@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.render;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -22,8 +23,8 @@ public class InventoryCanvas extends Canvas {
 	Maze maze;
 	
 	int tileSize = 64;
-	int rows = 5;
-	int cols = 3;
+	int rows = 3;
+	int cols = 2;
 	
     /**
      * constructor
@@ -31,7 +32,9 @@ public class InventoryCanvas extends Canvas {
      */
     public InventoryCanvas(Maze maze) {
     	this.maze = maze;
-    	this.setSize(tileSize*cols, tileSize*rows);
+    	this.setSize(tileSize*(cols+1), tileSize*(rows+1));
+    	
+    	super.setBackground(new Color(237, 201, 175));
     }
     
     /**
@@ -47,19 +50,19 @@ public class InventoryCanvas extends Canvas {
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
         Graphics2D imgG = image.createGraphics();
         imgG.setColor(this.getBackground());
-        
-		
-		
-		
+        		
 		int x = 0, y = 0;
-		
-		
-		for(TileType type : keys) {
 			
-			imgG.drawImage(getTileImage(type), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image
-			
+		//draw the inventory
+		for(TileType type : keys) {			
+			imgG.drawImage(getTileImage(type), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image			
+			if(++x > cols) { x = 0; y++; }			
+		}
+		
+		//fill the rest of the inventory with sand
+		while(y <= rows) {
+			imgG.drawImage(getTileImage(TileType.Empty), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image			
 			if(++x > cols) { x = 0; y++; }
-			
 		}
 		
         this.getGraphics().drawImage(image, 0, 0, this);
