@@ -58,7 +58,6 @@ public class GUI {
 	private Color bgColor = new Color(92, 175, 219);
 
 
-	private String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
 	private JMenuItem mnPause;
 	private JMenuItem mnQuit;
 	private final Action action = new SwingAction();
@@ -223,10 +222,7 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				String help = goal + getLevelHelp() +  "good luck!\n\n" +
-							"Movement: Use the W, A, S, D to move Chap\n";
-
-				JOptionPane.showMessageDialog(frame, help, "Help", 3);
+				maze.helpAlert();
 			}
 		});
 
@@ -337,20 +333,6 @@ public class GUI {
 		return inventoryCanvas;
 	}
 
-
-	/**
-	 * this will get the specific help for the current level.
-	 * @return - returns the help for the current level.
-	 */
-	private String getLevelHelp() {
-		int level = maze.getLevel();
-		if(level == 1) {
-			return 	"To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
-					"and to avoid the dangerous  crabs!\n";
-		} else {
-			return "\n";
-		}
-	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "SwingAction");

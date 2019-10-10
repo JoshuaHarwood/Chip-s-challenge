@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import nz.ac.vuw.ecs.swen225.a3.application.GUI;
 
 /**
@@ -231,6 +233,8 @@ public class Maze implements Runnable {
 			chap.removeKey(TileType.Key3);
 		else if(board[y][x].type == TileType.Door4)
 			chap.removeKey(TileType.Key4);
+		else if(board[y][x].type == TileType.Info)
+			helpAlert();
 
 		//remove Chap from the board
 		board[chap.getY()][chap.getX()] = behindChap;
@@ -398,5 +402,24 @@ public class Maze implements Runnable {
 
     public void setMazeIsCurrent(boolean mazeIsCurrent) {
         this.mazeIsCurrent = mazeIsCurrent;
+    }
+    
+    /**
+     * the method will create a pop-up with help about the level
+     */
+    public void helpAlert() {
+    	String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
+    	
+		int level = this.getLevel();
+		if(level == 1) {
+			goal += "To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
+					"and to avoid the dangerous crabs!\n";
+		} else {
+			goal += "\n";
+		}
+		
+		String help = goal +  "good luck!\n\nMovement: Use the W, A, S, D to move Chap\n";
+		
+		JOptionPane.showMessageDialog(null, help, "Help", 3);
     }
 }
