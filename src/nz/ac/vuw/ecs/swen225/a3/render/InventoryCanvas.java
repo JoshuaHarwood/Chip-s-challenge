@@ -23,8 +23,8 @@ public class InventoryCanvas extends Canvas {
 	Maze maze;
 	
 	int tileSize = 64;
-	int rows = 3;
-	int cols = 2;
+	int rows = 4;
+	int cols = 3;
 	
     /**
      * constructor
@@ -32,7 +32,7 @@ public class InventoryCanvas extends Canvas {
      */
     public InventoryCanvas(Maze maze) {
     	this.maze = maze;
-    	this.setSize(tileSize*(cols+1), tileSize*(rows+1));
+    	this.setSize(tileSize*(cols), tileSize*(rows));
     	
     	super.setBackground(new Color(237, 201, 175));
     }
@@ -56,13 +56,13 @@ public class InventoryCanvas extends Canvas {
 		//draw the inventory
 		for(TileType type : keys) {			
 			imgG.drawImage(getTileImage(type), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image			
-			if(++x > cols) { x = 0; y++; }			
+			if(++x >= cols) { x = 0; y++; }			
 		}
 		
 		//fill the rest of the inventory with sand
 		while(y <= rows) {
 			imgG.drawImage(getTileImage(TileType.Empty), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image			
-			if(++x > cols) { x = 0; y++; }
+			if(++x >= cols) { x = 0; y++; }
 		}
 		
         this.getGraphics().drawImage(image, 0, 0, this);
