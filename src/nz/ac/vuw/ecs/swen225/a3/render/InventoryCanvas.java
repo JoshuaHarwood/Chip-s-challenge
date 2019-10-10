@@ -24,7 +24,7 @@ public class InventoryCanvas extends Canvas {
     }
     
     /**
-     * draw the inventory on the canvus
+     * draw the inventory on the canvas
      * @param w
      * @param h
      */

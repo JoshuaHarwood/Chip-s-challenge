@@ -94,7 +94,7 @@ public class GUI {
 	}
 	
 	public void drawBoard() {
-	    canvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
+	    boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
 	    inventoryCanvas.draw(rightPanel.getWidth(), rightPanel.getHeight());
         showGUI();
     }
