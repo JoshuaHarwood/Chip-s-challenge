@@ -3,9 +3,11 @@ package nz.ac.vuw.ecs.swen225.a3.render;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 
 /**
  * this class is a custom canvas, this is where the tiles will be displayed and the game will take place
@@ -27,9 +29,6 @@ public class BoardCanvas extends Canvas {
      */
     public BoardCanvas(Maze maze) {
     	this.maze = maze;
-//    	this.tiles = maze.getBoard();
-//        this.tilesW = this.tiles[0].length;
-//        this.tilesH = this.tiles.length;
 
         this.cols = maze.getBoard()[0].length;
         this.rows = maze.getBoard().length;
@@ -49,7 +48,7 @@ public class BoardCanvas extends Canvas {
         tiles = maze.getBoard();
         cols = tiles[0].length;
         rows = tiles.length;
-        Tile view[][];
+        Tile[][] view;
 
         int scaledSizeW = w / (viewWindow+1); //finding the scaled width
         int scaledSizeH = h / (viewWindow+1); //finding the scaled height
@@ -63,13 +62,13 @@ public class BoardCanvas extends Canvas {
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
         Graphics2D imgG = image.createGraphics();
-        imgG.setColor(this.getBackground());
-
+        imgG.setBackground(new Color(210,180,140));
         //go through each of the tiles and draw them
         for (int i = 0; i < view[0].length; i++) {
             for (int j = 0; j < view.length; j++) {
 
                 if((view[j][i] != null)) {
+
                     Image tileImg = view[j][i].getImage(); // get the image
                     int x = i * tileSize; //work the X and Y
                     int y = j * tileSize;
