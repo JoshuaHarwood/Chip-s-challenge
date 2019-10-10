@@ -160,8 +160,8 @@ public class Main {
 				if(option == 0) {
 					//restart level
 					maze.cleanUpOldMaze();
-					maze = new Maze(level1, 10);
-					init(maze);
+					gui.hideGUI();
+					new Main();
 				} else	
 					System.exit(0);
 				}

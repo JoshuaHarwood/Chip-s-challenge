@@ -329,8 +329,6 @@ public class GUI {
 	}
 
 
-
-
 	/**
 	 * this will get the specific help for the current level.
 	 * @return - returns the help for the current level.

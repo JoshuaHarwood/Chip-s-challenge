@@ -35,7 +35,6 @@ public class Maze implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
 	/**
