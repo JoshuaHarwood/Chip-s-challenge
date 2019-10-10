@@ -16,6 +16,10 @@ import java.util.ArrayList;
  */
 public class Main {
 
+	public Maze getMaze() {
+		return maze;
+	}
+
 	private Maze maze;
 	private GUI gui;
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
