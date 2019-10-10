@@ -25,7 +25,7 @@ public class LabelCanvas extends Canvas{
 	
     public LabelCanvas(Maze maze) { 
     	this.maze = maze;   	  
-    	this.setSize(size*4, size*3); 
+    	this.setSize(size*4, size*2); 
     	
     	super.setBackground(new Color(237, 201, 175));
     }
