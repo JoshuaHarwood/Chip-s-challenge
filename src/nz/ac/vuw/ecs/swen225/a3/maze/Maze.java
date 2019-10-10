@@ -309,7 +309,7 @@ public class Maze implements Runnable {
 
 	public void setTile(int x, int y, TileType tile){
 	    Tile t = new Tile(tile,x,y);
-	    board[x][y] = t;
+	    board[y][x] = t;
     }
 
     public void setChap(Chap c){
