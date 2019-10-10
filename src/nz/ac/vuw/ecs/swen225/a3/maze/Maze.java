@@ -26,28 +26,28 @@ public class Maze implements Runnable {
 		while(true) {
 			try {
 				Thread.sleep(500);
-				for(Enemy enemy : enemies) {
-					x = enemy.getX();
-					y = enemy.getY();
-					newX = x;
-					newY = y;
-					
-					if(enemy.getNextMove() == 'L')
-						newX--;
-					else if(enemy.getNextMove() == 'R')
-						newX++;
-					else if(enemy.getNextMove() == 'R')
-						newY--;						
-					else if(enemy.getNextMove() == 'R')
-						newY++;						
-					
-					newBehind = board[newY][newX];
-					board[newY][newX] = enemy;
-					board[y][x] = enemy.getTileBehindEnemy();
-					enemy.setTileBehindEnemy(newBehind);
-					enemy.setX(newX);
-					enemy.setY(newY);
-				}
+//				for(Enemy enemy : enemies) {
+//					x = enemy.getX();
+//					y = enemy.getY();
+//					newX = x;
+//					newY = y;
+//					
+//					if(enemy.getNextMove() == 'L')
+//						newX--;
+//					else if(enemy.getNextMove() == 'R')
+//						newX++;
+//					else if(enemy.getNextMove() == 'R')
+//						newY--;						
+//					else if(enemy.getNextMove() == 'R')
+//						newY++;						
+//					
+//					newBehind = board[newY][newX];
+//					board[newY][newX] = enemy;
+//					board[y][x] = enemy.getTileBehindEnemy();
+//					enemy.setTileBehindEnemy(newBehind);
+//					enemy.setX(newX);
+//					enemy.setY(newY);
+//				}
 				gui.drawBoard();
 			} catch (InterruptedException e) {
 				e.printStackTrace();

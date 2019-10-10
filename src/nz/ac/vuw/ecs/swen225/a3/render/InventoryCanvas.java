@@ -67,7 +67,7 @@ public class InventoryCanvas extends Canvas {
         imgG.dispose();
 		
 	}
-	
+	 
 	/**
 	 * Gets the image associated with this tile.
 	 * @return the image

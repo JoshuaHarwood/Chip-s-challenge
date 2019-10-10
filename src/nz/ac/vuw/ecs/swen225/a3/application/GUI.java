@@ -109,6 +109,7 @@ public class GUI {
 	public void drawBoard() {
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
 	    inventoryCanvas.draw();
+	    labelCanvus.draw();
 	    
         showGUI();
         //TODO update the timer, update the treasureleft
