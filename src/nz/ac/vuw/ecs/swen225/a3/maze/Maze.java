@@ -307,6 +307,15 @@ public class Maze implements Runnable {
 		return board.length;
 	}
 
+	public void setTile(int x, int y, TileType tile){
+	    Tile t = new Tile(tile,x,y);
+	    board[x][y] = t;
+    }
+
+    public void setChap(Chap c){
+	    this.chap = c;
+    }
+
 	/**
 	 * Gets the number of seconds that the user has left to complete the level.
 	 * @return the number of seconds the user has left
