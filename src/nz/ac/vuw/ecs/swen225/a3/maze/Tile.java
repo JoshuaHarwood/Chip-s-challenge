@@ -7,7 +7,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 /**
- * @author Joshua Hindley
+ * @author Joshua Hindley - 300438963
  */
 public class Tile {
 
@@ -44,7 +44,7 @@ public class Tile {
 
 	/**
 	 * Sets this tile's x position.
-	 * @return the x position
+	 * @param x the x position
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -52,7 +52,7 @@ public class Tile {
 
 	/**
 	 * Sets this tile's y position.
-	 * @return the x position
+	 * @param y the y position
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -106,40 +106,6 @@ public class Tile {
 	 * @return
 	 */
 	public String toString() {
-		switch(type) {
-			case Empty:
-				return "E";
-			case Chap:
-				return "C";
-			case Wall:
-				return "W";
-			case Door1:
-				return "1";
-			case Door2:
-				return "2";
-			case Door3:
-				return "3";
-			case Door4:
-				return "4";
-			case Key1:
-				return "5";
-			case Key2:
-				return "6";
-			case Key3:
-				return "7";
-			case Key4:
-				return "8";
-			case Treasure:
-				return "T";
-			case Exit:
-				return "X";
-			case ExitLock:
-				return "L";
-			case ExitUnlock:
-				break;
-			case Info:
-				return "I";
-		}
-		return "@";
+		return type.toString();
 	}
 }

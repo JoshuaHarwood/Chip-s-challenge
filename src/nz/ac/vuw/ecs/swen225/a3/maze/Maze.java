@@ -265,6 +265,8 @@ public class Maze implements Runnable {
 					chap = (Chap) tile;
 				else if(tile.type == TileType.Treasure)
 					treasureLeft++;
+				else if(tile instanceof Enemy)
+					enemies.add((Enemy)tile);
 
 		//updates time left
 		timeStarted = System.currentTimeMillis();

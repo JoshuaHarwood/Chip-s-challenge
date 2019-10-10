@@ -17,9 +17,7 @@ public class Enemy extends GameCharacter {
 		super(TileType.Enemy, x, y);
 	}
 	
-	public Character getNextMove() {
-		if(moves.size() == 0) { return ' '; } //there are no moves
-		
+	public Character getNextMove() {	
 		currentMove = moves.remove(0);
 		moves.add(currentMove);
 		return currentMove;
