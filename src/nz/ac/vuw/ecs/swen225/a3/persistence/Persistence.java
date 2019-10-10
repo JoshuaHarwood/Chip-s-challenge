@@ -13,10 +13,8 @@ public class Persistence {
 
 
 
-
     //Handles conversion of a maze object into a Json type file
     public static void save(Maze maze){
-
 
 
     //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
@@ -145,7 +143,7 @@ public class Persistence {
 
         //Create a grid of 'empty tiles'
             //Todo - The amount of 'E's here is random tbh
-       String boardString = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+
 
         //Populate the maze
         //Todo - Populate maze

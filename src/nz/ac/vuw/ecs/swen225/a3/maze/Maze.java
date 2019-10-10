@@ -279,6 +279,14 @@ public class Maze implements Runnable {
 		gui = g;
 	}
 
+	public int getX(){
+		return board[0].length;
+	}
+
+	public int getY(){
+		return board.length;
+	}
+
 	/**
 	 * Gets the number of seconds that the user has left to complete the level.
 	 * @return the number of seconds the user has left
