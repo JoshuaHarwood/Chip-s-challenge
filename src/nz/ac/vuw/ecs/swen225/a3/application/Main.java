@@ -65,8 +65,8 @@ public class Main {
     }
 
     private void initKeys(){
-    	gui.canvas.requestFocus();
-    	gui.canvas.addKeyListener(new KeyAdapter() {
+    	gui.getBoardCanvas().requestFocus();
+    	gui.getBoardCanvas().addKeyListener(new KeyAdapter() {
     		@Override
             public void keyPressed(KeyEvent e) {
     			boolean levelComplete = false;
