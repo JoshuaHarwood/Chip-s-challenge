@@ -16,9 +16,9 @@ import java.io.IOException;
 public class BoardCanvas extends Canvas {
 
     private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
-    private int minTileSize = 64;
-    private Tile[][] tiles;
+    private Tile[][] tiles; //the tile array to be drawn
     private int cols, rows;
+    int redrawCount = 0;
     
     private Maze maze;
 
@@ -99,6 +99,8 @@ public class BoardCanvas extends Canvas {
             int chapX = maze.getChap().getX(), chapY = maze.getChap().getY();
 
             int viewX = 0, viewY = 0;
+            int tilesY = tiles.length;
+            int tilesX = tiles[0].length;
 
             //** find the window dimensions
             int minX = 0, maxX = 0, minY = 0, maxY = 0;
@@ -110,9 +112,9 @@ public class BoardCanvas extends Canvas {
                 minX += (chapX - fromChap);
             }
 
-            if((chapX + fromChap) >= tiles[0].length){ //if it is over the right of the array
-                maxX = tiles[0].length-1;
-                minX += (tiles[0].length - (chapX + fromChap) -1);
+            if((chapX + fromChap) >= tilesX){ //if it is over the right of the array
+                maxX = tilesX-1;
+                minX += (tilesX - (chapX + fromChap) -1);
             } else {
                 maxX += chapX + fromChap;
             }
@@ -124,14 +126,14 @@ public class BoardCanvas extends Canvas {
                 minY += (chapY - fromChap);
             }
 
-            if((chapY + fromChap) >= tiles.length){ //if it is over the bottom of the array
-                maxY = tiles.length-1;
-                minY += (tiles.length - (chapY + fromChap) -1);
+            if((chapY + fromChap) >= tilesY){ //if it is over the bottom of the array
+                maxY = tilesY-1;
+                minY += (tilesY - (chapY + fromChap) -1);
             } else {
                 maxY += chapY + fromChap;
             }
 
-            if(minX < 0 || maxX > tiles[0].length || minY < 0 || maxY > tiles.length){
+            if(minX < 0 || maxX > tilesX || minY < 0 || maxY > tilesY){
                 System.out.println("ERROR: \n   minX: " + minX + "    maxX: " + maxX+ "\n    minY: " + minY + "    maxY: " + maxY);
                 return tiles;
             }
@@ -150,7 +152,6 @@ public class BoardCanvas extends Canvas {
                 viewY++;
 
             }
-
             return view;
         } else {
             return tiles;
