@@ -31,19 +31,17 @@ public class GUI {
 
 	Maze maze;
 
-	private BoardCanvas boardCanvas;
-	private InventoryCanvas inventoryCanvas;
-	private LabelCanvas labelCanvus;
-	
-
-	private JPanel boardPanel;
-	private JPanel inventoryPanel;
-	private JPanel labelPanel;
-
 	private JFrame frame;
-	//private final JTextArea textPanel = new JTextArea();
 	private JPanel leftPanel;
 	private JPanel rightPanel;
+	private JPanel inventoryPanel;
+	private JPanel labelPanel;
+	
+	private InventoryCanvas inventoryCanvas;
+	private LabelCanvas labelCanvas;
+	private BoardCanvas boardCanvas;
+	private JPanel boardPanel;
+	
 
 	/**
 	 * Run GUI on its own.
@@ -67,40 +65,25 @@ public class GUI {
 	public GUI(Maze maze) {
 
 		this.maze = maze;
-		this.boardCanvas = new BoardCanvas(maze);
-		this.inventoryCanvas = new InventoryCanvas(maze);
-		this.labelCanvus = new LabelCanvas(maze);
 		
 		initialize();
 
-		addBoard();
+		initCanvases();
 		addInventoryPanel();
 		addLabels();
 
 		showGUI();
 	}
 
-	public void addBoard() {
-
-		boardPanel = new JPanel();
-		boardPanel.add(boardCanvas);
-        leftPanel.add(boardPanel);
-
-		frame.setVisible(true);
+	public void initCanvases() {
+//		boardCanvas = new BoardCanvas(maze);
+//		leftPanel.add(boardCanvas);
 	}
 
 	public void addInventoryPanel() {
-		inventoryPanel = new JPanel();
-		inventoryPanel.setBackground(new Color(237, 201, 175));
-		inventoryPanel.add(inventoryCanvas);
-		rightPanel.add(inventoryPanel);
 	}
 	
 	public void addLabels() {
-		labelPanel = new JPanel();
-		labelPanel.setBackground(new Color(237, 201, 175));
-		labelPanel.add(labelCanvus);
-		rightPanel.add(labelPanel);
 	}
 
 	public void showGUI() {
@@ -111,7 +94,7 @@ public class GUI {
 
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
 	    inventoryCanvas.draw();
-	    labelCanvus.draw();
+	    labelCanvas.draw();
 	    
         showGUI();
         //TODO update the timer, update the treasureleft
@@ -156,26 +139,65 @@ public class GUI {
 
 		JMenu menuHelp = new JMenu("Help");
 		menuBar.add(menuHelp);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
+		
 		leftPanel = new JPanel();
-		leftPanel.setMinimumSize(new Dimension(640, 640));
-		leftPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		leftPanel.setForeground(Color.DARK_GRAY);
-		frame.getContentPane().add(leftPanel, BorderLayout.CENTER);
-		leftPanel.setLayout(new BorderLayout(0, 0));
-
+		GridBagConstraints gbc_leftPanel = new GridBagConstraints();
+		gbc_leftPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_leftPanel.fill = GridBagConstraints.BOTH;
+		gbc_leftPanel.gridx = 0;
+		gbc_leftPanel.gridy = 0;
+		frame.getContentPane().add(leftPanel, gbc_leftPanel);
+		leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		boardPanel = new JPanel();
+		boardPanel.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		leftPanel.add(boardPanel);
+		
+		boardCanvas = new BoardCanvas(maze);
+		boardPanel.add(boardCanvas);
+		
 		rightPanel = new JPanel();
-		frame.getContentPane().add(rightPanel, BorderLayout.EAST);
-		rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-		JPanel gameStatsPanel = new JPanel();
-		rightPanel.add(gameStatsPanel);
-		//textPanel.setText("asdf");
-		//rightPanel.add(textPanel);
-
-		//JButton btnNewButton = new JButton("New button");
-		//gameStatsPanel.add(btnNewButton);
+		GridBagConstraints gbc_rightPanel = new GridBagConstraints();
+		gbc_rightPanel.fill = GridBagConstraints.BOTH;
+		gbc_rightPanel.gridx = 1;
+		gbc_rightPanel.gridy = 0;
+		frame.getContentPane().add(rightPanel, gbc_rightPanel);
+		GridBagLayout gbl_rightPanel = new GridBagLayout();
+		gbl_rightPanel.columnWidths = new int[]{202, 0};
+		gbl_rightPanel.rowHeights = new int[]{80, 266, 21, 0, 80, 0};
+		gbl_rightPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_rightPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		rightPanel.setLayout(gbl_rightPanel);
+		
+		inventoryPanel = new JPanel();
+		GridBagConstraints gbc_inventoryPanel = new GridBagConstraints();
+		gbc_inventoryPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_inventoryPanel.anchor = GridBagConstraints.WEST;
+		gbc_inventoryPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_inventoryPanel.gridx = 0;
+		gbc_inventoryPanel.gridy = 1;
+		rightPanel.add(inventoryPanel, gbc_inventoryPanel);
+		
+		inventoryCanvas = new InventoryCanvas(maze);
+		inventoryPanel.add(inventoryCanvas);
+		
+		labelPanel = new JPanel();
+		GridBagConstraints gbc_labelPanel = new GridBagConstraints();
+		gbc_labelPanel.anchor = GridBagConstraints.WEST;
+		gbc_labelPanel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_labelPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_labelPanel.gridx = 0;
+		gbc_labelPanel.gridy = 3;
+		rightPanel.add(labelPanel, gbc_labelPanel);
+		
+		labelCanvas = new LabelCanvas(maze);
+		labelPanel.add(labelCanvas);
 	}
 
 	public JPanel getLeftPanel() {

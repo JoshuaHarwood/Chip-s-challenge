@@ -80,7 +80,7 @@ public class BoardCanvas extends Canvas {
             }
         }
 
-        this.getGraphics().drawImage(image, 0, 0, this); 
+        this.getGraphics().drawImage(image, 0, 0, this);
         imgG.dispose();
     }
 
