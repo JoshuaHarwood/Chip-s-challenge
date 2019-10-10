@@ -27,16 +27,18 @@ import java.awt.event.WindowEvent;
  */
 public class GUI {
 	
-	BoardCanvas canvas;
-	InventoryCanvas inventoryCanvus;
-	
 	Maze maze;
+	
+	private BoardCanvas boardCanvas;
+	private InventoryCanvas inventoryCanvas;
+	
 	private JPanel boardPanel;
+	private JPanel inventoryPanel;
 
 	private JFrame frame;
 	//private final JTextArea textPanel = new JTextArea();
 	private JPanel leftPanel;
-	private JPanel rightPanel = new JPanel();
+	private JPanel rightPanel;
 
 	/**
 	 * Run GUI on its own.
@@ -60,11 +62,12 @@ public class GUI {
 	public GUI(Maze maze) {
 		
 		this.maze = maze;
-		this.canvas = new BoardCanvas(maze);
-		this.inventoryCanvus = new InventoryCanvas(maze);
+		this.boardCanvas = new BoardCanvas(maze);
+		this.inventoryCanvas = new InventoryCanvas(maze);
 		initialize();
 
 		addBoard();
+		addInventoryPanel();
 		
 		showGUI();
 	}
@@ -72,11 +75,18 @@ public class GUI {
 	public void addBoard() {
 		
 		boardPanel = new JPanel();
-		boardPanel.add(canvas);
-		rightPanel.add(inventoryCanvus);
+		boardPanel.add(boardCanvas);
         leftPanel.add(boardPanel);
 
 		frame.setVisible(true);
+	}
+	
+	
+	public void addInventoryPanel() {
+		inventoryPanel = new JPanel();
+		inventoryPanel.setBackground(Color.GREEN);
+		inventoryPanel.add(inventoryCanvas);
+		rightPanel.add(inventoryPanel);
 	}
 	
 	public void showGUI() {
@@ -85,7 +95,7 @@ public class GUI {
 	
 	public void drawBoard() {
 	    canvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
-	    inventoryCanvus.draw(rightPanel.getWidth(), rightPanel.getHeight());
+	    inventoryCanvas.draw(rightPanel.getWidth(), rightPanel.getHeight());
         showGUI();
     }
 
@@ -133,13 +143,17 @@ public class GUI {
 		frame.getContentPane().add(leftPanel, BorderLayout.CENTER);
 		leftPanel.setLayout(new BorderLayout(0, 0));
 		
+		rightPanel = new JPanel();
 		frame.getContentPane().add(rightPanel, BorderLayout.EAST);
 		rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		
+		JPanel gameStatsPanel = new JPanel();
+		rightPanel.add(gameStatsPanel);
 		//textPanel.setText("asdf");
 		//rightPanel.add(textPanel);
 		
 		JButton btnNewButton = new JButton("New button");
-		rightPanel.add(btnNewButton);
+		gameStatsPanel.add(btnNewButton);
 	}
 
 	public JPanel getLeftPanel() {
@@ -148,5 +162,16 @@ public class GUI {
 	
 	public JFrame getFrame() {
 		return frame;
+	}
+	public JPanel getRightPanel() {
+		return rightPanel;
+	}
+	
+	public BoardCanvas getBoardCanvas() {
+		return boardCanvas;
+	}
+	
+	public InventoryCanvas getInventoryCanvas() {
+		return inventoryCanvas;
 	}
 }
