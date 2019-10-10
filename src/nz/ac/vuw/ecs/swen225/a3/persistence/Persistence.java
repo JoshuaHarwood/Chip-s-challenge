@@ -1,20 +1,29 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
+import nz.ac.vuw.ecs.swen225.a3.application.GUI;
+import nz.ac.vuw.ecs.swen225.a3.application.Main;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import javax.json.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @author Liam Hide - 300451675
+ */
 
 public class Persistence {
 
 
 
     //Handles conversion of a maze object into a Json type file
-    public static JsonObject save(Maze maze, String name){
+    public static void save(Maze maze, String name){
         maze.cleanUpOldMaze();
 
     //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
@@ -88,17 +97,15 @@ public class Persistence {
 
 
 
-        //Todo - Remove this after completion
         writeToFile(json, name);
 
-        return json;
-
+        System.out.println("Successfully created file");
     }
 
 
 
     //Handles loading of a Json type file into a maze object
-    static public Maze load(JsonObject json){
+    static public void load(JsonObject json){
 
         //First get game state information
             //Todo - We don't yet store this
@@ -181,25 +188,26 @@ public class Persistence {
                 //Todo - This should be replaced with the saved timeleft
         //newMaze.updateVariables(0);
 
-        return newMaze;
+        //Todo - Finally, update the Maze in 'Main' to the loaded maze
+        Main.init(newMaze);
 
     }
 
     //Handles write of a json object into a file
     static void writeToFile(JsonObject json, String saveName) {
 
-        try{
+        try {
 
-            FileWriter fileWriter = new FileWriter(saveName+".json");
-            JsonWriter writer = Json.createWriter(fileWriter);
-            writer.write(json);
-            System.out.println("Successfully wrote to file");
+            OutputStream os = new FileOutputStream(saveName + ".txt");
+            JsonWriter writer = Json.createWriter(os);
 
-        }catch(Exception e){
-            System.out.println(e);
+            writer.writeObject(json);
+            writer.close();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-
-
     }
 
 //Helper methods to convert lists to Arrays, may need some fixing
