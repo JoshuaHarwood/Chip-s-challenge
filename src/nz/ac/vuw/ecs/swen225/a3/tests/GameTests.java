@@ -718,7 +718,6 @@ class GameTests {
 
     /**
      * Test that the timer running out correctly ends the game
-     * TODO: Write this once timing check has been completed (also check edge cases)
      */
     @Test
     void outOfTime() {
@@ -731,7 +730,7 @@ class GameTests {
                 "WWWWWW1WW" +
                 "WEEEEEEEW" +
                 "WWWWWWWWW",0);
-
+        maze.takeEnemyTurn();
         Assertions.assertFalse(maze.getMazeIsCurrent());
     }
 
