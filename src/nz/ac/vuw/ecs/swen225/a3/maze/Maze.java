@@ -10,6 +10,8 @@ public class Maze {
 	private Tile behindChap;
 	private Chap chap;
 	private int treasureLeft = 0;
+	private long timeStarted;
+	private int secondsToCompleteLevel;
 
 	//TODO add checks for invalid characters/boards
 	//TODO add a timer
@@ -18,8 +20,11 @@ public class Maze {
 	 * Creates a maze.
 	 * @param board this level's board as a string
 	 */
-	public Maze(String board) {
+	public Maze(String board, int timeToComplete) {
 		generateBoard(board);
+		
+		timeStarted = System.currentTimeMillis();
+		secondsToCompleteLevel = timeToComplete;
 	}
 
 	/**
@@ -53,6 +58,7 @@ public class Maze {
 		char[] mapAsChar = board.toCharArray();
 		int height = Integer.parseInt((String.valueOf(mapAsChar[0])).concat(String.valueOf(mapAsChar[1])));
 		int width = Integer.parseInt((String.valueOf(mapAsChar[2])).concat(String.valueOf(mapAsChar[3])));
+		
 		this.board = new Tile[height][width];
 		int x = 0, y = 0;
 		//fill the board
@@ -177,6 +183,10 @@ public class Maze {
 		}
 
 		return boardText;
+	}
+	
+	public int getTimeLeft() {
+		return (int) ((System.currentTimeMillis() - timeStarted) / 1000 - secondsToCompleteLevel);
 	}
 
 }
