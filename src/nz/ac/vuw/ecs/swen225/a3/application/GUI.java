@@ -15,17 +15,21 @@ import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowStateListener;
 import java.io.IOException;
 import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe
+ * @author Henry Stoupe     & Joshua Harwood---300439084
  */
 public class GUI {
 
@@ -41,6 +45,11 @@ public class GUI {
 	private LabelCanvas labelCanvas;
 	private BoardCanvas boardCanvas;
 	private JPanel boardPanel;
+	
+	
+	
+	
+	private String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
 	
 
 	/**
@@ -138,6 +147,17 @@ public class GUI {
 		menuBar.add(menuLevel);
 
 		JMenu menuHelp = new JMenu("Help");
+		menuHelp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String help = goal + getLevelHelp() +  "good luck!\n\n" +
+							"Movement: Use the W, A, S, D to move Chap\n";
+				
+				JOptionPane.showMessageDialog(frame, help, "Help", 3);
+			}
+		});
+
 		menuBar.add(menuHelp);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -217,5 +237,22 @@ public class GUI {
 
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
+	}
+	
+	
+	
+	
+	/**
+	 * this will get the specific help for the current level.
+	 * @return - returns the help for the current level.
+	 */
+	private String getLevelHelp() {
+		int level = maze.getLevel();
+		if(level == 1) {
+			return 	"To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
+					"and to avoid the dangerous  crabs!\n";
+		} else {
+			return "\n";
+		}
 	}
 }

@@ -325,5 +325,10 @@ public class Maze implements Runnable {
 	public int getTimeLeft() {
 		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
 	}
+	
+	
+	public int getLevel() {
+		return 1; //TODO: will need to return the level
+	}
 
 }
