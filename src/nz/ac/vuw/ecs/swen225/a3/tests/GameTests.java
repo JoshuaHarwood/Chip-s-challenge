@@ -1,4 +1,4 @@
-package tests;
+package nz.ac.vuw.ecs.swen225.a3.tests;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
@@ -40,6 +40,7 @@ class GameTests {
                 "WTEEEEEEW" +
                 "WWWWWWWWW"
         );
+        Assertions.assertEquals(maze.getTimeLeft(),30);
 
     }
 
@@ -714,4 +715,53 @@ class GameTests {
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.DONE) ;
     }
+
+
+    /**
+     * Test that the timer running out correctly ends the game
+     * TODO: Write this once timing check has been completed (also check edge cases)
+     */
+    @Test
+    void outOfTime() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWCWEEW" +
+                "WEEEEEEEW" +
+                "WEEEEE8EW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WEEEEEEEW" +
+                "WWWWWWWWW",0);
+
+        Assertions.assertFalse(maze.getMazeIsCurrent());
+    }
+
+    /**
+     * Test exiting with treasure left
+     */
+    @Test
+    void EnemyKill() {
+        Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEYEEEW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW",30);
+
+        Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
+        Assertions.assertEquals(maze.toString(),
+                 "WWWWXWWWW" +
+                        "WEEWLWEEW" +
+                        "WEEECEEEW" +
+                        "WEEEYEEEW" +
+                        "W5EEEEEEW" +
+                        "WWWWWW1WW" +
+                        "WTEEEEEEW" +
+                        "WWWWWWWWW"
+        );
+    }
+
 }
