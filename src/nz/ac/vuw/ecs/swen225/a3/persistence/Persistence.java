@@ -1,20 +1,29 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
+import nz.ac.vuw.ecs.swen225.a3.application.GUI;
+import nz.ac.vuw.ecs.swen225.a3.application.Main;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import javax.json.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @author Liam Hide - 300451675
+ */
 
 public class Persistence {
 
 
 
     //Handles conversion of a maze object into a Json type file
-    public static JsonObject save(Maze maze){
+    public static void save(Maze maze, String name){
         maze.cleanUpOldMaze();
 
     //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
@@ -51,8 +60,8 @@ public class Persistence {
         List<Tile> specialTiles = new ArrayList<>();
 
         //Convert the 2d array of tiles into a list of the "Special tiles"
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[i].length; j++ ){
+        for(int i = 0; i < board.length-2; i++){
+            for(int j = 0; j < board[i].length-2; j++ ){
 
                 Tile t = board[i][j];
 
@@ -88,17 +97,15 @@ public class Persistence {
 
 
 
-        //Todo - Remove this after completion
-        writeToFile(json,"test save");
+        writeToFile(json, name);
 
-        return json;
-
+        System.out.println("Successfully created file");
     }
 
 
 
     //Handles loading of a Json type file into a maze object
-    static public Maze load(JsonObject json){
+    static public void load(JsonObject json){
 
         //First get game state information
             //Todo - We don't yet store this
@@ -117,11 +124,10 @@ public class Persistence {
         //Get keys in chaps inventory, then, create a list of "Tiletype" objects
         List<TileType> keys = new ArrayList<>();
 
-//Todo - Still need to create the Tiletype objects and add to list + test this
+        //Todo - Still need to create the Tiletype objects and add to list + test this
         if(chapInv != null) {
             for (int i = 0; i < chapInv.size(); i++) {
                 JsonObject c = chapInv.getJsonObject(i);
-
                 String key = c.getString("key:");
 
             }
@@ -151,10 +157,10 @@ public class Persistence {
 
         //Create a grid of 'empty tiles'
         //Todo - these need to be +2 for some reason
-            Maze newMaze = new Maze(mazeX+2,mazeY+2);
+            Maze newMaze = new Maze(mazeX,mazeY);
 
-            for(int y = 0; y < mazeY; y++){
-                for(int x = 0; x < mazeX; x++){
+            for(int y = 0; y < mazeY-2; y++){
+                for(int x = 0; x < mazeX-2; x++){
                     newMaze.setTile(x,y, TileType.Empty );
                 }
             }
@@ -169,32 +175,39 @@ public class Persistence {
             newMaze.setTile(x,y,ty);
         }
 
-        newMaze.setTile(chapX,chapY,TileType.Chap);
+        //Handle chap
+        //Todo - could use a cleanup
         Chap newChap = new Chap(chapX,chapY);
         newMaze.setChap(newChap);
+        newMaze.setTile(chapX,chapY,TileType.Chap);
+        newMaze.setBehindChap(new Tile(TileType.Empty, chapX, chapY));
 
-                //Todo - This should be replaced with the saved timeleft
+
+
+        //Todo - This should be replaced with the saved timeleft
         //newMaze.updateVariables(0);
 
-        return newMaze;
+        //Todo - Still need to delete old instance of game
+
+        Main.init(newMaze);
 
     }
 
     //Handles write of a json object into a file
     static void writeToFile(JsonObject json, String saveName) {
 
-        try{
+        try {
 
-            FileWriter fileWriter = new FileWriter(saveName+".json");
-            JsonWriter writer = Json.createWriter(fileWriter);
-            writer.write(json);
-            System.out.println("Successfully wrote to file");
+            OutputStream os = new FileOutputStream(saveName + ".txt");
+            JsonWriter writer = Json.createWriter(os);
 
-        }catch(Exception e){
-            System.out.println(e);
+            writer.writeObject(json);
+            writer.close();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-
-
     }
 
 //Helper methods to convert lists to Arrays, may need some fixing

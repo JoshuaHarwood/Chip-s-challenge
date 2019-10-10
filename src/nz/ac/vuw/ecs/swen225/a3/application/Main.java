@@ -2,7 +2,9 @@ package nz.ac.vuw.ecs.swen225.a3.application;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
+import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 
+import javax.json.JsonObject;
 import javax.swing.*;
 
 import java.awt.event.KeyAdapter;
