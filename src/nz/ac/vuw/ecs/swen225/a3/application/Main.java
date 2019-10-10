@@ -4,6 +4,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 
+import javax.json.JsonObject;
 import javax.swing.*;
 
 import java.awt.event.KeyAdapter;
@@ -16,12 +17,13 @@ import java.util.ArrayList;
  */
 public class Main {
 
+	private static Maze maze;
+	private static GUI gui;
+
 	public Maze getMaze() {
 		return maze;
 	}
 
-	private Maze maze;
-	private GUI gui;
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
 	String level1 = "1614" + 
@@ -50,15 +52,21 @@ public class Main {
 	public Main() {
 
 		maze = new Maze(level1, 10);
+		init(maze);
 
-		gui = new GUI(maze);
-		maze.addGUI(gui);
-		gui.drawBoard();
 		
-		startThread();
+//		startThread();
 
 		initKeys();
 
+	}
+
+	public static void init(Maze m) {
+		gui = new GUI(maze);
+		maze.addGUI(gui);
+		gui.drawBoard();
+		startThread();
+//		initKeys();
 	}
 
 	/**
@@ -73,61 +81,66 @@ public class Main {
 				int action = e.getKeyCode();
 				keysDown.add(action);
 				switch(action) {
-				//moving the character
-				case KeyEvent.VK_W:
-				case KeyEvent.VK_UP:
-					if(maze.moveChap("UP") == Trinary.DONE)
-						levelComplete = true;
-					break;
-				case KeyEvent.VK_S:
-					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
-						//exit the game, saves the game state, game will
-						//resume next time the application will be started
-						Persistence.save(maze);
+					//moving the character
+					case KeyEvent.VK_W:
+					case KeyEvent.VK_UP:
+						if(maze.moveChap("UP") == Trinary.DONE)
+							levelComplete = true;
 						break;
-					}
-				case KeyEvent.VK_DOWN:
-					if(maze.moveChap("DOWN") == Trinary.DONE)
-						levelComplete = true;
-					break;
-				case KeyEvent.VK_A:
-				case KeyEvent.VK_LEFT:
-					if(maze.moveChap("LEFT") == Trinary.DONE)
-						levelComplete = true;
-					break;
-				case KeyEvent.VK_D:
-				case KeyEvent.VK_RIGHT:
-					if(maze.moveChap("RIGHT") == Trinary.DONE)
-						levelComplete = true;
-					break;
+					case KeyEvent.VK_S:
+						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
+							//exit the game, saves the game state, game will
+							//resume next time the application will be started
+							String name = JOptionPane.showInputDialog("Please enter a name for the save");
+							Persistence.save(maze, name);
+						}
+						else {
+							if (maze.moveChap("DOWN") == Trinary.DONE)
+								levelComplete = true;
+						}
+						break;
+					case KeyEvent.VK_DOWN:
+						if(maze.moveChap("DOWN") == Trinary.DONE)
+							levelComplete = true;
+						break;
+					case KeyEvent.VK_A:
+					case KeyEvent.VK_LEFT:
+						if(maze.moveChap("LEFT") == Trinary.DONE)
+							levelComplete = true;
+						break;
+					case KeyEvent.VK_D:
+					case KeyEvent.VK_RIGHT:
+						if(maze.moveChap("RIGHT") == Trinary.DONE)
+							levelComplete = true;
+						break;
 					//pausing and resuming the game
-				case KeyEvent.VK_SPACE:
-					//TODO pause the game bringing up the game paused dialog
-					break;
-				case KeyEvent.VK_ESCAPE:
-					//TODO resume the game closing the game paused dialog
-					break;
+					case KeyEvent.VK_SPACE:
+						//TODO pause the game bringing up the game paused dialog
+						break;
+					case KeyEvent.VK_ESCAPE:
+						//TODO resume the game closing the game paused dialog
+						break;
 					//performing commands with ctrl
-				case KeyEvent.VK_X:
-					if(keysDown.contains(KeyEvent.VK_CONTROL))
-						//TODO exit the game, the current game state will be lost, the next time
-						//the game is started it will resume from the last unfinished level
-						System.exit(0);
-					break;
-				case KeyEvent.VK_R:
-					if(keysDown.contains(KeyEvent.VK_CONTROL))
-						//TODO loads a saved game
-						//Persistence.load([???]);
+					case KeyEvent.VK_X:
+						if(keysDown.contains(KeyEvent.VK_CONTROL))
+							//TODO exit the game, the current game state will be lost, the next time
+							//the game is started it will resume from the last unfinished level
+							System.exit(0);
 						break;
-				case KeyEvent.VK_P:
-					if(keysDown.contains(KeyEvent.VK_CONTROL))
-						//TODO starts a new game at the last unfinished level
+					case KeyEvent.VK_R:
+						if(keysDown.contains(KeyEvent.VK_CONTROL))
+							//TODO loads a saved game
+							//Persistence.load([???]);
+							break;
+					case KeyEvent.VK_P:
+						if(keysDown.contains(KeyEvent.VK_CONTROL))
+							//TODO starts a new game at the last unfinished level
+							break;
+					case KeyEvent.VK_1:
+						if(keysDown.contains(KeyEvent.VK_CONTROL))
+							//starts a new game at level 1
+							new Main();
 						break;
-				case KeyEvent.VK_1:
-					if(keysDown.contains(KeyEvent.VK_CONTROL))
-						//starts a new game at level 1
-						new Main();
-					break;
 				}
 				if(levelComplete) {
 					//TODO load next level, save information that that level was completed
@@ -149,15 +162,16 @@ public class Main {
 			}
 			public void keyReleased(KeyEvent e) {
 				keysDown.remove(keysDown.indexOf(e.getKeyCode()));
-				
+
 			}
 		});
 	}
 
+
 	/**
 	 * Starts a new thread in the maze for the enemies' movement.
 	 */
-	private void startThread() {
+	private static void startThread() {
 		Thread t1 = new Thread(maze);
 		t1.start();
 	}
