@@ -147,6 +147,7 @@ public class Main {
 					maze.cleanUpOldMaze();
 					Object[] options = {"OK"};
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+					
 					System.exit(0);
 				}
 			}
@@ -156,10 +157,12 @@ public class Main {
 					//OUTTA TIME
 					Object[] options = {"RESTART LEVEL", "QUIT"};
 				int option = JOptionPane.showOptionDialog(gui.getFrame(), "Out of time.", "Out of time", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
-				//if(option == options[0])
-					//restart leve
-				//else
-					
+				if(option == 0) {
+					//restart level
+					maze.cleanUpOldMaze();
+					maze = new Maze(level1, 10);
+					init(maze);
+				} else	
 					System.exit(0);
 				}
 				gui.drawBoard();
