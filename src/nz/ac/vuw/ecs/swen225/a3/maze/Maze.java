@@ -21,9 +21,7 @@ public class Maze implements Runnable {
 	private long timeStarted;
 	private int secondsToCompleteLevel;
 	private boolean mazeIsCurrent = true;
-    public boolean getMazeIsCurrent() {
-        return mazeIsCurrent;
-    }
+	
 
     public void setMazeIsCurrent(boolean mazeIsCurrent) {
         this.mazeIsCurrent = mazeIsCurrent;
