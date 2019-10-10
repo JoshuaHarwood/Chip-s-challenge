@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 
+ * @author Joshua Harwood---300439084
+ *
+ */
 public class GameCharacter extends Tile {
 
     /**
