@@ -21,7 +21,9 @@ public class InventoryCanvas extends Canvas {
 	
 	Maze maze;
 	
-	int tileSize;
+	int tileSize = 64;
+	int rows = 5;
+	int cols = 3;
 	
     /**
      * constructor
@@ -29,6 +31,7 @@ public class InventoryCanvas extends Canvas {
      */
     public InventoryCanvas(Maze maze) {
     	this.maze = maze;
+    	this.setSize(tileSize*cols, tileSize*rows);
     }
     
     /**
@@ -38,24 +41,34 @@ public class InventoryCanvas extends Canvas {
      */
 	public void draw(int w, int h) {
 		List<TileType> keys = maze.getChap().getAllKeys();
-		this.setSize(w, h);
+		
 		
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
         Graphics2D imgG = image.createGraphics();
         imgG.setColor(this.getBackground());
         
-		tileSize = 36;
-		fixTitleSize(w, h);
+		
+		
 		
 		int x = 0, y = 0;
 		
 		
 		for(TileType type : keys) {
 			
+			imgG.drawImage(getTileImage(type), x*tileSize, y*tileSize, tileSize, tileSize, this); //draw the image
+			
+			if(++x > cols) { x = 0; y++; }
+			
 		}
 		
+        this.getGraphics().drawImage(image, 0, 0, this);
+        imgG.dispose();
+		
 	}
+	
+	
+	
 	
 	private void fixTitleSize(int w, int h) {
 		if(w > 0 && h > 0 && tileSize > 0) {
@@ -75,9 +88,9 @@ public class InventoryCanvas extends Canvas {
 	 * Gets the image associated with this tile.
 	 * @return the image
 	 */
-	public Image getTileImage(TileType tile) {
+	public Image getTileImage(TileType type) {
 		try {
-			return ImageIO.read(getClass().getResource("icons/" + tile.name() + ".png"));
+			return ImageIO.read(getClass().getResource("../maze/icons/" + type.name() + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
