@@ -101,6 +101,7 @@ public class Maze implements Runnable {
 				try {
 					robot = new Robot();
 					robot.keyPress(KeyEvent.VK_ALT);
+					robot.keyRelease(KeyEvent.VK_ALT);
 				} catch (AWTException e) {
 					e.printStackTrace();
 				}	
@@ -391,5 +392,16 @@ public class Maze implements Runnable {
 	public int getLevel() {
 		return 1; //TODO: will need to return the level
 	}
+	
+	/**
+	 * this is the method to pause the game
+	 */
+	public void pause() {
+		//TODO: implement pausing 
+	}
 
+	public boolean getMazeIsCurrent() {
+		//Todo ?
+		return false;
+	}
 }
