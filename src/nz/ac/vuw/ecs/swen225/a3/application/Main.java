@@ -50,12 +50,11 @@ public class Main {
 	 * Creates a new Main object for the program to use.
 	 */
 	public Main() {
-
-		maze = new Maze(level1, 60);
-		init(maze);
-
+		//TODO add parameter
 		
-//		startThread();
+		maze = new Maze(level1, 60);
+
+		init(maze);
 
 		initKeys();
 
@@ -91,7 +90,7 @@ public class Main {
 						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 							//exit the game, saves the game state, game will
 							//resume next time the application will be started
-							String name = JOptionPane.showInputDialog("Please enter a name for the save");
+							String name = JOptionPane.showInputDialog("Please enter a name for the save:");
 							Persistence.save(maze, name);
 						}
 						else {
@@ -123,9 +122,8 @@ public class Main {
 					//performing commands with ctrl
 					case KeyEvent.VK_X:
 						if(keysDown.contains(KeyEvent.VK_CONTROL))
-							//TODO exit the game, the current game state will be lost, the next time
-							//the game is started it will resume from the last unfinished level
 							System.exit(0);
+						//TODO resume the game from the last unfinished level the next time it loads
 						break;
 					case KeyEvent.VK_R:
 						if(keysDown.contains(KeyEvent.VK_CONTROL))
@@ -133,13 +131,20 @@ public class Main {
 							//Persistence.load([???]);
 							break;
 					case KeyEvent.VK_P:
-						if(keysDown.contains(KeyEvent.VK_CONTROL))
+						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 							//TODO starts a new game at the last unfinished level
+							maze.cleanUpOldMaze();
+							gui.hideGUI();
+							new Main();//currentLevel
+						}
 							break;
 					case KeyEvent.VK_1:
-						if(keysDown.contains(KeyEvent.VK_CONTROL))
+						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 							//starts a new game at level 1
-							new Main();
+							maze.cleanUpOldMaze();
+							gui.hideGUI();
+							new Main();//1
+						}
 						break;
 				}
 				if(levelComplete) {
