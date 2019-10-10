@@ -1,10 +1,12 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
 import java.awt.*;
-import java.io.IOException;
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * @author Joshua Hindley - 300438963
@@ -13,6 +15,8 @@ public class Tile {
 
 	public final TileType type;
 	private int x, y;
+
+    private Map<String, ImageIcon> tileMap = new HashMap<>();
 
 	/**
 	 * Creates a new tile.
@@ -24,6 +28,12 @@ public class Tile {
 		this.type = t;
 		this.x = x;
 		this.y = y;
+
+		int numImages = new File("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons").listFiles().length;
+
+        for (int i = 0; i < numImages; i++) {
+            tileMap.put(this.type.name(), new ImageIcon("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\" + this.type.name() + ".png"));
+        }
 	}
 
 	/**
@@ -93,12 +103,8 @@ public class Tile {
 	 * @return the image
 	 */
 	public Image getImage() {
-		try {
-			return ImageIO.read(getClass().getResource("icons/" + type.name() + ".png")); 
-		} catch (IOException e) {
-				e.printStackTrace();
-				return null;
-		}
+        ImageIcon icon = tileMap.get(this.type.name());
+		return icon.getImage();
 	}
 
 	/**
