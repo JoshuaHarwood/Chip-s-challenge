@@ -40,6 +40,9 @@ public class Main {
 			"Y=LDLUURRD";
 	//map for board
 
+	/**
+	 * Creates a new Main object for the program to use.
+	 */
 	public Main() {
 
 		maze = new Maze(level1, 60);
@@ -60,6 +63,9 @@ public class Main {
 //		initKeys();
 	}
 
+	/**
+	 * Initializes a keyListener and changes the focus.
+	 */
 	private void initKeys(){
 		gui.getBoardCanvas().requestFocus();
 		gui.getBoardCanvas().addKeyListener(new KeyAdapter() {
@@ -79,6 +85,7 @@ public class Main {
 					if(keysDown.contains(KeyEvent.VK_CONTROL)) 
 						//exit the game, saves the game state, game will
 						//resume next time the application will be started
+						Persistence.save(maze);
 						break;
 				case KeyEvent.VK_DOWN:
 					if(maze.moveChap("DOWN") == Trinary.DONE)
@@ -111,6 +118,7 @@ public class Main {
 				case KeyEvent.VK_R:
 					if(keysDown.contains(KeyEvent.VK_CONTROL))
 						//TODO loads a saved game
+						//Persistence.load([???]);
 						break;
 				case KeyEvent.VK_P:
 					if(keysDown.contains(KeyEvent.VK_CONTROL))
@@ -133,15 +141,23 @@ public class Main {
 			}
 			public void keyReleased(KeyEvent e) {
 				keysDown.remove(keysDown.indexOf(e.getKeyCode()));
+				
 			}
 		});
 	}
 
+	/**
+	 * Starts a new thread in the maze for the enemies' movement.
+	 */
 	private static void startThread() {
 		Thread t1 = new Thread(maze);
 		t1.start();
 	}
 	
+	/**
+	 * The method to start the program.
+	 * @param args The arguments (none for this program)
+	 */
 	public static void main(String[] args) {
 		/*Main game = */new Main();
 	}

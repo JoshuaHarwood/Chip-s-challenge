@@ -67,6 +67,7 @@ public class Maze implements Runnable {
 	/**
 	 * Creates a maze.
 	 * @param board this level's board as a string
+	 * @param timeToComplete 
 	 */
 	public Maze(String board, int timeToComplete) {
 		generateBoard(board);
@@ -75,6 +76,12 @@ public class Maze implements Runnable {
 		secondsToCompleteLevel = timeToComplete;
 	}
 
+	/**
+	 * Creates a new maze with a width and height.
+	 * This is the constructor used when loading from JSON.
+	 * @param width The width of the maze
+	 * @param height The height of the maze
+	 */
 	public Maze(int width, int height) {
 		board = new Tile[height][width];
 	}
@@ -251,6 +258,7 @@ public class Maze implements Runnable {
 	}
 
 	/**
+	 * TODO make sure this actually works
 	 * Updates the variables of this Maze object.
 	 * To be called when a level is loaded from a JSON file.
 	 * @param timeLeft
@@ -273,10 +281,7 @@ public class Maze implements Runnable {
 		secondsToCompleteLevel = timeLeft;
 	}
 
-	/**
-	 * Converts the board to a string of letters
-	 * @return
-	 */
+	@Override
 	public String toString() {
 		String boardText = "";
 
@@ -289,6 +294,10 @@ public class Maze implements Runnable {
 		return boardText;
 	}
 
+	/**
+	 * Sets the GUI object. Will be used to redraw the board when an enemy moves
+	 * @param g The GUI object
+	 */
 	public void addGUI(GUI g) {
 		gui = g;
 	}
@@ -301,19 +310,37 @@ public class Maze implements Runnable {
 		mazeIsCurrent = false;
 	}
 
+	/**
+	 * Gets the width of the board.
+	 * @return the width
+	 */
 	public int getX(){
 		return board[0].length;
 	}
 
+	/**
+	 * Gets the height of the board
+	 * @return the height
+	 */
 	public int getY(){
 		return board.length;
 	}
 
+	/**
+	 * Sets a tile on the board, given an x and y.
+	 * @param x The x-position of the tile
+	 * @param y The y-position of the time
+	 * @param tile The type of tile to set
+	 */
 	public void setTile(int x, int y, TileType tile){
 	    Tile t = new Tile(tile,x,y);
 	    board[y][x] = t;
     }
 
+    /**
+     * Sets this maze's chap object
+     * @param c The chap object
+     */
     public void setChap(Chap c){
 	    this.chap = c;
     }

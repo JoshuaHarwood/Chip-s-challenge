@@ -17,12 +17,15 @@ import java.util.List;
 /**
  * @author Liam Hide - 300451675
  */
-
 public class Persistence {
 
 
 
-    //Handles conversion of a maze object into a Json type file
+    /**
+     * Saves the current state of the game in a Json format.
+     * @param maze The maze that represents the current state of the game
+     * @return the JsonObject the game was saved as
+     */
     public static void save(Maze maze, String name){
         maze.cleanUpOldMaze();
 
@@ -104,7 +107,11 @@ public class Persistence {
 
 
 
-    //Handles loading of a Json type file into a maze object
+    /**
+     * Loads a game in from a JsonObject file.
+     * @param json The object file
+     * @return The maze object the represents the game
+     */
     static public void load(JsonObject json){
 
         //First get game state information

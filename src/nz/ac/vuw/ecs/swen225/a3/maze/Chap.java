@@ -5,13 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Joshua Hindley
+ * @author Joshua Hindley - 300438963
  */
 public class Chap extends GameCharacter {
 
 	//Chap's inventory (the 'keys' he has)
     private ArrayList<TileType> inventory = new ArrayList<TileType>();
 	
+	/**
+	 * Creates a new Chap object by calling the super constructor.
+	 * @param x Chap's x-position on the board
+	 * @param y Chap's y-position on the board
+	 */
 	public Chap(int x, int y) {
 		super(TileType.Chap, x, y);
 	}

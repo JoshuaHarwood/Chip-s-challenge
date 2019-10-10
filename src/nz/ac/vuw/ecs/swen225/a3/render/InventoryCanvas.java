@@ -20,6 +20,8 @@ import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
  */
 public class InventoryCanvas extends Canvas {
 	
+	private static final long serialVersionUID = 1L;
+
 	Maze maze;
 	
 	int tileSize = 64;
@@ -38,7 +40,7 @@ public class InventoryCanvas extends Canvas {
     }
     
     /**
-     * draw the inventory on the canvas
+     * Draws the inventory on the canvas.
      */
 	public void draw() {
 		List<TileType> keys = maze.getChap().getAllKeys();
@@ -70,6 +72,7 @@ public class InventoryCanvas extends Canvas {
 	 
 	/**
 	 * Gets the image associated with this tile.
+	 * @param type The type of tile this is
 	 * @return the image
 	 */
 	public Image getTileImage(TileType type) {

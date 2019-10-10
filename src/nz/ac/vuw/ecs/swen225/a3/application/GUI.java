@@ -7,6 +7,10 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JPanel;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
@@ -14,7 +18,6 @@ import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
 
-import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -31,7 +34,7 @@ import java.util.stream.Stream;
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe     & Joshua Harwood---300439084
+ * @author Henry Stoupe  - //TODO add ID number & Joshua Harwood---300439084
  */
 public class GUI {
 
@@ -72,6 +75,7 @@ public class GUI {
 
 	/**
 	 * Create the application.
+	 * @param maze The maze object of the game to draw
 	 */
 	public GUI(Maze maze) {
 
@@ -83,11 +87,16 @@ public class GUI {
 	}
 
 
-
+	/**
+	 * Shows the GUI.
+	 */
 	public void showGUI() {
         frame.setVisible(true);
 	}
 
+	/**
+	 * Draws the board.
+	 */
 	public void drawBoard() {
 
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
@@ -252,21 +261,42 @@ public class GUI {
 		labelPanel.add(labelCanvas);
 	}
 
+	/**
+	 * Gets the left panel.
+	 * @return the left panel
+	 */
 	public JPanel getLeftPanel() {
 		return leftPanel;
 	}
 
+	/**
+	 * Gets the frame.
+	 * @return the frame
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
+	
+	/**
+	 * Gets the right panel.
+	 * @return the right panel
+	 */
 	public JPanel getRightPanel() {
 		return rightPanel;
 	}
 
+	/**
+	 * Gets the board canvas.
+	 * @return the board canvas
+	 */
 	public BoardCanvas getBoardCanvas() {
 		return boardCanvas;
 	}
 
+	/**
+	 * Gets the inventory canvas.
+	 * @return the inventory canvas
+	 */
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
 	}

@@ -13,6 +13,9 @@ import javax.swing.*;
  */
 public class Tile {
 
+	/**
+	 * The type of this tile (e.g. TileType.Empty, TileType.Wall)
+	 */
 	public final TileType type;
 	private int x, y;
 
@@ -54,7 +57,7 @@ public class Tile {
 
 	/**
 	 * Sets this tile's x position.
-	 * @param x the x position
+	 * @param x the x position to set
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -62,7 +65,7 @@ public class Tile {
 
 	/**
 	 * Sets this tile's y position.
-	 * @param y the y position
+	 * @param y the y position to set
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -107,10 +110,7 @@ public class Tile {
 		return icon.getImage();
 	}
 
-	/**
-	 * Converts the tile to a string letter
-	 * @return
-	 */
+	@Override
 	public String toString() {
 		return type.toString();
 	}
