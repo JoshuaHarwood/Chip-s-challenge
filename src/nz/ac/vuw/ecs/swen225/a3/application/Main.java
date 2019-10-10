@@ -18,6 +18,11 @@ public class Main {
 
 	private static Maze maze;
 	private static GUI gui;
+
+	public Maze getMaze() {
+		return maze;
+	}
+
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
 	String level1 = "1614" + 
