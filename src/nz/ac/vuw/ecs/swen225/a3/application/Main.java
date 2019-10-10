@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 /**
  * The Main class.
+ * @author UNKNOWN & Joshua Hindley - 300438963
  */
 public class Main {
 
@@ -44,7 +45,7 @@ public class Main {
 	 */
 	public Main() {
 
-		maze = new Maze(level1, 60);
+		maze = new Maze(level1, 10);
 
 		gui = new GUI(maze);
 		maze.addGUI(gui);
@@ -75,11 +76,12 @@ public class Main {
 						levelComplete = true;
 					break;
 				case KeyEvent.VK_S:
-					if(keysDown.contains(KeyEvent.VK_CONTROL)) 
+					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 						//exit the game, saves the game state, game will
 						//resume next time the application will be started
 						Persistence.save(maze);
 						break;
+					}
 				case KeyEvent.VK_DOWN:
 					if(maze.moveChap("DOWN") == Trinary.DONE)
 						levelComplete = true;
@@ -128,6 +130,15 @@ public class Main {
 					maze.cleanUpOldMaze();
 					Object[] options = {"OK"};
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+					System.exit(0);
+				}
+				if(maze.getTimeLeft() < 0) {
+					//OUTTA TIME
+					Object[] options = {"RESTART LEVEL", "QUIT"};
+				int option = JOptionPane.showOptionDialog(gui.getFrame(), "Out of time.", "Out of time", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+				//if(option == options[0])
+					//restart leve
+				//else
 					System.exit(0);
 				}
 				gui.drawBoard();
