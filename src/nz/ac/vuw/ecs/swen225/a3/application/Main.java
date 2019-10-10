@@ -48,7 +48,11 @@ public class Main {
                     maze = new Maze(level1, 60);
 					
 					gui = new GUI(maze);
+					maze.addGUI(gui);
                     gui.drawBoard();
+                    
+                    Thread t1 = new Thread(maze);
+                    t1.start();
 
 //				} catch (Exception e) {
 //					e.printStackTrace();
