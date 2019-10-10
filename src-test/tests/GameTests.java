@@ -682,7 +682,7 @@ class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW");
+                "WWWWWWWWW",30);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
         Assertions.assertEquals(maze.toString(),
@@ -710,7 +710,7 @@ class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WEEEEEEEW" +
-                "WWWWWWWWW");
+                "WWWWWWWWW",30);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.DONE) ;
     }
