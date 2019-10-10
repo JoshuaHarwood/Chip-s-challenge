@@ -39,7 +39,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="javax.json-api-1.1.4" level="project" />
     <orderEntry type="library" name="forms_rt" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit5.4">
@@ -57,5 +56,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javax.json-api-1.1.4" level="application" />
+    <orderEntry type="library" name="javax.json-1.0.4" level="application" />
   </component>
 </module>
