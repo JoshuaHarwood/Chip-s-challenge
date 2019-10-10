@@ -70,7 +70,7 @@ public class Tile {
 				|| type == TileType.Info || type == TileType.Exit
 				|| type == TileType.Key1 || type == TileType.Key2
 				|| type == TileType.Key3 || type == TileType.Key4 
-				|| type == TileType.ExitUnlock)
+				|| type == TileType.ExitUnlock || type == TileType.Enemy)
 			return true;
 		//Chap can move to the tile if he has the right key
 		if(type == TileType.Door1 && keys.contains(TileType.Key1)) 
@@ -96,8 +96,8 @@ public class Tile {
 		try {
 			return ImageIO.read(getClass().getResource("icons/" + type.name() + ".png")); 
 		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
+				e.printStackTrace();
+				return null;
 		}
 	}
 

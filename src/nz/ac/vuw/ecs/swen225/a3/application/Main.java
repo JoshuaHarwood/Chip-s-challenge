@@ -28,13 +28,14 @@ public class Main {
     		"WTEEEEEEWEEEEW" + 
     		"WWWWWW2WWEWWEW" + 
     		"WTEEEEEEWEETEW" + 
-    		"W7EEEEEEWE8EEW" + 
+    		"W7EEEYEEWE8EEW" + 
     		"WTEEEWW4WEEEEW" + 
     		"WWWWWWEEWWWWWW" + 
     		"WEETEEEEEETEEW" + 
     		"WTEEEETEEEEEEW" + 
     		"WETEEEEEETEEEW" + 
-    		"WWWWWWWWWWWWWW";
+    		"WWWWWWWWWWWWWW" +
+    		"Y=LDLUURRD";
     //map for board
 
     public Main() {

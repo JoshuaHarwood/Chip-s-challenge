@@ -13,46 +13,55 @@ public class Maze implements Runnable {
 	private GUI gui;
 	private Tile behindChap;
 	private Chap chap;
-	private ArrayList<Enemy> enemies;
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private int treasureLeft = 0;
 	private long timeStarted;
 	private int secondsToCompleteLevel;
+	private boolean mazeIsCurrent = true;
 
 	//TODO add checks for invalid characters/boards
 
-	public void run(){	
+	public void run(){
 		Tile newBehind;
+		char nextMove;
 		int x, y, newX, newY;
-		while(true) {
+		gameOver:
+		while(mazeIsCurrent) {
 			try {
 				Thread.sleep(500);
-//				for(Enemy enemy : enemies) {
-//					x = enemy.getX();
-//					y = enemy.getY();
-//					newX = x;
-//					newY = y;
-//					
-//					if(enemy.getNextMove() == 'L')
-//						newX--;
-//					else if(enemy.getNextMove() == 'R')
-//						newX++;
-//					else if(enemy.getNextMove() == 'R')
-//						newY--;						
-//					else if(enemy.getNextMove() == 'R')
-//						newY++;						
-//					
-//					newBehind = board[newY][newX];
-//					board[newY][newX] = enemy;
-//					board[y][x] = enemy.getTileBehindEnemy();
-//					enemy.setTileBehindEnemy(newBehind);
-//					enemy.setX(newX);
-//					enemy.setY(newY);
-//				}
+				for(Enemy enemy : enemies) {
+					x = enemy.getX();
+					y = enemy.getY();
+					newX = x;
+					newY = y;
+					nextMove = enemy.getNextMove();
+					if(nextMove == 'L')
+						newX--;
+					else if(nextMove == 'R')
+						newX++;
+					else if(nextMove == 'U')
+						newY--;
+					else if(nextMove == 'D')
+						newY++;
+
+					newBehind = board[newY][newX];
+					if(newBehind instanceof Chap) {
+						break gameOver;
+					}
+
+					board[newY][newX] = enemy;
+					board[y][x] = enemy.getTileBehindEnemy();
+					enemy.setTileBehindEnemy(newBehind);
+					enemy.setX(newX);
+					enemy.setY(newY);
+				}
 				gui.drawBoard();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		//END GAME
+		System.exit(0);
 	}
 
 	/**
@@ -120,7 +129,7 @@ public class Maze implements Runnable {
 			} else {
 				this.board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
 				if(this.board[y][x].type == TileType.Treasure)
-					treasureLeft++;	
+					treasureLeft++;
 			}
 			x++;
 			if(x == width) {
@@ -143,6 +152,7 @@ public class Maze implements Runnable {
 						enemyMoves = new ArrayList<Character>();
 					}
 				}
+				break;
 			}
 		}
 	}
@@ -167,6 +177,11 @@ public class Maze implements Runnable {
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return Trinary.FALSE;
+
+		if(board[y][x] instanceof Enemy) {
+			//gameover
+			System.exit(0);
+		}
 
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
@@ -243,7 +258,7 @@ public class Maze implements Runnable {
 	 */
 	public void updateVariables(int timeLeft) {
 		//updates Chap and treasureLeft
-		treasureLeft = 0;	
+		treasureLeft = 0;
 		for(Tile[] t: board)
 			for(Tile tile : t)
 				if(tile instanceof Chap)
@@ -271,9 +286,25 @@ public class Maze implements Runnable {
 
 		return boardText;
 	}
-	
+
 	public void addGUI(GUI g) {
 		gui = g;
+	}
+
+	/**
+	 * Should be called when a level is completed or failed.
+	 * Quits the thread for enemies.
+	 */
+	public void cleanUpOldMaze() {
+		mazeIsCurrent = false;
+	}
+
+	public int getX(){
+		return board[0].length;
+	}
+
+	public int getY(){
+		return board.length;
 	}
 
 	/**

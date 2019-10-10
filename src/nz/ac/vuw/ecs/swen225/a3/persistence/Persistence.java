@@ -1,5 +1,4 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
-import jdk.nashorn.internal.parser.JSONParser;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
@@ -7,15 +6,10 @@ import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import javax.json.*;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Persistence {
-
 
 
 
@@ -23,10 +17,10 @@ public class Persistence {
     public static void save(Maze maze){
 
 
-
     //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
     //Get level/maze information
         //Need to store: Level number, current score
+
 
 
 
@@ -39,8 +33,6 @@ public class Persistence {
         int chapY = c.getY();
 
 
-
-
         List<TileType> keys = c.getAllKeys();
 
 
@@ -49,9 +41,9 @@ public class Persistence {
         System.out.println("Successfully saved chap");
 
 
+
     //Next, get information regarding 'special' tiles
         //Need to store: x,y and type (and status?? - maybe)
-
 
 
         Tile[][] board = maze.getBoard();
@@ -77,8 +69,6 @@ public class Persistence {
 
 
 
-
-
     //Finally, Construct the JSon file
 
         JsonObject json = Json.createObjectBuilder()
@@ -93,7 +83,7 @@ public class Persistence {
 
         System.out.println("Successfully saved to Json");
 
-        writeToFile(json);
+        writeToFile(json,"test save");
 
 
         //Todo - Remove this after completion
@@ -101,7 +91,9 @@ public class Persistence {
 
     }
 
-    //Handles conversion of a Json type file into a maze object
+
+
+    //Handles loading of a Json type file into a maze object
     static Maze load(JsonObject json){
 
         //First get game state information
@@ -151,7 +143,7 @@ public class Persistence {
 
         //Create a grid of 'empty tiles'
             //Todo - The amount of 'E's here is random tbh
-       String boardString = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+
 
         //Populate the maze
         //Todo - Populate maze
@@ -162,11 +154,11 @@ public class Persistence {
     }
 
     //Handles write of a json object into a file
-    static void writeToFile(JsonObject json) {
+    static void writeToFile(JsonObject json, String saveName) {
 
         try{
 
-            FileWriter fileWriter = new FileWriter("Savegame.json");
+            FileWriter fileWriter = new FileWriter(saveName+".json");
             JsonWriter writer = Json.createWriter(fileWriter);
             writer.write(json);
             System.out.println("Successfully wrote to file");
@@ -199,9 +191,6 @@ public class Persistence {
 
     private static JsonArrayBuilder convertTiles(List<Tile> list){
 
-
-
-        //JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder tilesBuilder = Json.createArrayBuilder();
 
         for(Tile t : list){
