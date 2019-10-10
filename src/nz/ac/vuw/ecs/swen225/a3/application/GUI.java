@@ -21,6 +21,8 @@ import java.awt.event.WindowStateListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
@@ -47,6 +49,9 @@ public class GUI {
 	
 	
 	private String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
+	private JMenuItem mnPause;
+	private JMenuItem mnQuit;
+	private final Action action = new SwingAction();
 	
 
 	/**
@@ -122,6 +127,26 @@ public class GUI {
 
 		JMenu menuGame = new JMenu("Game");
 		menuBar.add(menuGame);
+		
+		mnPause = new JMenuItem("Pause");
+		mnPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				maze.pause();
+			}
+		});
+		menuGame.add(mnPause);
+		
+		mnQuit = new JMenuItem("Quit");
+		mnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int input = JOptionPane.showConfirmDialog(frame, "Are you sure you want to QUIT any UNSAVED progress will be LOST", "Quit?", JOptionPane.YES_NO_OPTION);			
+				if(input==0) {
+					System.exit(0);
+				}
+			}
+		});
+
+		menuGame.add(mnQuit);
 
 		JMenu menuOptions = new JMenu("Options");
 		menuBar.add(menuOptions);
@@ -270,6 +295,14 @@ public class GUI {
 					"and to avoid the dangerous  crabs!\n";
 		} else {
 			return "\n";
+		}
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 }

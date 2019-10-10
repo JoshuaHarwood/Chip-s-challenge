@@ -357,5 +357,12 @@ public class Maze implements Runnable {
 	public int getLevel() {
 		return 1; //TODO: will need to return the level
 	}
+	
+	/**
+	 * this is the method to pause the game
+	 */
+	public void pause() {
+		//TODO: implement pausing 
+	}
 
 }
