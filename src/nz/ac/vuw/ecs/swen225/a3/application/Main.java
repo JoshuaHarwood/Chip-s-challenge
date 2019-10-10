@@ -51,7 +51,9 @@ public class Main {
 	 */
 	public Main() {
 		//TODO add parameter
-		maze = new Maze(level1, 10);
+		
+		maze = new Maze(level1, 60);
+
 		init(maze);
 
 		initKeys();
@@ -187,7 +189,8 @@ public class Main {
 	 * @param args The arguments (none for this program)
 	 */
 	public static void main(String[] args) {
-		/*Main game = */new Main();
+//		Main game = new Main();
+		new Main();
 	}
 }
 
