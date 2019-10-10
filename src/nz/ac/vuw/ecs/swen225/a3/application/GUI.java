@@ -46,7 +46,7 @@ public class GUI {
 	private BoardCanvas boardCanvas;
 	private JPanel boardPanel;
 	
-	
+	private Color bgColor = new Color(92, 175, 219);
 	
 	
 	private String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
@@ -77,23 +77,10 @@ public class GUI {
 		
 		initialize();
 
-		initCanvases();
-		addInventoryPanel();
-		addLabels();
-
 		showGUI();
 	}
 
-	public void initCanvases() {
-//		boardCanvas = new BoardCanvas(maze);
-//		leftPanel.add(boardCanvas);
-	}
 
-	public void addInventoryPanel() {
-	}
-	
-	public void addLabels() {
-	}
 
 	public void showGUI() {
         frame.setVisible(true);
@@ -118,6 +105,7 @@ public class GUI {
 	 */
 	private void initialize() {
 		frame = new JFrame("Chap's Challenge");
+		frame.getContentPane().setBackground(bgColor);
 		frame.addWindowStateListener(new WindowStateListener() {
 			public void windowStateChanged(WindowEvent arg0) {
 				drawBoard();
@@ -167,6 +155,7 @@ public class GUI {
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		leftPanel = new JPanel();
+		leftPanel.setBackground(bgColor);
 		GridBagConstraints gbc_leftPanel = new GridBagConstraints();
 		gbc_leftPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_leftPanel.fill = GridBagConstraints.BOTH;
@@ -176,6 +165,7 @@ public class GUI {
 		leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		boardPanel = new JPanel();
+		boardPanel.setBackground(bgColor);
 		boardPanel.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		leftPanel.add(boardPanel);
 		
@@ -183,6 +173,7 @@ public class GUI {
 		boardPanel.add(boardCanvas);
 		
 		rightPanel = new JPanel();
+		rightPanel.setBackground(bgColor);
 		GridBagConstraints gbc_rightPanel = new GridBagConstraints();
 		gbc_rightPanel.fill = GridBagConstraints.BOTH;
 		gbc_rightPanel.gridx = 1;
@@ -196,6 +187,7 @@ public class GUI {
 		rightPanel.setLayout(gbl_rightPanel);
 		
 		inventoryPanel = new JPanel();
+		inventoryPanel.setBackground(bgColor);
 		GridBagConstraints gbc_inventoryPanel = new GridBagConstraints();
 		gbc_inventoryPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_inventoryPanel.anchor = GridBagConstraints.WEST;
@@ -208,6 +200,7 @@ public class GUI {
 		inventoryPanel.add(inventoryCanvas);
 		
 		labelPanel = new JPanel();
+		labelPanel.setBackground(bgColor);
 		GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 		gbc_labelPanel.anchor = GridBagConstraints.WEST;
 		gbc_labelPanel.fill = GridBagConstraints.HORIZONTAL;

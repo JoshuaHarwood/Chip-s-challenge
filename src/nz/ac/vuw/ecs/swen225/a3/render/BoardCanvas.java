@@ -30,9 +30,6 @@ public class BoardCanvas extends Canvas {
      */
     public BoardCanvas(Maze maze) {
     	this.maze = maze;
-//    	this.tiles = maze.getBoard();
-//        this.tilesW = this.tiles[0].length;
-//        this.tilesH = this.tiles.length;
 
         this.cols = maze.getBoard()[0].length;
         this.rows = maze.getBoard().length;
@@ -66,7 +63,7 @@ public class BoardCanvas extends Canvas {
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
         Graphics2D imgG = image.createGraphics();
-
+        imgG.setBackground(new Color(210,180,140));
         //go through each of the tiles and draw them
         for (int i = 0; i < view[0].length; i++) {
             for (int j = 0; j < view.length; j++) {
