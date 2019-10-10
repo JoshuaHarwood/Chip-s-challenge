@@ -7,6 +7,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * this class is a custom canvas, this is where the tiles will be displayed and the game will take place
@@ -41,8 +42,9 @@ public class BoardCanvas extends Canvas {
      * when called this will go through the board and draw each tile. and scale them to fit
      * @param w - the width of the plane behind (so that we can scale to fit that)
      * @param h - the height of the plane behind (so that we can scale to fit that)
+     * @throws IOException 
      */
-    public void draw(int w, int h) {
+    public void draw(int w, int h) throws IOException {
 
         int tileSize;
         tiles = maze.getBoard();

@@ -13,7 +13,7 @@ public class Maze implements Runnable {
 	private GUI gui;
 	private Tile behindChap;
 	private Chap chap;
-	private ArrayList<Enemy> enemies;
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private int treasureLeft = 0;
 	private long timeStarted;
 	private int secondsToCompleteLevel;
@@ -36,9 +36,9 @@ public class Maze implements Runnable {
 						newX--;
 					else if(enemy.getNextMove() == 'R')
 						newX++;
-					else if(enemy.getNextMove() == 'R')
+					else if(enemy.getNextMove() == 'U')
 						newY--;						
-					else if(enemy.getNextMove() == 'R')
+					else if(enemy.getNextMove() == 'D')
 						newY++;						
 					
 					newBehind = board[newY][newX];
@@ -143,6 +143,7 @@ public class Maze implements Runnable {
 						enemyMoves = new ArrayList<Character>();
 					}
 				}
+				break;
 			}
 		}
 	}
@@ -167,6 +168,8 @@ public class Maze implements Runnable {
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return Trinary.FALSE;
+		
+		//if enemy, game over
 
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
