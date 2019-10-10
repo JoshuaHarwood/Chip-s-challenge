@@ -9,6 +9,7 @@ import javax.json.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,11 +37,16 @@ public class Persistence {
 
         int chapX = c.getX();
         int chapY = c.getY();
+
+
+
+
         List<TileType> keys = c.getAllKeys();
 
 
-
         JsonArrayBuilder inv = convertInventory(keys);
+        JsonArray invArr = inv.build();
+        System.out.println("Successfully saved chap");
 
 
     //Next, get information regarding 'special' tiles
@@ -58,14 +64,15 @@ public class Persistence {
                 Tile t = board[i][j];
 
                 if(t.type != TileType.Empty && t.type != TileType.Chap){
-                    //System.out.println("Added tile: "+ t.getX()+ " "+t.getY() +" "+t.type);
                     specialTiles.add(t);
                 }
             }
         }
 
-        JsonArrayBuilder tileArr = convertTiles(specialTiles);
-        System.out.println("Successfully converted tiles");
+        JsonArrayBuilder tile = convertTiles(specialTiles);
+        JsonArray tileArr = tile.build();
+        System.out.println("Successfully saved tiles");
+
 
 
 
@@ -80,7 +87,7 @@ public class Persistence {
                 .add("Chap:",Json.createObjectBuilder()
                         .add("x: ",chapX)
                         .add("y: ",chapY)
-                        .add("Inventory: ", inv))
+                        .add("Inventory: ", invArr))
                 .add("Tiles: ", tileArr)
                 .build();
 
@@ -88,13 +95,69 @@ public class Persistence {
 
         writeToFile(json);
 
+
+        //Todo - Remove this after completion
+        load(json);
+
     }
 
     //Handles conversion of a Json type file into a maze object
-    static void load(JsonObject json){
+    static Maze load(JsonObject json){
+
+        //First get game state information
+            //Todo - We don't yet store this
 
 
+        //Second get chaps information
+        JsonObject chapD = json.getJsonObject("Chap:");
+        int chapX = chapD.getInt("x: ");
+        int chapY = chapD.getInt("y: ");
 
+        JsonArray chapInv = json.getJsonArray("Inventory: ");
+
+        //Get keys in chaps inventory, then, create a list of "Tiletype" objects
+        List<TileType> keys = new ArrayList<>();
+
+
+        if(chapInv != null) {
+            for (int i = 0; i < chapInv.size(); i++) {
+                JsonObject c = chapInv.getJsonObject(i);
+
+                //Todo - Still need to create the Tiletype objects and add to list + test this
+                String key = c.getString("key");
+
+            }
+        }
+        System.out.println("Read chap");
+
+        //Third, get grid information
+
+        List<Tile> tiles = new ArrayList<>();
+
+        JsonArray board = json.getJsonArray("Tiles: ");
+
+        for(int i = 0; i < board.size(); i++){
+            JsonObject c = board.getJsonObject(i);
+
+            int x = c.getInt("x");
+            int y = c.getInt("y");
+            TileType type = TileType.valueOf(c.getString("type"));
+
+            Tile t = new Tile(type,x,y);
+            tiles.add(t);
+
+        }
+        System.out.println("Read tiles");
+
+        //Create a grid of 'empty tiles'
+            //Todo - The amount of 'E's here is random tbh
+       String boardString = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+
+        //Populate the maze
+        //Todo - Populate maze
+
+
+        return null;
 
     }
 
