@@ -38,6 +38,7 @@ public class InventoryCanvas extends Canvas {
      */
 	public void draw(int w, int h) {
 		List<TileType> keys = maze.getChap().getAllKeys();
+		this.setSize(w, h);
 		
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
@@ -57,15 +58,16 @@ public class InventoryCanvas extends Canvas {
 	}
 	
 	private void fixTitleSize(int w, int h) {
-		
-		int tW = (w/tileSize);
-		int tH = (h/tileSize);
-		
-		if((tW > 0) && (tH > 0) && (tW+tH <= maze.getChap().getAllKeys().size())) {
-			return;
-		} else {
-			tileSize = tileSize/2;
-			fixTitleSize(w, h);
+		if(w > 0 && h > 0 && tileSize > 0) {
+			int tW = (w/tileSize);
+			int tH = (h/tileSize);
+			
+			if((tW > 0) && (tH > 0) && (tW+tH <= maze.getChap().getAllKeys().size())) {
+				return;
+			} else {
+				tileSize = tileSize/2;
+				fixTitleSize(w, h);
+			}
 		}
 	}
 	
