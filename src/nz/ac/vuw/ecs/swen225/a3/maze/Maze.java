@@ -3,7 +3,7 @@ package nz.ac.vuw.ecs.swen225.a3.maze;
 import java.util.HashMap;
 
 /**
- * @author Joshua Hindley
+ * @author Joshua Hindley - 300438963
  */
 public class Maze {
 	private Tile[][] board; //board[y][x]
@@ -171,6 +171,27 @@ public class Maze {
 	public int getTreasureLeft() {
 		return treasureLeft;
 	}
+	
+	/**
+	 * Updates the variables of this Maze object.
+	 * To be called when a level is loaded from a JSON file.
+	 * @param timeLeft
+	 * 			The time left (in seconds) for a player to complete the level
+	 */
+	public void updateVariables(int timeLeft) {
+		//updates Chap and treasureLeft
+		treasureLeft = 0;	
+		for(Tile[] t: board)
+			for(Tile tile : t)
+				if(tile instanceof Chap)
+					chap = (Chap) tile;
+				else if(tile.type == TileType.Treasure)
+					treasureLeft++;
+		
+		//updates time left
+		timeStarted = System.currentTimeMillis();
+		secondsToCompleteLevel = timeLeft;
+	}
 
 	/**
 	 * Converts the board to a string of letters
@@ -188,8 +209,12 @@ public class Maze {
 		return boardText;
 	}
 	
+	/**
+	 * Gets the number of seconds that the user has left to complete the level.
+	 * @return the number of seconds the user has left
+	 */
 	public int getTimeLeft() {
-		return (int) ((System.currentTimeMillis() - timeStarted) / 1000 - secondsToCompleteLevel);
+		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
 	}
 
 }

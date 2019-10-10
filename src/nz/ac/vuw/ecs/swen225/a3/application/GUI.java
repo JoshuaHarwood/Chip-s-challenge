@@ -80,6 +80,11 @@ public class GUI {
 	public void drawBoard() {
 	    canvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
         showGUI();
+        //TODO update the timer, update the treasureleft
+        //TODO if getTimeLeft < 0 user loses that level
+        //show popup allowing the user to try again or quit
+        //System.out.println(maze.getTimeLeft() + " seconds left");
+        //System.out.println(maze.getTreasureLeft() + " treasures left");
     }
 
 	/**
