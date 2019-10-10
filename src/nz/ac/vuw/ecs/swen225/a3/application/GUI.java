@@ -6,21 +6,18 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
 
-import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowStateListener;
-import java.io.IOException;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,7 +26,7 @@ import java.awt.event.MouseEvent;
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe     & Joshua Harwood---300439084
+ * @author Henry Stoupe  - //TODO add ID number & Joshua Harwood---300439084
  */
 public class GUI {
 
@@ -46,7 +43,7 @@ public class GUI {
 	private BoardCanvas boardCanvas;
 	private JPanel boardPanel;
 	
-	
+	private Color bgColor = new Color(92, 175, 219);
 	
 	
 	private String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
@@ -70,6 +67,7 @@ public class GUI {
 
 	/**
 	 * Create the application.
+	 * @param maze The maze object of the game to draw
 	 */
 	public GUI(Maze maze) {
 
@@ -77,28 +75,20 @@ public class GUI {
 		
 		initialize();
 
-		initCanvases();
-		addInventoryPanel();
-		addLabels();
-
 		showGUI();
 	}
 
-	public void initCanvases() {
-//		boardCanvas = new BoardCanvas(maze);
-//		leftPanel.add(boardCanvas);
-	}
 
-	public void addInventoryPanel() {
-	}
-	
-	public void addLabels() {
-	}
-
+	/**
+	 * Shows the GUI.
+	 */
 	public void showGUI() {
         frame.setVisible(true);
 	}
 
+	/**
+	 * Draws the board.
+	 */
 	public void drawBoard() {
 
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
@@ -118,6 +108,7 @@ public class GUI {
 	 */
 	private void initialize() {
 		frame = new JFrame("Chap's Challenge");
+		frame.getContentPane().setBackground(bgColor);
 		frame.addWindowStateListener(new WindowStateListener() {
 			public void windowStateChanged(WindowEvent arg0) {
 				drawBoard();
@@ -167,6 +158,7 @@ public class GUI {
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		leftPanel = new JPanel();
+		leftPanel.setBackground(bgColor);
 		GridBagConstraints gbc_leftPanel = new GridBagConstraints();
 		gbc_leftPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_leftPanel.fill = GridBagConstraints.BOTH;
@@ -176,6 +168,7 @@ public class GUI {
 		leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		boardPanel = new JPanel();
+		boardPanel.setBackground(bgColor);
 		boardPanel.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		leftPanel.add(boardPanel);
 		
@@ -183,6 +176,7 @@ public class GUI {
 		boardPanel.add(boardCanvas);
 		
 		rightPanel = new JPanel();
+		rightPanel.setBackground(bgColor);
 		GridBagConstraints gbc_rightPanel = new GridBagConstraints();
 		gbc_rightPanel.fill = GridBagConstraints.BOTH;
 		gbc_rightPanel.gridx = 1;
@@ -196,6 +190,7 @@ public class GUI {
 		rightPanel.setLayout(gbl_rightPanel);
 		
 		inventoryPanel = new JPanel();
+		inventoryPanel.setBackground(bgColor);
 		GridBagConstraints gbc_inventoryPanel = new GridBagConstraints();
 		gbc_inventoryPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_inventoryPanel.anchor = GridBagConstraints.WEST;
@@ -208,6 +203,7 @@ public class GUI {
 		inventoryPanel.add(inventoryCanvas);
 		
 		labelPanel = new JPanel();
+		labelPanel.setBackground(bgColor);
 		GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 		gbc_labelPanel.anchor = GridBagConstraints.WEST;
 		gbc_labelPanel.fill = GridBagConstraints.HORIZONTAL;
@@ -220,21 +216,42 @@ public class GUI {
 		labelPanel.add(labelCanvas);
 	}
 
+	/**
+	 * Gets the left panel.
+	 * @return the left panel
+	 */
 	public JPanel getLeftPanel() {
 		return leftPanel;
 	}
 
+	/**
+	 * Gets the frame.
+	 * @return the frame
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
+	
+	/**
+	 * Gets the right panel.
+	 * @return the right panel
+	 */
 	public JPanel getRightPanel() {
 		return rightPanel;
 	}
 
+	/**
+	 * Gets the board canvas.
+	 * @return the board canvas
+	 */
 	public BoardCanvas getBoardCanvas() {
 		return boardCanvas;
 	}
 
+	/**
+	 * Gets the inventory canvas.
+	 * @return the inventory canvas
+	 */
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
 	}

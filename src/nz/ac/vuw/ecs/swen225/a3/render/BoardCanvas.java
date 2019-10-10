@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.render;
 
-import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
-import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +15,8 @@ import java.io.IOException;
  */
 public class BoardCanvas extends Canvas {
 
-    private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
+	private static final long serialVersionUID = 1L;
+	private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
     private Tile[][] tiles; //the tile array to be drawn
     private int cols, rows;
     int redrawCount = 0;
@@ -30,9 +29,6 @@ public class BoardCanvas extends Canvas {
      */
     public BoardCanvas(Maze maze) {
     	this.maze = maze;
-//    	this.tiles = maze.getBoard();
-//        this.tilesW = this.tiles[0].length;
-//        this.tilesH = this.tiles.length;
 
         this.cols = maze.getBoard()[0].length;
         this.rows = maze.getBoard().length;
@@ -66,7 +62,7 @@ public class BoardCanvas extends Canvas {
         //create a buffered image to reduce the flickering when drawing
         BufferedImage image = new BufferedImage(this.getWidth(),this.getHeight(),BufferedImage.TYPE_INT_RGB);
         Graphics2D imgG = image.createGraphics();
-
+        imgG.setBackground(new Color(210,180,140));
         //go through each of the tiles and draw them
         for (int i = 0; i < view[0].length; i++) {
             for (int j = 0; j < view.length; j++) {
