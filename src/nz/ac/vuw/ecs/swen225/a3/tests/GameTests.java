@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
  */
 public class GameTests {
 
+
+
     /**
      * Ensures the game board is generated correctly
      * TODO Change once input method for board changed to JSON
      */
     @Test
-    void boardGenTest() {
+    public void boardGenTest() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -47,7 +49,7 @@ public class GameTests {
      * Test a legal move up
      */
     @Test
-    void moveCharUpLegal() {
+    public void moveCharUpLegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -78,7 +80,7 @@ public class GameTests {
      * Test a legal move left
      */
     @Test
-    void moveCharLeftLegal() {
+    public void moveCharLeftLegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -110,7 +112,7 @@ public class GameTests {
      * Test a legal move down
      */
     @Test
-    void moveCharDownLegal() {
+    public void moveCharDownLegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -141,7 +143,7 @@ public class GameTests {
      * Test a legal move right
      */
     @Test
-    void moveCharTestLegal() {
+    public void moveCharRightLegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -171,7 +173,7 @@ public class GameTests {
      * Test an illegal move up
      */
     @Test
-    void moveCharUpIlegal() {
+    public void moveCharUpIlegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WCEWLWEEW" +
@@ -202,7 +204,7 @@ public class GameTests {
      * Test an illegal move down
      */
     @Test
-    void moveCharDownIlegal() {
+    public void moveCharDownIlegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -232,7 +234,7 @@ public class GameTests {
      * Test an illegal move left
      */
     @Test
-    void moveCharLeftIlegal() {
+    public void moveCharLeftIlegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WCEWLWEEW" +
@@ -262,7 +264,7 @@ public class GameTests {
      * Test an illegal move right
      */
     @Test
-    void moveCharRightIlegal() {
+    public void moveCharRightIlegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -293,7 +295,7 @@ public class GameTests {
      * Test a legal door1 unlock
      */
     @Test
-    void unlockDoor1Legal() {
+    public void unlockDoor1Legal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -324,7 +326,7 @@ public class GameTests {
      * Test a legal door2 unlock
      */
     @Test
-    void unlockDoor2Legal() {
+    public void unlockDoor2Legal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -355,7 +357,7 @@ public class GameTests {
      * Test a legal door3 unlock
      */
     @Test
-    void unlockDoor3Legal() {
+    public void unlockDoor3Legal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -386,7 +388,7 @@ public class GameTests {
      * Test a legal door4 unlock
      */
     @Test
-    void unlockDoor4Legal() {
+    public void unlockDoor4Legal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -417,7 +419,7 @@ public class GameTests {
      * Test an illegal door1 unlock
      */
     @Test
-    void unlockDoor1Illegal() {
+    public void unlockDoor1Illegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -447,7 +449,7 @@ public class GameTests {
      * Test an illegal door2 unlock
      */
     @Test
-    void unlockDoor2Illegal() {
+    public void unlockDoor2Illegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -477,7 +479,7 @@ public class GameTests {
      * Test an illegal door3 unlock
      */
     @Test
-    void unlockDoor3Illegal() {
+    public void unlockDoor3Illegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -507,7 +509,7 @@ public class GameTests {
      * Test an illegal door4 unlock
      */
     @Test
-    void unlockDoor4Illegal() {
+    public void unlockDoor4Illegal() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -537,7 +539,7 @@ public class GameTests {
      * Test picking up key 1
      */
     @Test
-    void pickupKey1() {
+    public void pickupKey1() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -566,7 +568,7 @@ public class GameTests {
      * Test picking up key 2
      */
     @Test
-    void pickupKey2() {
+    public void pickupKey2() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -595,7 +597,7 @@ public class GameTests {
      * Test picking up key 3
      */
     @Test
-    void pickupKey3() {
+    public void pickupKey3() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -624,7 +626,7 @@ public class GameTests {
      * Test picking up key 4
      */
     @Test
-    void pickupKey4() {
+    public void pickupKey4() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -653,7 +655,7 @@ public class GameTests {
      * Test exiting with all treasure
      */
     @Test
-    void exitLockWithTreasure() {
+    public void exitLockWithTreasure() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -671,7 +673,7 @@ public class GameTests {
      * Test exiting with treasure left
      */
     @Test
-    void exitLockWithoutTreasure() {
+    public void exitLockWithoutTreasure() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -699,7 +701,7 @@ public class GameTests {
      * Test exiting
      */
     @Test
-    void exit() {
+    public void exit() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWCWEEW" +
@@ -716,10 +718,9 @@ public class GameTests {
 
     /**
      * Test that the timer running out correctly ends the game
-     * TODO: Write this once timing check has been completed (also check edge cases)
      */
     @Test
-    void outOfTime() {
+    public void outOfTime() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWCWEEW" +
@@ -729,7 +730,7 @@ public class GameTests {
                 "WWWWWW1WW" +
                 "WEEEEEEEW" +
                 "WWWWWWWWW",0);
-
+        maze.takeEnemyTurn();
         Assertions.assertFalse(maze.getMazeIsCurrent());
     }
 
@@ -737,7 +738,7 @@ public class GameTests {
      * Test exiting with treasure left
      */
     @Test
-    void EnemyKill() {
+    public void EnemyKill() {
         Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +

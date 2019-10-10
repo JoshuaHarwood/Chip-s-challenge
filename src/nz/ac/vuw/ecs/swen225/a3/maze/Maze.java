@@ -35,8 +35,6 @@ public class Maze implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		//END GAME
-		System.exit(0);
 	}
 
 	/**
@@ -94,8 +92,8 @@ public class Maze implements Runnable {
 				Robot robot;
 				try {
 					robot = new Robot();
-					robot.keyPress(KeyEvent.VK_ALT);
-					robot.keyRelease(KeyEvent.VK_ALT);
+					robot.keyPress(KeyEvent.VK_ADD);
+					robot.keyRelease(KeyEvent.VK_ADD);
 				} catch (AWTException e) {
 					e.printStackTrace();
 				}	
@@ -369,8 +367,8 @@ public class Maze implements Runnable {
     public void setChap(Chap c){
 	    this.chap = c;
     }
+    
     public void setBehindChap(Tile t){
-
 	    behindChap = t;
     }
 
@@ -393,9 +391,12 @@ public class Maze implements Runnable {
 	public void pause() {
 		//TODO: implement pausing 
 	}
+	
+    public boolean getMazeIsCurrent() {
+        return mazeIsCurrent;
+    }
 
-	public boolean getMazeIsCurrent() {
-		//Todo ?
-		return false;
-	}
+    public void setMazeIsCurrent(boolean mazeIsCurrent) {
+        this.mazeIsCurrent = mazeIsCurrent;
+    }
 }

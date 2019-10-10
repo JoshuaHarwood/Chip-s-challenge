@@ -91,6 +91,7 @@ public class GUI {
 		initialize();
 
 		showGUI();
+		
 	}
 
 
@@ -99,6 +100,13 @@ public class GUI {
 	 */
 	public void showGUI() {
         frame.setVisible(true);
+	}
+	
+	/**
+	 * Hide the GUI
+	 */
+	public void hideGUI() {
+		frame.setVisible(false);
 	}
 
 	/**
@@ -149,6 +157,7 @@ public class GUI {
 		mnQuit = new JMenuItem("Quit");
 		mnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				maze.pause();
 				int input = JOptionPane.showConfirmDialog(frame, "Are you sure you want to QUIT any UNSAVED progress will be LOST", "Quit?", JOptionPane.YES_NO_OPTION);
 				if(input==0) {
 					System.exit(0);
@@ -327,8 +336,6 @@ public class GUI {
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
 	}
-
-
 
 
 	/**
