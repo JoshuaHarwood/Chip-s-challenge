@@ -31,9 +31,14 @@ public class GUI {
 
 	private BoardCanvas boardCanvas;
 	private InventoryCanvas inventoryCanvas;
+	
+	private Label timerLabel;
+	private Label levelLabel;
+	private Label treasureLabel;
 
 	private JPanel boardPanel;
 	private JPanel inventoryPanel;
+	private JPanel labelPanel;
 
 	private JFrame frame;
 	//private final JTextArea textPanel = new JTextArea();
@@ -68,6 +73,7 @@ public class GUI {
 
 		addBoard();
 		addInventoryPanel();
+		addLabels();
 
 		showGUI();
 	}
@@ -81,12 +87,26 @@ public class GUI {
 		frame.setVisible(true);
 	}
 
-
 	public void addInventoryPanel() {
 		inventoryPanel = new JPanel();
 		inventoryPanel.setBackground(new Color(237, 201, 175));
 		inventoryPanel.add(inventoryCanvas);
 		rightPanel.add(inventoryPanel);
+	}
+	
+	public void addLabels() {
+		levelLabel = new Label("Level: ");
+		timerLabel = new Label("Time Left: ");
+		treasureLabel = new Label("Treasuer Left: " + maze.getTreasureLeft());
+		
+		labelPanel = new JPanel();
+		labelPanel.setBackground(  Color.green);//new Color(237, 201, 175));
+		labelPanel.add(levelLabel);
+		labelPanel.add(timerLabel);
+		labelPanel.add(treasureLabel);
+		
+		rightPanel.add(labelPanel);
+		
 	}
 
 	public void showGUI() {
@@ -96,6 +116,9 @@ public class GUI {
 	public void drawBoard() {
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
 	    inventoryCanvas.draw(rightPanel.getWidth(), rightPanel.getHeight());
+	    
+	    treasureLabel.setText("Treasuer Left: " + maze.getTreasureLeft());
+	    
         showGUI();
     }
 
