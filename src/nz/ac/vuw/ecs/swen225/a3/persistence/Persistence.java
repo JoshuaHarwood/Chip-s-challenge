@@ -14,7 +14,7 @@ public class Persistence {
 
 
     //Handles conversion of a maze object into a Json type file
-    public static void save(Maze maze){
+    public static JsonObject save(Maze maze){
         maze.cleanUpOldMaze();
 
     //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
@@ -87,16 +87,18 @@ public class Persistence {
         System.out.println("Successfully saved to Json");
 
 
+
         //Todo - Remove this after completion
         writeToFile(json,"test save");
-        load(json);
+
+        return json;
 
     }
 
 
 
     //Handles loading of a Json type file into a maze object
-    static Maze load(JsonObject json){
+    static public Maze load(JsonObject json){
 
         //First get game state information
             //Todo - We don't yet store this
@@ -148,15 +150,14 @@ public class Persistence {
         System.out.println("Read tiles");
 
         //Create a grid of 'empty tiles'
-            Maze newMaze = new Maze(mazeX,mazeY);
+        //Todo - these need to be +2 for some reason
+            Maze newMaze = new Maze(mazeX+2,mazeY+2);
 
             for(int y = 0; y < mazeY; y++){
-                for(int x = 0; y < mazeX; y++){
+                for(int x = 0; x < mazeX; x++){
                     newMaze.setTile(x,y, TileType.Empty );
-
                 }
             }
-
 
 
         //Populate the maze
@@ -164,6 +165,7 @@ public class Persistence {
             int x = t.getX();
             int y = t.getY();
             TileType ty = t.type;
+
             newMaze.setTile(x,y,ty);
         }
 
@@ -172,7 +174,7 @@ public class Persistence {
         newMaze.setChap(newChap);
 
                 //Todo - This should be replaced with the saved timeleft
-        newMaze.updateVariables(0);
+        //newMaze.updateVariables(0);
 
         return newMaze;
 
