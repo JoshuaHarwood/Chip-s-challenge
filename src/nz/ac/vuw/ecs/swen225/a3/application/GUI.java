@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
+import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -31,10 +32,8 @@ public class GUI {
 
 	private BoardCanvas boardCanvas;
 	private InventoryCanvas inventoryCanvas;
+	private LabelCanvas labelCanvus;
 	
-	private Label timerLabel;
-	private Label levelLabel;
-	private Label treasureLabel;
 
 	private JPanel boardPanel;
 	private JPanel inventoryPanel;
@@ -69,6 +68,7 @@ public class GUI {
 		this.maze = maze;
 		this.boardCanvas = new BoardCanvas(maze);
 		this.inventoryCanvas = new InventoryCanvas(maze);
+		this.labelCanvus = new LabelCanvas(maze);
 		initialize();
 
 		addBoard();
@@ -95,17 +95,6 @@ public class GUI {
 	}
 	
 	public void addLabels() {
-		levelLabel = new Label("Level: ");
-		timerLabel = new Label("Time Left: ");
-		treasureLabel = new Label("Treasuer Left: " + maze.getTreasureLeft());
-		
-		labelPanel = new JPanel();
-		labelPanel.setBackground(  Color.green);//new Color(237, 201, 175));
-		labelPanel.add(levelLabel);
-		labelPanel.add(timerLabel);
-		labelPanel.add(treasureLabel);
-		
-		rightPanel.add(labelPanel);
 		
 	}
 
@@ -116,8 +105,6 @@ public class GUI {
 	public void drawBoard() {
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
 	    inventoryCanvas.draw(rightPanel.getWidth(), rightPanel.getHeight());
-	    
-	    treasureLabel.setText("Treasuer Left: " + maze.getTreasureLeft());
 	    
         showGUI();
     }
