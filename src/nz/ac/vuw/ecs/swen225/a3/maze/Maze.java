@@ -88,7 +88,8 @@ public class Maze implements Runnable {
 				return false;
 			}
 			
-			if(getTimeLeft() < 0) {
+			if(getTimeLeft() <= 0) {
+				mazeIsCurrent = false;
 				Robot robot;
 				try {
 					robot = new Robot();

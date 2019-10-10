@@ -728,8 +728,9 @@ public class GameTests {
                 "WEEEEE8EW" +
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
-                "WEEEEEEEW" +
-                "WWWWWWWWW",0);
+                "WEEYEEEEW" +
+                "WWWWWWWWW" +
+                "Y=LR",0);
         maze.takeEnemyTurn();
         Assertions.assertFalse(maze.getMazeIsCurrent());
     }

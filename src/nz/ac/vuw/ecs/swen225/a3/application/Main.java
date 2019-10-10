@@ -19,6 +19,7 @@ public class Main {
 
 	private static Maze maze;
 	private static GUI gui;
+	private static int level;
 
 	public Maze getMaze() {
 		return maze;
@@ -26,6 +27,7 @@ public class Main {
 
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
+	//map for board
 	String level1 = "1614" + 
 			"WWWWXWWWWWWWWW" + 
 			"WTEWLWEE1EEEEW" + 
@@ -44,8 +46,7 @@ public class Main {
 			"WETEEEEEETEEEW" + 
 			"WWWWWWWWWWWWWW" +
 			"Y=LDLUURRD";
-	//map for board
-
+	
 	/**
 	 * Creates a new Main object for the program to use.
 	 */
@@ -157,7 +158,8 @@ public class Main {
 				}
 			}
 			public void keyReleased(KeyEvent e) {
-				keysDown.remove(keysDown.indexOf(e.getKeyCode()));
+				if(keysDown.indexOf(e.getKeyCode()) != -1)
+					keysDown.remove(keysDown.indexOf(e.getKeyCode()));
 				if(maze.getTimeLeft() < 0) {
 					//OUTTA TIME
 					Object[] options = {"RESTART LEVEL", "QUIT"};
