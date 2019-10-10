@@ -18,7 +18,6 @@ public class Enemy extends GameCharacter {
 	}
 	
 	public Character getNextMove() {
-		
 		if(moves.size() == 0) { return ' '; } //there are no moves
 		
 		currentMove = moves.remove(0);

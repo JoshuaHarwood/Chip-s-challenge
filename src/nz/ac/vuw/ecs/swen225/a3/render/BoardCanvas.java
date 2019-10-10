@@ -44,7 +44,7 @@ public class BoardCanvas extends Canvas {
      * @param h - the height of the plane behind (so that we can scale to fit that)
      * @throws IOException 
      */
-    public void draw(int w, int h) throws IOException {
+    public void draw(int w, int h) {
 
         int tileSize;
         tiles = maze.getBoard();

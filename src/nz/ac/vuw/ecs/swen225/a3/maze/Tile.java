@@ -96,12 +96,8 @@ public class Tile {
 		try {
 			return ImageIO.read(getClass().getResource("icons/" + type.name() + ".png"));
 		} catch (IOException e) {
-			try {
-				return ImageIO.read(getClass().getResource("icons/"+ TileType.Info.name() +".png"));
-			} catch (IOException e1) {
-				e1.printStackTrace();
+				e.printStackTrace();
 				return null;
-			}
 		}
 	}
 

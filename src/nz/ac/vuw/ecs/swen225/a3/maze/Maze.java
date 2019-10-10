@@ -17,13 +17,16 @@ public class Maze implements Runnable {
 	private int treasureLeft = 0;
 	private long timeStarted;
 	private int secondsToCompleteLevel;
+	private boolean mazeIsCurrent = true;
 
 	//TODO add checks for invalid characters/boards
 
 	public void run(){	
 		Tile newBehind;
+		char nextMove;
 		int x, y, newX, newY;
-		while(true) {
+		gameOver:
+		while(mazeIsCurrent) {
 			try {
 				Thread.sleep(500);
 				for(Enemy enemy : enemies) {
@@ -31,17 +34,21 @@ public class Maze implements Runnable {
 					y = enemy.getY();
 					newX = x;
 					newY = y;
-					
-					if(enemy.getNextMove() == 'L')
+					nextMove = enemy.getNextMove();
+					if(nextMove == 'L')
 						newX--;
-					else if(enemy.getNextMove() == 'R')
+					else if(nextMove == 'R')
 						newX++;
-					else if(enemy.getNextMove() == 'U')
+					else if(nextMove == 'U')
 						newY--;						
-					else if(enemy.getNextMove() == 'D')
+					else if(nextMove == 'D')
 						newY++;						
 					
 					newBehind = board[newY][newX];
+					if(newBehind instanceof Chap) {
+						break gameOver;
+					}
+						
 					board[newY][newX] = enemy;
 					board[y][x] = enemy.getTileBehindEnemy();
 					enemy.setTileBehindEnemy(newBehind);
@@ -53,6 +60,8 @@ public class Maze implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		//END GAME
+		System.exit(0);
 	}
 
 	/**
@@ -169,7 +178,10 @@ public class Maze implements Runnable {
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return Trinary.FALSE;
 		
-		//if enemy, game over
+		if(board[y][x] instanceof Enemy) {
+			//gameover
+			System.exit(0);
+		}
 
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
@@ -277,6 +289,14 @@ public class Maze implements Runnable {
 	
 	public void addGUI(GUI g) {
 		gui = g;
+	}
+	
+	/**
+	 * Should be called when a level is completed or failed.
+	 * Quits the thread for enemies.
+	 */
+	public void cleanUpOldMaze() {
+		mazeIsCurrent = false;
 	}
 
 	/**
