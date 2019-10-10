@@ -6,26 +6,23 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.LabelCanvas;
 
-import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowStateListener;
-import java.io.IOException;
 import java.awt.event.WindowEvent;
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe
+ * @author Henry Stoupe - //TODO add ID number
  */
 public class GUI {
 
@@ -61,6 +58,7 @@ public class GUI {
 
 	/**
 	 * Create the application.
+	 * @param maze The maze object of the game to draw
 	 */
 	public GUI(Maze maze) {
 
@@ -75,21 +73,36 @@ public class GUI {
 		showGUI();
 	}
 
+	/**
+	 * Initializes the canvases.
+	 */
 	public void initCanvases() {
 //		boardCanvas = new BoardCanvas(maze);
 //		leftPanel.add(boardCanvas);
 	}
 
+	/**
+	 * Adds the inventory panel to the GUI.
+	 */
 	public void addInventoryPanel() {
 	}
 	
+	/**
+	 * Adds the labels to the GUI.
+	 */
 	public void addLabels() {
 	}
 
+	/**
+	 * Shows the GUI.
+	 */
 	public void showGUI() {
         frame.setVisible(true);
 	}
 
+	/**
+	 * Draws the board.
+	 */
 	public void drawBoard() {
 
 		boardCanvas.draw(leftPanel.getWidth(), leftPanel.getHeight());
@@ -200,21 +213,42 @@ public class GUI {
 		labelPanel.add(labelCanvas);
 	}
 
+	/**
+	 * Gets the left panel.
+	 * @return the left panel
+	 */
 	public JPanel getLeftPanel() {
 		return leftPanel;
 	}
 
+	/**
+	 * Gets the frame.
+	 * @return the frame
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
+	
+	/**
+	 * Gets the right panel.
+	 * @return the right panel
+	 */
 	public JPanel getRightPanel() {
 		return rightPanel;
 	}
 
+	/**
+	 * Gets the board canvas.
+	 * @return the board canvas
+	 */
 	public BoardCanvas getBoardCanvas() {
 		return boardCanvas;
 	}
 
+	/**
+	 * Gets the inventory canvas.
+	 * @return the inventory canvas
+	 */
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
 	}

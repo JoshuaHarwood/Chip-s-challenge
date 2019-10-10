@@ -20,9 +20,14 @@ import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
  */
 public class LabelCanvas extends Canvas{
 
+	private static final long serialVersionUID = 1L;
 	Maze maze;
 	int size = 50;
 	
+    /**
+     * Creates a new LabelCanvas.
+     * @param maze The maze object of the current game
+     */
     public LabelCanvas(Maze maze) { 
     	this.maze = maze;   	  
     	this.setSize(size*4, size*2); 
@@ -30,6 +35,9 @@ public class LabelCanvas extends Canvas{
     	super.setBackground(new Color(237, 201, 175));
     }
     
+    /**
+     * Draws this LabelCanvas.
+     */
     public void draw() {
     	
         //create a buffered image to reduce the flickering when drawing
@@ -56,6 +64,7 @@ public class LabelCanvas extends Canvas{
      
 	/** 
 	 * Gets the image associated with this tile.
+	 * @param type The type of the image to get (e.g. TileType.Empty, TileType.Wall)
 	 * @return the image
 	 */
 	public Image getTileImage(TileType type) {

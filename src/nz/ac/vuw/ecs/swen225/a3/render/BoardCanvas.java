@@ -1,9 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.render;
 
-import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
-import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,7 +13,8 @@ import java.io.IOException;
  */
 public class BoardCanvas extends Canvas {
 
-    private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
+	private static final long serialVersionUID = 1L;
+	private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
     private Tile[][] tiles; //the tile array to be drawn
     private int cols, rows;
     int redrawCount = 0;
