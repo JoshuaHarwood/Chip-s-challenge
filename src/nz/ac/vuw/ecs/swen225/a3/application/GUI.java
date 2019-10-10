@@ -2,23 +2,23 @@ package nz.ac.vuw.ecs.swen225.a3.application;
 
 import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
+import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 import nz.ac.vuw.ecs.swen225.a3.render.BoardCanvas;
 import nz.ac.vuw.ecs.swen225.a3.render.InventoryCanvas;
 
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowStateListener;
-import java.io.IOException;
+import java.io.*;
 import java.awt.event.WindowEvent;
+import java.util.stream.Stream;
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
@@ -134,7 +134,44 @@ public class GUI {
 				drawBoard();
 			}
 		});
+
+		JMenuItem saveButton = new JMenuItem("Save Game");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String name = JOptionPane.showInputDialog("Please enter a name for the save");
+				Persistence.save(maze, name);
+			}
+		});
+
+		JMenuItem loadButton = new JMenuItem("Load game");
+		loadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JsonObject obj = null;
+
+				final JFileChooser fc = new JFileChooser();
+				fc.showOpenDialog(frame);
+				File f = fc.getSelectedFile();
+
+
+				try {
+					InputStream i = new FileInputStream(f);
+
+					 obj = Json.createReader(new FileInputStream(f))
+							.readObject();
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+
+
+				Persistence.load(obj);
+			}
+		});
+
 		menuOptions.add(menuOptionsRedraw);
+		menuOptions.add(saveButton);
+		menuOptions.add(loadButton);
 
 		JMenu menuLevel = new JMenu("Level");
 		menuBar.add(menuLevel);

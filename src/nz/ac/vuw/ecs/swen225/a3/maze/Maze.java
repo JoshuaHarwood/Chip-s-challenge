@@ -315,6 +315,10 @@ public class Maze implements Runnable {
     public void setChap(Chap c){
 	    this.chap = c;
     }
+    public void setBehindChap(Tile t){
+
+	    behindChap = t;
+    }
 
 	/**
 	 * Gets the number of seconds that the user has left to complete the level.
