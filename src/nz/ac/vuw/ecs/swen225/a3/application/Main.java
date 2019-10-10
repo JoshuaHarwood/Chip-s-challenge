@@ -149,6 +149,9 @@ public class Main {
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
 					System.exit(0);
 				}
+			}
+			public void keyReleased(KeyEvent e) {
+				keysDown.remove(keysDown.indexOf(e.getKeyCode()));
 				if(maze.getTimeLeft() < 0) {
 					//OUTTA TIME
 					Object[] options = {"RESTART LEVEL", "QUIT"};
@@ -156,13 +159,10 @@ public class Main {
 				//if(option == options[0])
 					//restart leve
 				//else
+					
 					System.exit(0);
 				}
 				gui.drawBoard();
-			}
-			public void keyReleased(KeyEvent e) {
-				keysDown.remove(keysDown.indexOf(e.getKeyCode()));
-
 			}
 		});
 	}

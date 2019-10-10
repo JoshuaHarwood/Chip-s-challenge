@@ -95,6 +95,7 @@ public class Maze implements Runnable {
 				try {
 					robot = new Robot();
 					robot.keyPress(KeyEvent.VK_ALT);
+					robot.keyRelease(KeyEvent.VK_ALT);
 				} catch (AWTException e) {
 					e.printStackTrace();
 				}	
