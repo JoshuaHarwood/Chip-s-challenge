@@ -151,9 +151,7 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				String help = goal +
-							"To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
-							"and to avoid the dangerous  crabs!!!!\ngood luck!\n\n" +
+				String help = goal + getLevelHelp() +  "good luck!\n\n" +
 							"Movement: Use the W, A, S, D to move Chap\n";
 				
 				JOptionPane.showMessageDialog(frame, help, "Help", 3);
@@ -239,5 +237,22 @@ public class GUI {
 
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
+	}
+	
+	
+	
+	
+	/**
+	 * this will get the specific help for the current level.
+	 * @return - returns the help for the current level.
+	 */
+	private String getLevelHelp() {
+		int level = maze.getLevel();
+		if(level == 1) {
+			return 	"To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
+					"and to avoid the dangerous  crabs!\n";
+		} else {
+			return "\n";
+		}
 	}
 }

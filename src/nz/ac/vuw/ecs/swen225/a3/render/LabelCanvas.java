@@ -45,8 +45,8 @@ public class LabelCanvas extends Canvas{
         
 		imgG.setColor(Color.black);
 		imgG.setFont(new Font(imgG.getFont().getFamily(), Font.BOLD, 16));
-        imgG.drawString("Current Level: [NOT IMPLIMENTED]", 0, size/2);
-        imgG.drawString("Time Left:     " + maze.getTimeLeft(), 0, (size/2)*2);
+        imgG.drawString("Current Level: " + maze.getLevel(), 0, size/2);
+        imgG.drawString("Time Left: " + maze.getTimeLeft(), 0, (size/2)*2);
         imgG.drawString("Coconuts left: " + maze.getTreasureLeft(), 0, (size/2)*3);
         
         this.getGraphics().drawImage(image, 0, 0, this);
