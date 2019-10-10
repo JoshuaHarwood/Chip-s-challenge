@@ -7,7 +7,7 @@ import java.awt.Canvas;
  * @author Joshua Harwood---300439084
  *
  */
-public class InventoryCanvus extends Canvas {
+public class InventoryCanvas extends Canvas {
 	
 	
 	public void draw() {
