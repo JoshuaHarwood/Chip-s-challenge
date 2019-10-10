@@ -1,25 +1,73 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import nz.ac.vuw.ecs.swen225.a3.application.GUI;
+
 /**
- * @author Joshua Hindley
+ * @author Joshua Hindley - 300438963
  */
-public class Maze {
+public class Maze implements Runnable {
 	private Tile[][] board; //board[y][x]
+	private GUI gui;
 	private Tile behindChap;
 	private Chap chap;
+	private ArrayList<Enemy> enemies;
 	private int treasureLeft = 0;
+	private long timeStarted;
+	private int secondsToCompleteLevel;
 
 	//TODO add checks for invalid characters/boards
-	//TODO add a timer
+
+	public void run(){	
+		Tile newBehind;
+		int x, y, newX, newY;
+		while(true) {
+			try {
+				Thread.sleep(500);
+				for(Enemy enemy : enemies) {
+					x = enemy.getX();
+					y = enemy.getY();
+					newX = x;
+					newY = y;
+					
+					if(enemy.getNextMove() == 'L')
+						newX--;
+					else if(enemy.getNextMove() == 'R')
+						newX++;
+					else if(enemy.getNextMove() == 'R')
+						newY--;						
+					else if(enemy.getNextMove() == 'R')
+						newY++;						
+					
+					newBehind = board[newY][newX];
+					board[newY][newX] = enemy;
+					board[y][x] = enemy.getTileBehindEnemy();
+					enemy.setTileBehindEnemy(newBehind);
+					enemy.setX(newX);
+					enemy.setY(newY);
+				}
+				gui.drawBoard();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Creates a maze.
 	 * @param board this level's board as a string
 	 */
-	public Maze(String board) {
+	public Maze(String board, int timeToComplete) {
 		generateBoard(board);
+
+		timeStarted = System.currentTimeMillis();
+		secondsToCompleteLevel = timeToComplete;
+	}
+
+	public Maze(int width, int height) {
+		board = new Tile[height][width];
 	}
 
 	/**
@@ -47,12 +95,14 @@ public class Maze {
 				put('7', TileType.Key3);
 				put('8', TileType.Key4);
 				put('E', TileType.Empty);
+				put('Y', TileType.Enemy);
 			}
 		};
 		//get the height and width
 		char[] mapAsChar = board.toCharArray();
 		int height = Integer.parseInt((String.valueOf(mapAsChar[0])).concat(String.valueOf(mapAsChar[1])));
 		int width = Integer.parseInt((String.valueOf(mapAsChar[2])).concat(String.valueOf(mapAsChar[3])));
+
 		this.board = new Tile[height][width];
 		int x = 0, y = 0;
 		//fill the board
@@ -62,6 +112,11 @@ public class Maze {
 				chap = new Chap(x, y);
 				this.board[y][x] = chap;
 				behindChap = new Tile(TileType.Empty, x, y);
+				//for enemy
+			} else if(lettersToTiles.get(mapAsChar[i]) == TileType.Enemy) {
+				enemies.add(new Enemy(x, y));
+				this.board[y][x] = enemies.get(enemies.size() -1);
+				enemies.get(enemies.size() -1).setTileBehindEnemy(new Tile(TileType.Empty, x, y));;
 			} else {
 				this.board[y][x] = new Tile(lettersToTiles.get(mapAsChar[i]), x, y);
 				if(this.board[y][x].type == TileType.Treasure)
@@ -71,6 +126,23 @@ public class Maze {
 			if(x == width) {
 				x = 0;
 				y++;
+			}
+			if(y == height) {
+				int enemyNo = 0;
+				ArrayList<Character> enemyMoves = new ArrayList<Character>();
+				for(int index = i++; index < mapAsChar.length; index++) {
+					if(mapAsChar[index] == 'Y') {
+						index += 2; //skip the equals
+						while(index < mapAsChar.length && mapAsChar[index] != 'Y') {
+							enemyMoves.add(mapAsChar[index]);
+							index++;
+						}
+						//add enemy moves to enemy
+						enemies.get(enemyNo).setMoves(enemyMoves);
+						enemyNo++;
+						enemyMoves = new ArrayList<Character>();
+					}
+				}
 			}
 		}
 	}
@@ -84,18 +156,18 @@ public class Maze {
 
 		int x = chap.getX();
 		int y = chap.getY();
-		
+
 		y = (dir.equalsIgnoreCase("UP")) ? y - 1 : (dir.equalsIgnoreCase("DOWN")) ? y + 1 : y;
 		x = (dir.equalsIgnoreCase("LEFT")) ? x - 1 : (dir.equalsIgnoreCase("RIGHT")) ? x + 1 : x;
-		
+
 		//no move is being made
 		if(x == chap.getX() && y == chap.getY())
 			return Trinary.FALSE;
-		
+
 		//Chap cannot move to the specified tile
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return Trinary.FALSE;
-		
+
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
 		else if(board[y][x].type == TileType.Key1)
@@ -154,13 +226,34 @@ public class Maze {
 	public Chap getChap(){
 		return chap;
 	}
-	
+
 	/**
 	 * Gets the number of treasures left to collect.
 	 * @return the treasure left to collect
 	 */
 	public int getTreasureLeft() {
 		return treasureLeft;
+	}
+
+	/**
+	 * Updates the variables of this Maze object.
+	 * To be called when a level is loaded from a JSON file.
+	 * @param timeLeft
+	 * 			The time left (in seconds) for a player to complete the level
+	 */
+	public void updateVariables(int timeLeft) {
+		//updates Chap and treasureLeft
+		treasureLeft = 0;	
+		for(Tile[] t: board)
+			for(Tile tile : t)
+				if(tile instanceof Chap)
+					chap = (Chap) tile;
+				else if(tile.type == TileType.Treasure)
+					treasureLeft++;
+
+		//updates time left
+		timeStarted = System.currentTimeMillis();
+		secondsToCompleteLevel = timeLeft;
 	}
 
 	/**
@@ -177,6 +270,18 @@ public class Maze {
 		}
 
 		return boardText;
+	}
+	
+	public void addGUI(GUI g) {
+		gui = g;
+	}
+
+	/**
+	 * Gets the number of seconds that the user has left to complete the level.
+	 * @return the number of seconds the user has left
+	 */
+	public int getTimeLeft() {
+		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
 	}
 
 }
