@@ -6,6 +6,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 import javax.json.*;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -37,10 +38,9 @@ public class Persistence {
         int chapY = c.getY();
         List<TileType> keys = c.getAllKeys();
 
-        JsonArray inv = convertInventory(keys);
 
 
-
+        JsonArrayBuilder inv = convertInventory(keys);
 
 
     //Next, get information regarding 'special' tiles
@@ -64,7 +64,8 @@ public class Persistence {
             }
         }
 
-       JsonArray tileArr = convertTiles(specialTiles);
+        JsonArrayBuilder tileArr = convertTiles(specialTiles);
+        System.out.println("Successfully converted tiles");
 
 
 
@@ -85,10 +86,13 @@ public class Persistence {
 
         System.out.println("Successfully saved to Json");
 
+        writeToFile(json);
+
     }
 
     //Handles conversion of a Json type file into a maze object
     static void load(JsonObject json){
+
 
 
 
@@ -97,44 +101,57 @@ public class Persistence {
     //Handles write of a json object into a file
     static void writeToFile(JsonObject json) {
 
+        try{
+
+            FileWriter fileWriter = new FileWriter("Savegame.json");
+            JsonWriter writer = Json.createWriter(fileWriter);
+            writer.write(json);
+            System.out.println("Successfully wrote to file");
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+
     }
 
 //Helper methods to convert lists to Arrays, may need some fixing
 
-    private static JsonArray convertInventory(List<TileType> list){
+   private static JsonArrayBuilder convertInventory(List<TileType> list){
 
-        JsonArray keyArray = Json.createArrayBuilder().build();
+        JsonArrayBuilder invBuilder = Json.createArrayBuilder();
+
+        for(TileType t : list){
+            invBuilder.add(
+                    Json.createObjectBuilder()
+                            .add("key: ", t.toString())
+
+            );
 
 
-        for(TileType key : list){
-
-            keyArray.add(Json.createObjectBuilder()
-                .add("key: ", key.toString())
-                .build());
         }
-
-        System.out.println("Successfully converted inventory");
-        return keyArray;
+        return invBuilder;
 
     }
 
-    private static JsonArray convertTiles(List<Tile> list){
-
-        JsonArray tileArray = Json.createArrayBuilder().build();
+    private static JsonArrayBuilder convertTiles(List<Tile> list){
 
 
-        for(Tile tile : list){
 
-                    tileArray.add(Json.createObjectBuilder()
-                    .add("Type: ", "type") //tile.type.toString()
-                    .add("x: ", "x") //tile.getX()
-                    .add("y", "y") //tile.getY())
-                    .build());
+        //JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonArrayBuilder tilesBuilder = Json.createArrayBuilder();
+
+        for(Tile t : list){
+
+            tilesBuilder.add(
+                    Json.createObjectBuilder()
+                            .add("x",t.getX())
+                            .add("y", t.getY())
+                            .add("type", t.type.toString())
+            );
+
         }
-
-        System.out.println("Successfully converted Tiles");
-        return tileArray;
-
+        return tilesBuilder;
     }
 
 
