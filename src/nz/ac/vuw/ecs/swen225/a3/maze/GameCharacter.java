@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.a3.maze.icons;
+package nz.ac.vuw.ecs.swen225.a3.maze;
 
 
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Character extends Tile {
+public class GameCharacter extends Tile {
 
     //Chap's inventory (the 'keys' he has)
     private ArrayList<TileType> inventory = new ArrayList<TileType>();
@@ -19,7 +19,7 @@ public class Character extends Tile {
      * @param x Chap's x-position
      * @param y Chap's y-position
      */
-    public Character(TileType type,int x, int y) {
+    public GameCharacter(TileType type, int x, int y) {
         super(type, x, y);
     }
 
