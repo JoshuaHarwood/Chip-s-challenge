@@ -14,7 +14,6 @@ public class Maze {
 	private int secondsToCompleteLevel;
 
 	//TODO add checks for invalid characters/boards
-	//TODO add a timer
 
 	/**
 	 * Creates a maze.
@@ -25,6 +24,10 @@ public class Maze {
 		
 		timeStarted = System.currentTimeMillis();
 		secondsToCompleteLevel = timeToComplete;
+	}
+	
+	public Maze(int width, int height) {
+		board = new Tile[height][width];
 	}
 
 	/**

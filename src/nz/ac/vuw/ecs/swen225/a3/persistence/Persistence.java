@@ -23,7 +23,7 @@ public class Persistence {
 
 
 
-    //Todo - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
+    //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
     //Get level/maze information
         //Need to store: Level number, current score
 
