@@ -28,32 +28,32 @@ public class Persistence {
 
     //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
     //Get level/maze information
-        //Need to store: Level number, current score, x and y
-        int mazeX = maze.getX();
-        int mazeY = maze.getY();
+    //Need to store: Level number, current score, x and y
+    int mazeX = maze.getX();
+    int mazeY = maze.getY();
 
 
 
 
     //get Chaps information
-        //Need to store: x,y and inventory
-        Chap c = maze.getChap();
+    //Need to store: x,y and inventory
+    Chap c = maze.getChap();
 
-        int chapX = c.getX();
-        int chapY = c.getY();
-
-
-        List<TileType> keys = c.getAllKeys();
+    int chapX = c.getX();
+    int chapY = c.getY();
 
 
-        JsonArrayBuilder inv = convertInventory(keys);
-        JsonArray invArr = inv.build();
-        System.out.println("Successfully saved chap");
+    List<TileType> keys = c.getAllKeys();
+
+
+    JsonArrayBuilder inv = convertInventory(keys);
+    JsonArray invArr = inv.build();
+    System.out.println("Successfully saved chap");
 
 
 
     //Next, get information regarding 'special' tiles
-        //Need to store: x,y and type (and status?? - maybe)
+    //Need to store: x,y and type (and status?? - maybe)
 
 
         Tile[][] board = maze.getBoard();
@@ -108,7 +108,7 @@ public class Persistence {
     static public void load(JsonObject json){
 
         //First get game state information
-            //Todo - We don't yet store this
+        //Todo - We don't yet store this
         JsonObject mazeD = json.getJsonObject("Maze:");
         int mazeX = mazeD.getInt("x:");
         int mazeY = mazeD.getInt("y:");
@@ -198,7 +198,7 @@ public class Persistence {
 
         try {
 
-            OutputStream os = new FileOutputStream(saveName + ".txt");
+            OutputStream os = new FileOutputStream(saveName + ".json");
             JsonWriter writer = Json.createWriter(os);
 
             writer.writeObject(json);
@@ -239,7 +239,7 @@ public class Persistence {
                     Json.createObjectBuilder()
                             .add("x:",t.getX())
                             .add("y:", t.getY())
-                            .add("type:", t.type.toString())
+                            .add("type: ", t.type.toString())
             );
 
         }

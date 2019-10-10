@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public class Main {
 
-	private Maze maze;
-	private GUI gui;
+	private static Maze maze;
+	private static GUI gui;
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
 	String level1 = "1614" + 
@@ -43,15 +43,21 @@ public class Main {
 	public Main() {
 
 		maze = new Maze(level1, 60);
+		init(maze);
 
-		gui = new GUI(maze);
-		maze.addGUI(gui);
-		gui.drawBoard();
 		
-		startThread();
+//		startThread();
 
 		initKeys();
 
+	}
+
+	public static void init(Maze m) {
+		gui = new GUI(maze);
+		maze.addGUI(gui);
+		gui.drawBoard();
+		startThread();
+//		initKeys();
 	}
 
 	private void initKeys(){
@@ -131,7 +137,7 @@ public class Main {
 		});
 	}
 
-	private void startThread() {
+	private static void startThread() {
 		Thread t1 = new Thread(maze);
 		t1.start();
 	}
