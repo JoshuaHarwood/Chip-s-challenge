@@ -14,7 +14,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 /**
- * 
+ * this is the visual container that will contain all the items that the player has.
  * @author Joshua Harwood - 300439084
  *
  */
