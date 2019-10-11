@@ -4,8 +4,6 @@ import java.awt.*;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -38,41 +36,65 @@ import java.awt.event.MouseEvent;
  */
 public class GUI {
 
+	/**
+	 * The current maze object.
+	 */
 	Maze maze;
 
+	/**
+	 * The frame the game is being drawn on.
+	 */
 	private JFrame frame;
+	/**
+	 * The leftPanel (the panel the player moves on).
+	 */
 	private JPanel leftPanel;
+	/**
+	 * The rightPanel (the panel holding other panels).
+	 */
 	private JPanel rightPanel;
+	/**
+	 * A panel to display the players inventory.
+	 */
 	private JPanel inventoryPanel;
+	/**
+	 * A panel to display the labels in.
+	 */
 	private JPanel labelPanel;
 
+	/**
+	 * The canvas to draw the player's inventory on.
+	 */
 	private InventoryCanvas inventoryCanvas;
+	/**
+	 * The canvas to draw labels on.
+	 */
 	private LabelCanvas labelCanvas;
+	/**
+	 * The canvas to draw the board on.
+	 */
 	private BoardCanvas boardCanvas;
+	/**
+	 * The panel for the board.
+	 */
 	private JPanel boardPanel;
 
+	/**
+	 * The background color.
+	 */
 	private Color bgColor = new Color(92, 175, 219);
 
 
+	/**
+	 * The pause menu item.
+	 */
 	private JMenuItem mnPause;
+	/**
+	 * The quit menu item.
+	 */
 	private JMenuItem mnQuit;
 
 
-	/**
-	 * Run GUI on its own.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUI window = new GUI();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
@@ -97,7 +119,7 @@ public class GUI {
 	}
 	
 	/**
-	 * Hide the GUI
+	 * Hide the GUI.
 	 */
 	public void hideGUI() {
 		frame.setVisible(false);

@@ -389,7 +389,7 @@ public class Persistence {
 		return enemiesBuilder;
 	}
 
-	public static JsonArray convertEnemyMoves(ArrayList<Character> list){
+	private static JsonArray convertEnemyMoves(ArrayList<Character> list){
 
 		JsonArrayBuilder movesBuilder = Json.createArrayBuilder();
 
