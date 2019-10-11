@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * The Main class.
- * @author UNKNOWN & Joshua Hindley - 300438963
+ * @author //TODO UNKNOWN & Joshua Hindley - 300438963
  */
 public class Main {
 
@@ -24,6 +24,8 @@ public class Main {
 	public Maze getMaze() {
 		return maze;
 	}
+	
+	//TODO when paused, timeLeft should not decrease
 
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
@@ -42,10 +44,11 @@ public class Main {
 			"WTEEEWW4WEEEEW" + 
 			"WWWWWWEEWWWWWW" + 
 			"WEETEEEEEETEEW" + 
-			"WTEEEETEEEEEEW" + 
+			"WTEEEETEEYEEEW" + 
 			"WETEEEEEETEEEW" + 
 			"WWWWWWWWWWWWWW" +
-			"Y=LDLUURRD";
+			"Y=LDLUURRD" +
+			"Y=LLULLDDRRRUR";
 	
 	/**
 	 * Creates a new Main object for the program to use.
