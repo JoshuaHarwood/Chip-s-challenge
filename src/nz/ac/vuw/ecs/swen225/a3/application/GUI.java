@@ -185,7 +185,7 @@ public class GUI {
 		JMenuItem loadButton = new JMenuItem("Load game");
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JsonObject obj = null;
+				JsonObject obj;
 				maze.pause();
 				final JFileChooser fc = new JFileChooser();
 				fc.showOpenDialog(frame);
@@ -197,14 +197,13 @@ public class GUI {
 
 					 obj = Json.createReader(new FileInputStream(f))
 							.readObject();
+					 Persistence.load(obj);
 
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-
-
-				maze.resume();
-				Persistence.load(obj);
+				
+				maze.resume();				
 			}
 		});
 
