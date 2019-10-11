@@ -4,13 +4,22 @@ import java.util.ArrayList;
 
 /**
  * the enemies class (these are the mobs that will move around and attack the player)
- * @author Joshua Harwood----300439084.
+ * @author Joshua Harwood - 300439084
  * 			with additions from Joshua Hindley - 300438963
  */
 public class Enemy extends GameCharacter {
 
+	/**
+	 * The moves this enemy makes.
+	 */
 	private ArrayList<Character> moves;
+	/**
+	 * This enemy's current move (default ' ').
+	 */
 	private char currentMove = ' ';
+	/**
+	 * The tile behind this enemy.
+	 */
 	private Tile behindEnemy = null;
 	
 	/**
@@ -51,8 +60,10 @@ public class Enemy extends GameCharacter {
 	}
 	
 	/**
-	 * Sets this enemy's moves. The moves should be characters ('L', 'R', 'U', or 'D') and
-	 * performing all the moves in sequence should bring the enemy back to its starting location.
+	 * Sets this enemy's moves. 
+	 * The moves should be characters ('L', 'R', 'U', or 'D') and
+	 * performing all the moves in sequence should bring the enemy 
+	 * back to its starting location.
 	 * @param moves An arrayList of the moves that will be performed by this enemy
 	 */
 	public void setMoves(ArrayList<Character> moves) {
@@ -62,6 +73,10 @@ public class Enemy extends GameCharacter {
 		}
 	}
 
+	/**
+	 * Returns this enemy's moves.
+	 * @return the moves
+	 */
 	public ArrayList<Character> getMoves(){
 		return moves;
 	}

@@ -20,7 +20,7 @@ public class BoardCanvas extends Canvas {
     private Tile[][] tiles; //the tile array to be drawn
     private int cols, rows;
     private double padding = 0.05; //the size of the tile that you want arround the outside (if 0.5 then a gap of half a tile will be left (all sides so 1 in total))
-    
+
     private Maze maze;
 
     /**
@@ -40,7 +40,7 @@ public class BoardCanvas extends Canvas {
      * when called this will go through the board and draw each tile. and scale them to fit
      * @param w - the width of the plane behind (so that we can scale to fit that)
      * @param h - the height of the plane behind (so that we can scale to fit that)
-     * @throws IOException 
+     * @throws IOException
      */
     public void draw(int w, int h) {
 

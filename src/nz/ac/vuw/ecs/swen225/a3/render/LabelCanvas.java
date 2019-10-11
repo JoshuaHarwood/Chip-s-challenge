@@ -14,8 +14,8 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 /**
- * This is the stats container that will display the game stats such as: Level, Time Left and Coconuts left.
- * @author Joshua Harwood---300439084
+ * 
+ * @author Joshua Harwood - 300439084
  *
  */
 public class LabelCanvas extends Canvas{
