@@ -1,7 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -391,6 +390,11 @@ public class Maze implements Runnable {
 		return board[y][x];
 	}
 
+	//Might be a better way to do this
+	public void setChapPosition(Point p){
+	    this.chap = new Chap(p.x,p.y);
+
+    }
 
 	/**
 	 * Sets an enemy's moves.

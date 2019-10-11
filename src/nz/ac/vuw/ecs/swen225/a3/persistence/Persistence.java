@@ -247,8 +247,14 @@ public class Persistence {
 //        }
 
 
-        //Populate maze
+        //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient
         newMaze.setEnemies(enemies);
+        newMaze.setChapPosition(chapPosition);
+
+        for(TileType t : keys){
+            newMaze.getChap().addKey(t);
+        }
+
 
 
         Main.init(newMaze);

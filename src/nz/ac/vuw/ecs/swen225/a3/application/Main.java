@@ -117,11 +117,11 @@ public class Main {
 	 */
 	public Main(int l) {
 		level = l;
-		if(level == 1)
+		if(level == 1) {
 			maze = new Maze(level1, 60, level);
-		else if(level == 2)
+		}else if(level == 2) {
 			maze = new Maze(level2, 120, level);
-		else if(level == 3)
+		}else if(level == 3) {
 			maze = new Maze(level3, 180, level);
 
 		init(maze);
@@ -135,7 +135,7 @@ public class Main {
 	 */
 	public static void init(Maze m) {
 		maze = m;
-		//gui = new GUI(maze);
+		gui = new GUI(maze);
 		gui.setMaze(maze);
 		maze.addGUI(gui);
 		gui.drawBoard();
