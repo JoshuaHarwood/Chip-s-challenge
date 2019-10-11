@@ -90,8 +90,6 @@ public class Persistence {
 
 
         //Next, get information regarding 'special' tiles
-        //Need to store: x,y and type (and status?? - maybe)
-
 
         Tile[][] board = maze.getBoard();
         List<Tile> specialTiles = new ArrayList<>();
@@ -150,22 +148,17 @@ public class Persistence {
         // - TREASURE REMAINING
 
 
-
-        //First get game state information
-        //TODO - We don't yet store this
-
         JsonObject MAZE = json.getJsonObject("Maze");
         JsonObject CHAP = json.getJsonObject("Chap");
         JsonArray CHAP_INV = CHAP.getJsonArray("Inventory");
         JsonArray TILES = json.getJsonArray("Tiles");
+        JsonArray enemies = json.getJsonArray("Enemies");
 
 
         //=====MAZE=====//
 
         //Maze Dimensions
         Point mazeDimensions = loadMazeDimensions(MAZE);
-
-
 
 
         //=====CHAP=====//
@@ -184,7 +177,7 @@ public class Persistence {
 
 
         //=====ENEMIES=====//
-        JsonArray enemies = json.getJsonArray("Enemies");
+
         ArrayList<Enemy> enemies1 = new ArrayList<>();
 
         for(int i = 0; i < enemies.size(); i++){
@@ -200,38 +193,9 @@ public class Persistence {
         System.out.println("Read enemies");
 
 
-
-        //Third, get grid information
-
-
-
-
-
         //=====CREATING NEW MAZE=====//
         currentMaze.cleanUpOldMaze();
         createNewMaze(mazeDimensions, chapPosition, keys, tiles, enemies1);
-
-
-
-
-
-
-
-
-
-        //Create a grid of 'empty tiles'
-        //TODO - these need to be +2 for some reason
-        //TODO - needs to know the level number 
-
-
-//        Maze newMaze = new Maze(mazeDimensions.x, mazeDimensions.y, 1);
-
-
-
-
-
-
-
 
     }
 
@@ -283,40 +247,11 @@ public class Persistence {
 //        }
 
 
-        //Handle enemies
+        //Populate maze
         newMaze.setEnemies(enemies);
 
 
-
-
-        //Handle chap
-
-        //TODO - could use a cleanup
-//        Chap newChap = new Chap(chapPosition.x, chapPosition.y);
-
-        //ToDo Save and Load time remaining ***
-//        newMaze.updateVariables(60);
-
-
-//        newMaze.setChap(newChap);
-//        newMaze.setTile(chapPosition.x, chapPosition.y, TileType.Chap);
-//        newMaze.setBehindChap(new Tile(TileType.Empty, chapPosition.x, chapPosition.y));
-
-
-        //TODO - This should be replaced with the saved timeleft
-        //newMaze.updateVariables(0);
-
-        //TODO - Still need to delete old instance of game
-
-
-
-
-
-
-
         Main.init(newMaze);
-
-
 
 
 
