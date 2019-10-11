@@ -60,14 +60,21 @@ public class Persistence {
     public static void save(Maze maze, String name) {
         maze.cleanUpOldMaze();
 
-        //TODO - We are not currently tracking level and score etc, this will have to be stored in the Json so we can properly change levels etc
-        //Get level/maze information
+        //level/maze information
         //Need to store: Level number, current score, x and y
         int mazeX = maze.getWidth();
         int mazeY = maze.getHeight();
         int timeLeft = maze.getTimeLeft(); //To save
         int treasureLeft = maze.getTreasureLeft(); //To save
         int level = maze.getLevel(); //To save
+
+
+        //Enemies
+        List<Enemy> enemies = maze.getEnemies();
+
+        for(Enemy e : enemies){
+        }
+
 
 
         //get Chaps information
@@ -414,11 +421,26 @@ public class Persistence {
                         .add("x", e.getX())
                         .add("y", e.getY())
                         .add("nextMove", e.getNextMove())
+                        .add("moves", convertEnemyMoves(e.getMoves()))
             );
 
         }
         return enemiesBuilder;
+    }
 
+    public static JsonArray convertEnemyMoves(ArrayList<Character> list){
+
+        JsonArrayBuilder movesBuilder = Json.createArrayBuilder();
+
+
+        for(Character c : list){
+
+            movesBuilder.add(
+                    Json.createObjectBuilder()
+                        .add("move",c)
+            );
+        }
+        return movesBuilder.build();
     }
 
 
