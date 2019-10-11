@@ -70,13 +70,6 @@ public class Persistence {
         int level = maze.getLevel(); //To save
 
 
-        //Enemies
-        List<Enemy> enemies = maze.getEnemies();
-
-        for(Enemy e : enemies){
-        }
-
-
 
         //get Chaps information
         //Need to store: x,y and inventory
@@ -202,6 +195,7 @@ public class Persistence {
 
         //=====CREATING NEW MAZE=====//
         currentMaze.cleanUpOldMaze();
+        
         createNewMaze(timeLeft, treasureLeft, level, mazeDimensions, chapPosition, keys, tiles, enemies);
 
     }
@@ -352,7 +346,7 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
         try {
 
-            OutputStream os = new FileOutputStream("saves\\" + saveName + ".json");
+            OutputStream os = new FileOutputStream(saveName + ".json");
             JsonWriter writer = Json.createWriter(os);
 
             writer.writeObject(json);
