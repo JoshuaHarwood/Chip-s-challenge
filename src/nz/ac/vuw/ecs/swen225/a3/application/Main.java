@@ -121,10 +121,10 @@ public class Main {
 
 		if (loadingFromSave) {
 			maze = m;
-
 		}
-		else
+		else {
 			updateMaze(l);
+		}
 
 		init(maze);
 		initKeys();

@@ -100,14 +100,14 @@ public class Persistence {
         System.out.println("Successfully saved enemies");
 
 
-        //Next, get information regarding 'special' tiles
+        //Next, get information regarding all tiles
 
         Tile[][] board = maze.getBoard();
         List<Tile> tiles = new ArrayList<>();
 
-        //Convert the 2d array of tiles into a list of the "Special tiles"
-        for (int i = 0; i < board.length - 2; i++) {
-            for (int j = 0; j < board[i].length - 2; j++) {
+        //Convert the 2d array of tiles into a list of the tiles
+        for (int i = 0; i < board.length - 1; i++) {
+            for (int j = 0; j < board[i].length - 1; j++) {
 
                 Tile t = board[i][j];
 
@@ -217,69 +217,26 @@ public class Persistence {
     private static void createNewMaze(int timeLeft, int treasureLeft, int levelNo, Point mazeDimensions, Point chapPosition, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
 
 
-
-
         StringBuilder level = new StringBuilder();
 
-        //ToDo check two numbers? (09 vs 9)
         level.append(mazeDimensions.x);
         level.append(mazeDimensions.y);
-
-
 
         for (Tile tile : tiles) {
             level.append(tile.type);
         }
 
+        System.out.println(level.toString());
 
 
-        int LEVEL_HERE = 1;
-
-
-        Maze newMaze = new Maze(level.toString(), 60, LEVEL_HERE); // <- load level # here
+        Maze newMaze = new Maze(level.toString(), 60, levelNo); // <- load level # here
 //        newMaze.generateBoard(level.toString());
 //        newMaze.setChapPosition(chapPosition);
 
-        new Main(newMaze, LEVEL_HERE, true);
-
-//        Main.init(newMaze);
-
-//        newMaze.generateBoard(level.toString());
-
-
-//        for(TileType t : keys){
-//            newMaze.getChap().addKey(t);
-//        }
-
-
-
-        //Go through tiles and set each tile
-//        for (int i = 0; i < tiles.size(); i++) {
-//            Tile tile = tiles.get(i);
-//            newMaze.setTile(tile.getX(), tile.getY(), tile.type);
-//        }
-
-
-//        for (int y = 0; y < mazeDimensions.y - 2; y++) {
-//            for (int x = 0; x < mazeDimensions.x - 2; x++) {
-//                newMaze.setTile(x, y, TileType.Empty);
-//            }
-//        }
-
-
-//        //Populate the maze
-//        for (Tile t : tiles) {
-//            int x = t.getX();
-//            int y = t.getY();
-//            TileType ty = t.type;
-//
-//            newMaze.setTile(x, y, ty);
-//        }
+        new Main(newMaze, levelNo, true);
 
         newMaze.setTimeLeft(timeLeft);
         newMaze.setTreasureLeft(treasureLeft);
-
-
 
 
         //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient
@@ -288,12 +245,6 @@ public class Persistence {
 
         // newMaze.setEnemies(enemies);
         // newMaze.setChapPosition(chapPosition);
-
-
-
-
-
-
 
 
     }
@@ -405,7 +356,7 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
         try {
 
-            OutputStream os = new FileOutputStream(saveName + ".json");
+            OutputStream os = new FileOutputStream("saves\\" + saveName + ".json");
             JsonWriter writer = Json.createWriter(os);
 
             writer.writeObject(json);
