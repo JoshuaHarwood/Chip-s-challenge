@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.tests;
 
+import nz.ac.vuw.ecs.swen225.a3.application.GUI;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Enemy;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
@@ -826,6 +827,20 @@ public class GameTests {
     	assertEquals(0, maze.getTreasureLeft());
     	maze.pause();
     	maze.resume();
+    }
+    
+    @Test
+    public void GuiTest() {
+    	Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEYEEEW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW",30,1);
+    	GUI gui = new GUI(maze);
     }
 
 }

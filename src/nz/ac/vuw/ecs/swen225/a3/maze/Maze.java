@@ -98,26 +98,30 @@ public class Maze implements Runnable {
 				newY++;
 
 			newBehind = board[newY][newX];
-			
-			if(getTimeLeft() <= 0 || newBehind instanceof Chap) {
-				mazeIsCurrent = false;
-				Robot robot;
-				try {
-					robot = new Robot();
-					robot.keyRelease(KeyEvent.VK_LEFT);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}	
-				return false;
-			}
-
+			if(newBehind instanceof Chap)
+				endGame();
 			board[newY][newX] = enemy;
 			board[y][x] = enemy.getTileBehindEnemy();
 			enemy.setTileBehindEnemy(newBehind);
 			enemy.setX(newX);
 			enemy.setY(newY);
 		}
+		if(getTimeLeft() <= 0)
+			endGame();
+		if(!mazeIsCurrent)
+			return false;
 		return true;
+	}
+	
+	private void endGame() {
+		mazeIsCurrent = false;
+		Robot robot;
+		try {
+			robot = new Robot();
+			robot.keyRelease(KeyEvent.VK_F);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	/**
@@ -221,17 +225,8 @@ public class Maze implements Runnable {
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return Trinary.FALSE;
 
-		if(board[y][x] instanceof Enemy) {
-			//game over
-			mazeIsCurrent = false;
-			Robot robot;
-			try {
-				robot = new Robot();
-				robot.keyRelease(KeyEvent.VK_LEFT);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
-		}
+		if(board[y][x] instanceof Enemy)
+			endGame();
 
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;

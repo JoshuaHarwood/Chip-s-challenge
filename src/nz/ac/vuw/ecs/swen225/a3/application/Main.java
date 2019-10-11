@@ -237,7 +237,6 @@ public class Main {
 					} else
 						System.exit(0);
 				}
-				else if(!maze.getMazeIsCurrent())
 				gui.drawBoard();
 			}
 		});
