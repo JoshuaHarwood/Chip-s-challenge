@@ -28,10 +28,6 @@ import java.io.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-
-import java.util.stream.Stream;
 
 
 /**
@@ -60,7 +56,6 @@ public class GUI {
 
 	private JMenuItem mnPause;
 	private JMenuItem mnQuit;
-	private final Action action = new SwingAction();
 
 
 	/**
@@ -324,16 +319,5 @@ public class GUI {
 	 */
 	public InventoryCanvas getInventoryCanvas() {
 		return inventoryCanvas;
-	}
-
-	private class SwingAction extends AbstractAction {
-
-		private static final long serialVersionUID = 1L;
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
 	}
 }
