@@ -195,7 +195,7 @@ public class GUI {
 
 					JsonObject obj = Json.createReader(new FileInputStream(f))
 							.readObject();
-					 Persistence.load(obj);
+					 Persistence.loadGame(obj, maze);
 
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
