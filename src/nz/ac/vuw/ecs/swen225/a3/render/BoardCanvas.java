@@ -19,7 +19,7 @@ public class BoardCanvas extends Canvas {
 	private int viewWindow = 9; //must be an odd number as chap will be in the middle e.g. as 7 we go 3 out on each side totaling to 6, then the x and y that chap is on increases that to 7
     private Tile[][] tiles; //the tile array to be drawn
     private int cols, rows;
-    int redrawCount = 0;
+    private double padding = 0.05; //the size of the tile that you want arround the outside (if 0.5 then a gap of half a tile will be left (all sides so 1 in total))
     
     private Maze maze;
 
@@ -50,10 +50,11 @@ public class BoardCanvas extends Canvas {
         rows = tiles.length;
         Tile[][] view;
 
-        int scaledSizeW = w / (viewWindow+1); //finding the scaled width
-        int scaledSizeH = h / (viewWindow+1); //finding the scaled height
+        int scaledSizeW = w / (viewWindow); //finding the scaled width
+        int scaledSizeH = h / (viewWindow); //finding the scaled height
 
         tileSize = Math.min(scaledSizeH, scaledSizeW); //get the smallest of the 2 (so we dont draw off the edge)
+        tileSize -= (int) (tileSize*padding);
 
         view = adjustView(viewWindow);
 

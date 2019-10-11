@@ -4,8 +4,6 @@ import java.awt.*;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -31,14 +29,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import java.util.stream.Stream;
-
 
 /**
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe  - //TODO add ID number & Joshua Harwood---300439084
+ * @author Henry Stoupe - 300432963 add ID number & Joshua Harwood---300439084
  */
 public class GUI {
 
@@ -118,11 +114,6 @@ public class GUI {
 	    labelCanvas.draw();
 
         showGUI();
-        //TODO update the timer, update the treasureleft
-        //TODO if getTimeLeft < 0 user loses that level
-        //show popup allowing the user to try again or quit
-        //System.out.println(maze.getTimeLeft() + " seconds left");
-        //System.out.println(maze.getTreasureLeft() + " treasures left");
     }
 
 	/**
@@ -161,6 +152,7 @@ public class GUI {
 				if(input==0) {
 					System.exit(0);
 				}
+				maze.resume();
 			}
 		});
 
@@ -179,8 +171,10 @@ public class GUI {
 		JMenuItem saveButton = new JMenuItem("Save Game");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				maze.pause();
 				String name = JOptionPane.showInputDialog("Please enter a name for the save");
 				Persistence.save(maze, name);
+				maze.resume();
 			}
 		});
 
@@ -188,10 +182,11 @@ public class GUI {
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JsonObject obj = null;
-
+				maze.pause();
 				final JFileChooser fc = new JFileChooser();
 				fc.showOpenDialog(frame);
 				File f = fc.getSelectedFile();
+
 
 				try {
 					InputStream i = new FileInputStream(f);
@@ -203,7 +198,10 @@ public class GUI {
 					e.printStackTrace();
 				}
 
-				Persistence.load(obj);
+
+				maze.resume();
+				Persistence.loadGame(obj, maze);
+
 			}
 		});
 
@@ -218,8 +216,7 @@ public class GUI {
 		menuHelp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				maze.helpAlert();
+				maze.helpAlert(true);
 			}
 		});
 
