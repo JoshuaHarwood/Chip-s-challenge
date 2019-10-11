@@ -1,15 +1,19 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
-import nz.ac.vuw.ecs.swen225.a3.application.GUI;
-import nz.ac.vuw.ecs.swen225.a3.application.Main;
+
+import nz.ac.vuw.ecs.swen225.a3.application.*;
+
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
+import nz.ac.vuw.ecs.swen225.a3.application.GUI;
+import nz.ac.vuw.ecs.swen225.a3.application.Main;
+import nz.ac.vuw.ecs.swen225.a3.maze.*;
 
 import javax.json.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +23,33 @@ import java.util.List;
  * @author Liam Hide - 300451675
  */
 public class Persistence {
+
+
+    static HashMap<Character, TileType> lettersToTiles = new HashMap<Character, TileType>() {
+        private static final long serialVersionUID = 1L;
+
+        {
+            put('C', TileType.Chap);
+            put('W', TileType.Wall);
+            put('T', TileType.Treasure);
+            put('X', TileType.Exit);
+            put('L', TileType.ExitLock);
+            put('I', TileType.Info);
+            put('1', TileType.Door1);
+            put('2', TileType.Door2);
+            put('3', TileType.Door3);
+            put('4', TileType.Door4);
+            put('5', TileType.Key1);
+            put('6', TileType.Key2);
+            put('7', TileType.Key3);
+            put('8', TileType.Key4);
+            put('E', TileType.Empty);
+            put('Y', TileType.Enemy);
+        }
+    };
+
+
+
 
     /**
      * Saves the current state of the game in a Json format.
@@ -34,6 +65,9 @@ public class Persistence {
         //Need to store: Level number, current score, x and y
         int mazeX = maze.getWidth();
         int mazeY = maze.getHeight();
+        int timeLeft = maze.getTimeLeft(); //To save
+        int treasureLeft = maze.getTreasureLeft(); //To save
+        int level = maze.getLevel(); //To save
 
 
         //get Chaps information
@@ -51,10 +85,14 @@ public class Persistence {
         JsonArray invArr = inv.build();
         System.out.println("Successfully saved chap");
 
+        //Next, get the 'Enemies'
+        List<Enemy> enemiesToSave  = maze.getEnemies();
+        JsonArrayBuilder enemy = convertEnemies(enemiesToSave);
+        JsonArray enemyArr = enemy.build();
+        System.out.println("Successfully saved enemies");
+
 
         //Next, get information regarding 'special' tiles
-        //Need to store: x,y and type (and status?? - maybe)
-
 
         Tile[][] board = maze.getBoard();
         List<Tile> specialTiles = new ArrayList<>();
@@ -83,6 +121,7 @@ public class Persistence {
                 .add("Maze", Json.createObjectBuilder()
                         .add("x", mazeX)
                         .add("y", mazeY))
+                .add("Enemies", enemyArr)
                 .add("Chap", Json.createObjectBuilder()
                         .add("x", chapX)
                         .add("y", chapY)
@@ -93,7 +132,7 @@ public class Persistence {
         System.out.println("Successfully saved to Json");
 
 
-        writeToFile(json, name);
+        writeJSONToFile(json, name);
 
         System.out.println("Successfully created file");
     }
@@ -105,124 +144,207 @@ public class Persistence {
      * @param json The object file
      * @return The maze object the represents the game
      */
-    static public void load(JsonObject json) {
+    static public void loadGame(JsonObject json, Maze currentMaze) {
 
-        //First get game state information
-        //TODO - We don't yet store this
-        JsonObject mazeD = json.getJsonObject("Maze");
-        int mazeX = mazeD.getInt("x");
-        int mazeY = mazeD.getInt("y");
+        //TODO:
+        // - TIME REMAINING
+        // - TREASURE REMAINING
 
 
-        //Second get chaps information
-        JsonObject chapD = json.getJsonObject("Chap");
-        int chapX = chapD.getInt("x");
-        int chapY = chapD.getInt("y");
+        JsonObject MAZE = json.getJsonObject("Maze");
+        JsonObject CHAP = json.getJsonObject("Chap");
+        JsonArray CHAP_INV = CHAP.getJsonArray("Inventory");
+        JsonArray TILES = json.getJsonArray("Tiles");
+        JsonArray enemies = json.getJsonArray("Enemies");
 
-        JsonArray chapInv = json.getJsonArray("Inventory");
 
-        //Get keys in chaps inventory, then, create a list of "Tiletype" objects
-        List<TileType> keys = new ArrayList<>();
+        //=====MAZE=====//
 
-        //TODO - Still need to create the Tiletype objects and add to list + test this
-        if (chapInv != null) {
-            for (int i = 0; i < chapInv.size(); i++) {
-                JsonObject c = chapInv.getJsonObject(i);
-                String key = c.getString("key");
+        //Maze Dimensions
+        Point mazeDimensions = loadMazeDimensions(MAZE);
 
-            }
+
+        //=====CHAP=====//
+
+        //Chap's position
+        Point chapPosition = loadChapPosition(CHAP);
+
+        //Keys from chap's inventory
+        List<TileType> keys = loadKeys(CHAP_INV);
+
+
+        //=====TILES=====//
+
+        List<Tile> tiles = loadTilesInfo(TILES);
+
+
+
+        //=====ENEMIES=====//
+
+        ArrayList<Enemy> enemies1 = new ArrayList<>();
+
+        for(int i = 0; i < enemies.size(); i++){
+            JsonObject enemyObject = enemies.getJsonObject(i);
+
+            int x = enemyObject.getInt("x");
+            int y = enemyObject.getInt("y");
+
+            Enemy e = new Enemy(x,y);
+            enemies1.add(e);
         }
 
-        System.out.println("Read chap");
+        System.out.println("Read enemies");
 
-        //Third, get grid information
+
+        //=====CREATING NEW MAZE=====//
+        currentMaze.cleanUpOldMaze();
+        createNewMaze(mazeDimensions, chapPosition, keys, tiles, enemies1);
+
+    }
+
+
+
+
+
+    private static void createNewMaze(Point mazeDimensions, Point chapPosition, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
+
+
+        Maze newMaze = new Maze(mazeDimensions.x, mazeDimensions.y, 1);
+
+
+        StringBuilder level = new StringBuilder();
+
+        //ToDo check two numbers? (09 vs 9)
+        level.append(mazeDimensions.x);
+        level.append(mazeDimensions.y);
+
+        for (Tile tile : tiles) {
+            level.append(tile.type);
+        }
+
+        newMaze.generateBoard(level.toString());
+
+
+
+        //Go through tiles and set each tile
+//        for (int i = 0; i < tiles.size(); i++) {
+//            Tile tile = tiles.get(i);
+//            newMaze.setTile(tile.getX(), tile.getY(), tile.type);
+//        }
+
+
+//        for (int y = 0; y < mazeDimensions.y - 2; y++) {
+//            for (int x = 0; x < mazeDimensions.x - 2; x++) {
+//                newMaze.setTile(x, y, TileType.Empty);
+//            }
+//        }
+
+
+//        //Populate the maze
+//        for (Tile t : tiles) {
+//            int x = t.getX();
+//            int y = t.getY();
+//            TileType ty = t.type;
+//
+//            newMaze.setTile(x, y, ty);
+//        }
+
+
+        //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient
+        newMaze.setEnemies(enemies);
+        newMaze.setChapPosition(chapPosition);
+
+        for(TileType t : keys){
+            newMaze.getChap().addKey(t);
+        }
+
+
+
+        Main.init(newMaze);
+
+
+
+
+    }
+
+
+
+
+
+
+
+    private static Point loadChapPosition(JsonObject CHAP) {
+        int chapX = CHAP.getInt("x");
+        int chapY = CHAP.getInt("y");
+
+        return new Point(chapX, chapY);
+    }
+
+
+    private static Point loadMazeDimensions(JsonObject MAZE) {
+        int mazeX = MAZE.getInt("x");
+        int mazeY = MAZE.getInt("y");
+
+        return new Point(mazeX, mazeY);
+    }
+
+
+    private static List<Tile> loadTilesInfo(JsonArray TILES) {
 
         List<Tile> tiles = new ArrayList<>();
 
-        JsonArray board = json.getJsonArray("Tiles");
+        //Go through all tiles in the json file and create new Tiles for each
+        for (int i = 0; i < TILES.size(); i++) {
 
-        for (int i = 0; i < board.size(); i++) {
-            JsonObject boardJsonObject = board.getJsonObject(i);
+            JsonObject boardJsonObject = TILES.getJsonObject(i);
 
             int x = boardJsonObject.getInt("x");
             int y = boardJsonObject.getInt("y");
 
-            HashMap<Character, TileType> lettersToTiles = new HashMap<Character, TileType>() {
-                private static final long serialVersionUID = 1L;
 
-                {
-                    put('C', TileType.Chap);
-                    put('W', TileType.Wall);
-                    put('T', TileType.Treasure);
-                    put('X', TileType.Exit);
-                    put('L', TileType.ExitLock);
-                    put('I', TileType.Info);
-                    put('1', TileType.Door1);
-                    put('2', TileType.Door2);
-                    put('3', TileType.Door3);
-                    put('4', TileType.Door4);
-                    put('5', TileType.Key1);
-                    put('6', TileType.Key2);
-                    put('7', TileType.Key3);
-                    put('8', TileType.Key4);
-                    put('E', TileType.Empty);
-                    put('Y', TileType.Enemy);
-                }
-            };
 
             char letter = boardJsonObject.getString("type").toCharArray()[0];
-
             TileType type = lettersToTiles.get(letter);
-
 
             Tile tile = new Tile(type, x, y);
             tiles.add(tile);
 
         }
 
-        System.out.println("Read tiles");
-
-        //Create a grid of 'empty tiles'
-        //TODO - these need to be +2 for some reason
-        //TODO - needs to know the level number 
-        Maze newMaze = new Maze(mazeX, mazeY, 1);
-
-        for (int y = 0; y < mazeY - 2; y++) {
-            for (int x = 0; x < mazeX - 2; x++) {
-                newMaze.setTile(x, y, TileType.Empty);
-            }
-        }
-
-
-        //Populate the maze
-        for (Tile t : tiles) {
-            int x = t.getX();
-            int y = t.getY();
-            TileType ty = t.type;
-
-            newMaze.setTile(x, y, ty);
-        }
-
-        //Handle chap
-        //TODO - could use a cleanup
-        newMaze.setTile(chapX, chapY, TileType.Chap);
-
-
-        //TODO - This should be replaced with the saved timeleft
-        //newMaze.updateVariables(0);
-
-        //TODO - Still need to delete old instance of game
-
-        Main.init(newMaze);
+        return tiles;
 
     }
 
+
+    private static List<TileType> loadKeys(JsonArray chapInv) {
+
+        List<TileType> keys = new ArrayList<>();
+
+        if (chapInv != null) {
+            for (int i = 0; i < chapInv.size(); i++) {
+                JsonObject c = chapInv.getJsonObject(i);
+                String key = c.getString("key");
+
+                keys.add(lettersToTiles.get(key));
+            }
+        }
+
+        return keys;
+
+    }
+
+
+
+
+
+
+
     //Handles write of a json object into a file
-    static void writeToFile(JsonObject json, String saveName) {
+    static void writeJSONToFile(JsonObject json, String saveName) {
 
         try {
 
-            OutputStream os = new FileOutputStream(saveName + ".txt");
+            OutputStream os = new FileOutputStream(saveName + ".json");
             JsonWriter writer = Json.createWriter(os);
 
             writer.writeObject(json);
@@ -234,6 +356,12 @@ public class Persistence {
         }
     }
 
+
+
+
+
+
+
     //Helper methods to convert lists to Arrays, may need some fixing
     private static JsonArrayBuilder convertInventory(List<TileType> list) {
 
@@ -242,7 +370,7 @@ public class Persistence {
         for (TileType t : list) {
             invBuilder.add(
                     Json.createObjectBuilder()
-                            .add("key:", t.toString())
+                            .add("key", t.toString())
 
             );
 
@@ -267,6 +395,24 @@ public class Persistence {
 
         }
         return tilesBuilder;
+    }
+
+    private static JsonArrayBuilder convertEnemies(List<Enemy> list){
+
+        JsonArrayBuilder enemiesBuilder = Json.createArrayBuilder();
+
+        for(Enemy e : list){
+
+            enemiesBuilder.add(
+                    Json.createObjectBuilder()
+                        .add("x", e.getX())
+                        .add("y", e.getY())
+                        .add("nextMove", e.getNextMove())
+            );
+
+        }
+        return enemiesBuilder;
+
     }
 
 

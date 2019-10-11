@@ -1,7 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.maze;
 
-import java.awt.AWTException;
-import java.awt.Robot;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class Maze implements Runnable {
 	 * The level that this maze is (e.g. Level 1)
 	 */
 	public final int level;
-	
+
 
 	public void run(){
 		while(mazeIsCurrent) {
@@ -49,7 +48,7 @@ public class Maze implements Runnable {
 	/**
 	 * Creates a maze.
 	 * @param board this level's board as a string
-	 * @param timeToComplete 
+	 * @param timeToComplete
 	 * @param level the level of this maze
 	 */
 	public Maze(String board, int timeToComplete, int level) {
@@ -126,7 +125,7 @@ public class Maze implements Runnable {
 			robot.keyRelease(KeyEvent.VK_F);
 		} catch (AWTException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	/**
@@ -392,7 +391,7 @@ public class Maze implements Runnable {
 		return board[y][x];
 	}
 
-	
+
 	/**
 	 * Sets an enemy's moves.
 	 * @param enemyNo the number of this enemy (0 is the first enemy)
@@ -408,6 +407,10 @@ public class Maze implements Runnable {
 	 */
 	public int getTimeLeft() {
 		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
+	}
+
+	public int getLevel(){
+		return level;
 	}
 
 	/**
@@ -463,6 +466,16 @@ public class Maze implements Runnable {
 		return Collections.unmodifiableList(enemies);
 	}
 
+	public void setEnemies(ArrayList<Enemy> list){
+		this.enemies = list;
+	}
+
+	public void setChapPosition(Point p){
+		chap.setY(p.y);
+		chap.setX(p.x);
+
+	}
+
 
 
 	/**
@@ -491,4 +504,5 @@ public class Maze implements Runnable {
 			JOptionPane.showMessageDialog(null, help, "Help", 3);
 		resume();
 	}
+
 }

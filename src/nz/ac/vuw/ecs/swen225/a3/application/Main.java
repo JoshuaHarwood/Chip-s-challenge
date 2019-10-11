@@ -22,7 +22,7 @@ public class Main {
 	private static int level;
 
 	//TODO need to save the game before exiting no matter what.
-	//TODO need to load the game 
+	//TODO need to load the game
 
 	/**
 	 * Gets the current level's Maze object
@@ -106,7 +106,7 @@ public class Main {
 			"Y=UUUULLDDDDRR" +
 			"Y=DDUU" +
 			"Y=LLRR" +
-			"Y=ULRDDLRU" + 
+			"Y=ULRDDLRU" +
 			"Y=DDDLUUUR"+
 			"Y=DDLLRRUU" +
 			"Y=DDRRLLUU" +
@@ -130,7 +130,7 @@ public class Main {
 	private static void updateMaze(int l) {
 		level = l;
 
-		if(level == 1) 
+		if(level == 1)
 			maze = new Maze(level1, 60, level);
 		else if(level == 2)
 			maze = new Maze(level2, 120, level);
@@ -291,7 +291,9 @@ public class Main {
 	 * @param args The arguments (none for this program)
 	 */
 	public static void main(String[] args) {
-		new Main(1); 
+		new Main(1);
 		//TODO load a saved game (or previous level)
 	}
 }
+
+
