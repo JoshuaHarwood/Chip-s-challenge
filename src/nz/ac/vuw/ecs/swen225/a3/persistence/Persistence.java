@@ -253,7 +253,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
 }
 
-
+    /**
+     *
+     * @param CHAP
+     * @return
+     */
     private static Point loadChapPosition(JsonObject CHAP) {
         int chapX = CHAP.getInt("x");
         int chapY = CHAP.getInt("y");
@@ -261,7 +265,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
         return new Point(chapX, chapY);
     }
 
-
+    /**
+     *
+     * @param MAZE
+     * @return
+     */
     private static Point loadMazeDimensions(JsonObject MAZE) {
         int mazeX = MAZE.getInt("x");
         int mazeY = MAZE.getInt("y");
@@ -269,7 +277,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
         return new Point(mazeX, mazeY);
     }
 
-
+    /**
+     * Load tiles into a list from a Json array of tiles
+     * @param TILES
+     * @return a list of tiles
+     */
     private static List<Tile> loadTilesInfo(JsonArray TILES) {
 
         List<Tile> tiles = new ArrayList<>();
@@ -297,6 +309,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
     }
 
 
+    /**
+     * Load keys from Chap's inventory
+     * @param chapInv
+     * @return a list of Keys
+     */
     private static List<TileType> loadKeys(JsonArray chapInv) {
 
         List<TileType> keys = new ArrayList<>();
@@ -315,12 +332,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
     }
 
 
-
-
-
-
-
-    //Handles write of a json object into a file
+    /**
+     * Handles write of a json object into a file
+     * @param json
+     * @param saveName
+     */
     static void writeJSONToFile(JsonObject json, String saveName) {
 
         try {
@@ -339,11 +355,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
 
 
-
-
-
-
-    //Helper methods to convert lists to Arrays, may need some fixing
+    /**
+     * Convert a list of TileTypes to a JSON Array.
+     * @param list
+     * @return a JsonArrayBuillder
+     */
     private static JsonArrayBuilder convertInventory(List<TileType> list) {
 
         JsonArrayBuilder invBuilder = Json.createArrayBuilder();
@@ -361,6 +377,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
     }
 
+    /**
+     * Convert a list of Tiles to a JSON Array.
+     * @param list
+     * @return a JsonArrayBuillder
+     */
     private static JsonArrayBuilder convertTiles(List<Tile> list) {
 
         JsonArrayBuilder tilesBuilder = Json.createArrayBuilder();
@@ -378,6 +399,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
         return tilesBuilder;
     }
 
+    /**
+     * Convert a list of Enemies to a JSON Array.
+     * @param list
+     * @return a JsonArrayBuillder
+     */
     private static JsonArrayBuilder convertEnemies(List<Enemy> list){
 
         JsonArrayBuilder enemiesBuilder = Json.createArrayBuilder();
@@ -396,6 +422,11 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
         return enemiesBuilder;
     }
 
+    /**
+     * Convert a list of Characters to a JSON Array.
+     * @param list
+     * @return a JsonArrayBuillder
+     */
     public static JsonArray convertEnemyMoves(ArrayList<Character> list){
 
         JsonArrayBuilder movesBuilder = Json.createArrayBuilder();
