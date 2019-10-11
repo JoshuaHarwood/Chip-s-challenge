@@ -27,8 +27,7 @@ public class GameTests {
 
 
     /**
-     * Ensures the game board is generated correctly
-     * TODO Change once input method for board changed to JSON
+     * Ensures the game board is generated correctly.
      */
     @Test
     public void boardGenTest() {
@@ -59,7 +58,7 @@ public class GameTests {
     // ------------------------------------------ MOVEMENT TESTS ------------------------------------------------
 
     /**
-     * Test a legal move up
+     * Test a legal move up.
      */
     @Test
     public void moveCharUpLegal() {
@@ -90,7 +89,7 @@ public class GameTests {
     }
 
     /**
-     * Test a legal move left
+     * Test a legal move left.
      */
     @Test
     public void moveCharLeftLegal() {
@@ -122,7 +121,7 @@ public class GameTests {
 
 
     /**
-     * Test a legal move down
+     * Test a legal move down.
      */
     @Test
     public void moveCharDownLegal() {
@@ -153,7 +152,7 @@ public class GameTests {
     }
 
     /**
-     * Test a legal move right
+     * Test a legal move right.
      */
     @Test
     public void moveCharRightLegal() {
@@ -183,7 +182,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal move up
+     * Test an illegal move up.
      */
     @Test
     public void moveCharUpIlegal() {
@@ -214,7 +213,7 @@ public class GameTests {
 
 
     /**
-     * Test an illegal move down
+     * Test an illegal move down.
      */
     @Test
     public void moveCharDownIlegal() {
@@ -244,7 +243,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal move left
+     * Test an illegal move left.
      */
     @Test
     public void moveCharLeftIlegal() {
@@ -274,7 +273,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal move right
+     * Test an illegal move right.
      */
     @Test
     public void moveCharRightIlegal() {
@@ -305,7 +304,7 @@ public class GameTests {
 
     // ------------------------------- TILE INTERACTIONS ------------------------------------------
     /**
-     * Test a legal door1 unlock
+     * Test a legal door1 unlock.
      */
     @Test
     public void unlockDoor1Legal() {
@@ -336,7 +335,7 @@ public class GameTests {
     }
 
     /**
-     * Test a legal door2 unlock
+     * Test a legal door2 unlock.
      */
     @Test
     public void unlockDoor2Legal() {
@@ -367,7 +366,7 @@ public class GameTests {
     }
 
     /**
-     * Test a legal door3 unlock
+     * Test a legal door3 unlock.
      */
     @Test
     public void unlockDoor3Legal() {
@@ -398,7 +397,7 @@ public class GameTests {
     }
 
     /**
-     * Test a legal door4 unlock
+     * Test a legal door4 unlock.
      */
     @Test
     public void unlockDoor4Legal() {
@@ -429,7 +428,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal door1 unlock
+     * Test an illegal door1 unlock.
      */
     @Test
     public void unlockDoor1Illegal() {
@@ -459,7 +458,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal door2 unlock
+     * Test an illegal door2 unlock.
      */
     @Test
     public void unlockDoor2Illegal() {
@@ -489,7 +488,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal door3 unlock
+     * Test an illegal door3 unlock.
      */
     @Test
     public void unlockDoor3Illegal() {
@@ -519,7 +518,7 @@ public class GameTests {
     }
 
     /**
-     * Test an illegal door4 unlock
+     * Test an illegal door4 unlock.
      */
     @Test
     public void unlockDoor4Illegal() {
@@ -549,7 +548,7 @@ public class GameTests {
     }
 
     /**
-     * Test picking up key 1
+     * Test picking up key 1.
      */
     @Test
     public void pickupKey1() {
@@ -578,7 +577,7 @@ public class GameTests {
     }
 
     /**
-     * Test picking up key 2
+     * Test picking up key 2.
      */
     @Test
     public void pickupKey2() {
@@ -607,7 +606,7 @@ public class GameTests {
     }
 
     /**
-     * Test picking up key 3
+     * Test picking up key 3.
      */
     @Test
     public void pickupKey3() {
@@ -636,7 +635,7 @@ public class GameTests {
     }
 
     /**
-     * Test picking up key 4
+     * Test picking up key 4.
      */
     @Test
     public void pickupKey4() {
@@ -665,7 +664,7 @@ public class GameTests {
     }
 
     /**
-     * Test exiting with all treasure
+     * Test exiting with all treasure.
      */
     @Test
     public void exitLockWithTreasure() {
@@ -683,7 +682,7 @@ public class GameTests {
     }
 
     /**
-     * Test exiting with treasure left
+     * Test exiting with treasure left.
      */
     @Test
     public void exitLockWithoutTreasure() {
@@ -711,7 +710,7 @@ public class GameTests {
     }
 
     /**
-     * Test exiting
+     * Test exiting.
      */
     @Test
     public void exit() {
@@ -730,7 +729,7 @@ public class GameTests {
 
 
     /**
-     * Test that the timer running out correctly ends the game
+     * Test that the timer running out correctly ends the game.
      */
     @Test
     public void outOfTime() {
@@ -749,7 +748,7 @@ public class GameTests {
     }
 
     /**
-     * Test exiting with treasure left
+     * Test exiting with treasure left.
      */
     @Test
     public void EnemyKill() {
@@ -777,8 +776,8 @@ public class GameTests {
     }
     
     /**
-     * Testing that the right tile is behind the enemy
-     * and the toStrings are correct
+     * Testing that the right tile is behind the enemy.
+     * and the toStrings are correct.
      */
     @Test
     public void BehindEnemy() {
@@ -830,8 +829,8 @@ public class GameTests {
     }
     
     /**
-     * Tests that the reachable parts of
-     * the GUI code works as expected
+     * Tests that the reachable parts of.
+     * the GUI code works as expected.
      */
     @Test
     public void GUITest() {
@@ -861,6 +860,4 @@ public class GameTests {
 	    	maze.helpAlert(false);
 	    	maze2.helpAlert(false);
     }
-
-    //TODO add persistence tests
 }

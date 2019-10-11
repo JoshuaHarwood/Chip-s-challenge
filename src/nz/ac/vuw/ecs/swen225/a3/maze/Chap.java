@@ -9,7 +9,9 @@ import java.util.List;
  */
 public class Chap extends GameCharacter {
 
-	//Chap's inventory (the 'keys' he has)
+	/**
+	 * Chap's inventory (i.e. the 'keys' he has).
+	 */
     private ArrayList<TileType> inventory = new ArrayList<TileType>();
 	
 	/**

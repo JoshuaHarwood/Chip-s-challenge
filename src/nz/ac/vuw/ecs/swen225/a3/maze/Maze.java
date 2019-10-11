@@ -15,19 +15,52 @@ import nz.ac.vuw.ecs.swen225.a3.application.GUI;
  * @author Joshua Hindley - 300438963
  */
 public class Maze implements Runnable {
+	/**
+	 * The board of tiles.
+	 */
 	private Tile[][] board; //board[y][x]
+	/**
+	 * The GUI this maze is drawn on.
+	 */
 	private GUI gui;
+	/**
+	 * The tile behind Chap.
+	 */
 	private Tile behindChap;
+	/**
+	 * The player's character, Chap.
+	 */
 	private Chap chap;
+	/**
+	 * The enemy's on this maze.
+	 */
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	/**
+	 * The number of treasures left to collect.
+	 */
 	private int treasureLeft = 0;
+	/**
+	 * The time that the level was started.
+	 */
 	private long timeStarted;
+	/**
+	 * The seconds the player has to complete this level.
+	 */
 	private int secondsToCompleteLevel;
+	/**
+	 * If this maze is the current maze.
+	 */
 	private boolean mazeIsCurrent = true;
+	/**
+	 * If the game is paused.
+	 */
 	private boolean paused = false;
+	/**
+	 * The time the game was paused at.
+	 */
 	private long timeAtPause = 0;
 	/**
-	 * The level that this maze is (e.g. Level 1)
+	 * The level that this maze is (e.g. Level 1).
 	 */
 	public final int level;
 
@@ -71,7 +104,7 @@ public class Maze implements Runnable {
 	}
 
 	/**
-	 * Takes the enemy's turn
+	 * Takes the enemy's turn.
 	 * @return a boolean. True if the game is still playing
 	 * 		False if time ran out or maze is not current
 	 */
@@ -117,6 +150,9 @@ public class Maze implements Runnable {
 		return true;
 	}
 
+	/**
+	 * Ends the current level.
+	 */
 	private void endGame() {
 		mazeIsCurrent = false;
 		Robot robot;
@@ -291,6 +327,10 @@ public class Maze implements Runnable {
 		return chap;
 	}
 
+	/**
+	 * Sets the chap object.
+	 * @param c the Chap object
+	 */
 	public void setChap(Chap c){
 		this.chap = c;
 	}
@@ -413,6 +453,10 @@ public class Maze implements Runnable {
 		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
 	}
 
+	/**
+	 * The current level.
+	 * @return the current level
+	 */
 	public int getLevel(){
 		return level;
 	}
@@ -471,20 +515,36 @@ public class Maze implements Runnable {
 		return Collections.unmodifiableList(enemies);
 	}
 
+	/**
+	 * Sets the enemies.
+	 * @param list the list of enemies
+	 */
 	public void setEnemies(ArrayList<Enemy> list){
 		this.enemies = list;
 	}
 
+	/**
+	 * Set Chap's position.
+	 * @param p the point where Chap is
+	 */
 	public void setChapPosition(Point p){
 		chap.setY(p.y);
 		chap.setX(p.x);
 
 	}
 
+	/**
+	 * Sets the time the player has left.
+	 * @param time the number of seconds left
+	 */
 	public void setTimeLeft(int time){
 		secondsToCompleteLevel = time;
 	}
 
+	/**
+	 * Sets the treasure the player has left to collect.
+	 * @param num the number of treasures
+	 */
 	public void setTreasureLeft(int num){
 		this.treasureLeft = num;
 	}

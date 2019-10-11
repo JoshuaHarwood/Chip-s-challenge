@@ -21,20 +21,35 @@ import java.util.ArrayList;
  */
 public class Main {
 
+	/**
+	 * The maze object for this game.
+	 */
 	private static Maze maze;
+	/**
+	 * The GUI for the game to be drawn on.
+	 */
 	private static GUI gui;
+	/**
+	 * The current level number.
+	 */
 	private static int level;
 
 	/**
-	 * Gets the current level's Maze object
+	 * Gets the current level's Maze object.
 	 * @return the maze
 	 */
 	public Maze getMaze() {
 		return maze;
 	}
 
+	/**
+	 * The keys that are currently being held down.
+	 */
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
+	/**
+	 * The string representing the first level.
+	 */
 	static String level1 = "1414" +
 			"WWWWWWWWWWWXWW" +
 			"WTEEEEEEIWWLWW" +
@@ -51,6 +66,9 @@ public class Main {
 			"WETEETEEEWTTTW" +
 			"WWWWWWWWWWWWWW";
 
+	/**
+	 * The string representing the second level.
+	 */
 	static String level2 = "1614" +
 			"WWWWXWWWWWWWWW" +
 			"WTEWLWEE1EEEEW" +
@@ -70,6 +88,9 @@ public class Main {
 			"WWWWWWWWWWWWWW" +
 			"Y=LDLUURRD";
 
+	/**
+	 * The string representing the third level.
+	 */
 	static String level3 = "2530" +
 			"WWWWWWWWWWWXWWWWWWWWWWWWWWWWWW" +
 			"WITEEE5WEEWLWEEEWEEYEEEEEYEEEW" +
@@ -114,7 +135,9 @@ public class Main {
 
 	/**
 	 * Creates a new Main object for the program to use.
+	 * @param m The maze object to change to if the game is being loaded
 	 * @param l The level number
+	 * @param loadingFromSave whether a game is being loaded or not
 	 */
 	public Main(Maze m, int l, boolean loadingFromSave) {
 
@@ -151,7 +174,7 @@ public class Main {
 	}
 
 	/**
-	 * Initializes the GUI and starts the thread for enemies
+	 * Initializes the GUI and starts the thread for enemies.
 	 * @param m The current maze
 	 */
 	public static void init(Maze m) {

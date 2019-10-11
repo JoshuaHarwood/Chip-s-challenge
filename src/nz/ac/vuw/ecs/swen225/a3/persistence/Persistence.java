@@ -427,12 +427,14 @@ public class Persistence {
 		return enemiesBuilder;
 	}
 
+
     /**
      * Convert a list of Characters to a JSON Array.
      * @param list
      * @return a JsonArrayBuillder
      */
     public static JsonArray convertEnemyMoves(ArrayList<Character> list){
+
 
 		JsonArrayBuilder movesBuilder = Json.createArrayBuilder();
 
