@@ -61,4 +61,8 @@ public class Enemy extends GameCharacter {
 			this.moves.add(move);
 		}
 	}
+
+	public ArrayList<Character> getMoves(){
+		return moves;
+	}
 }

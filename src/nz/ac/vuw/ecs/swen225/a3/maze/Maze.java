@@ -291,6 +291,10 @@ public class Maze implements Runnable {
 		return chap;
 	}
 
+	public void setChap(Chap c){
+		this.chap = c;
+	}
+
 	/**
 	 * Gets the number of treasures left to collect.
 	 * @return the treasure left to collect
@@ -475,6 +479,15 @@ public class Maze implements Runnable {
 		chap.setX(p.x);
 
 	}
+
+	public void setTimeLeft(int time){
+		secondsToCompleteLevel = time;
+	}
+
+	public void setTreasureLeft(int num){
+		this.treasureLeft = num;
+	}
+
 
 
 

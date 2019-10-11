@@ -156,6 +156,7 @@ public class Main {
 	 * @param m The current maze
 	 */
 	public static void init(Maze m) {
+		maze = m;
 		gui = new GUI(maze);
 		maze.addGUI(gui);
 		gui.drawBoard();
