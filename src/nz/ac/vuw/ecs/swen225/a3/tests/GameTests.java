@@ -27,7 +27,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.toString(),
                 "WWWWXWWWW" +
@@ -39,7 +39,7 @@ public class GameTests {
                 "WTEEEEEEW" +
                 "WWWWWWWWW"
         );
-        Assertions.assertEquals(maze.getTimeLeft(),30);
+        Assertions.assertEquals(maze.getTimeLeft(),30,1);
 
     }
 
@@ -58,7 +58,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.moveChap("UP");
 
@@ -89,7 +89,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.moveChap("LEFT");
 
@@ -121,7 +121,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.moveChap("DOWN");
 
@@ -152,7 +152,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.moveChap("RIGHT");
 
@@ -182,7 +182,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
 
@@ -213,7 +213,7 @@ public class GameTests {
                 "W5ECEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
 
@@ -243,7 +243,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("LEFT"), Trinary.FALSE) ;
 
@@ -273,7 +273,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("RIGHT"), Trinary.FALSE) ;
 
@@ -304,7 +304,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.getChap().addKey(TileType.Key1);
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
@@ -335,7 +335,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW2WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.getChap().addKey(TileType.Key2);
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
@@ -366,7 +366,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW3WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.getChap().addKey(TileType.Key3);
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
@@ -397,7 +397,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW4WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         maze.getChap().addKey(TileType.Key4);
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.TRUE) ;
@@ -428,7 +428,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
 
@@ -458,7 +458,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW2WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
 
@@ -488,7 +488,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW3WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
 
@@ -518,7 +518,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW4WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("DOWN"), Trinary.FALSE) ;
 
@@ -548,7 +548,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
         Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key1));
@@ -577,7 +577,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
         Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key2));
@@ -606,7 +606,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
         Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key3));
@@ -635,7 +635,7 @@ public class GameTests {
                 "W5EEEECEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
         Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key4));
@@ -664,7 +664,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WEEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
     }
@@ -682,7 +682,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
         Assertions.assertEquals(maze.toString(),
@@ -710,7 +710,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WEEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.DONE) ;
     }
@@ -730,7 +730,7 @@ public class GameTests {
                 "WWWWWW1WW" +
                 "WEEYEEEEW" +
                 "WWWWWWWWW" +
-                "Y=LR",0);
+                "Y=LR",0,1);
         maze.takeEnemyTurn();
         Assertions.assertFalse(maze.getMazeIsCurrent());
     }
@@ -748,7 +748,7 @@ public class GameTests {
                 "W5EEEEEEW" +
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
-                "WWWWWWWWW",30);
+                "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
         Assertions.assertEquals(maze.toString(),

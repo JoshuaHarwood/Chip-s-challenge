@@ -111,8 +111,8 @@ public class Main {
 	 */
 	public Main() {
 		//TODO add parameter
+		maze = new Maze(level3, 60, 3);
 
-		maze = new Maze(level3, 60);
 
 		init(maze);
 

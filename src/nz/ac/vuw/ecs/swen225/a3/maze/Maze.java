@@ -24,6 +24,8 @@ public class Maze implements Runnable {
 	private int secondsToCompleteLevel;
 	private boolean mazeIsCurrent = true;
 	private boolean paused = false;
+	private long timeAtPause = 0;
+	public final int level;
 
 	//TODO add checks for invalid characters/boards
 
@@ -45,9 +47,9 @@ public class Maze implements Runnable {
 	 * @param board this level's board as a string
 	 * @param timeToComplete 
 	 */
-	public Maze(String board, int timeToComplete) {
+	public Maze(String board, int timeToComplete, int level) {
 		generateBoard(board);
-
+		this.level = level;
 		timeStarted = System.currentTimeMillis();
 		secondsToCompleteLevel = timeToComplete;
 	}
@@ -58,8 +60,9 @@ public class Maze implements Runnable {
 	 * @param width The width of the maze
 	 * @param height The height of the maze
 	 */
-	public Maze(int width, int height) {
+	public Maze(int width, int height, int level) {
 		board = new Tile[height][width];
+		this.level = level;
 	}
 	
 	/**
@@ -93,11 +96,8 @@ public class Maze implements Runnable {
 				newY++;
 
 			newBehind = board[newY][newX];
-			if(newBehind instanceof Chap) {
-				return false;
-			}
 			
-			if(getTimeLeft() <= 0) {
+			if(getTimeLeft() <= 0 || newBehind instanceof Chap) {
 				mazeIsCurrent = false;
 				Robot robot;
 				try {
@@ -393,16 +393,24 @@ public class Maze implements Runnable {
 		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
 	}
 	
-	
-	public int getLevel() {
-		return 1; //TODO: will need to return the level
+	/**
+	 * Pauses the game.
+	 * The enemies will not move and the clock will not tick.
+	 */
+	public void pause() {
+		paused = true;
+		timeAtPause = System.currentTimeMillis();
 	}
 	
 	/**
-	 * this is the method to pause the game
+	 * Resumes the game.
+	 * The clock will resume and enemies will move again.
 	 */
-	public void pause() {
-		//TODO: implement pausing 
+	public void resume() {
+		if(timeAtPause != 0)
+			secondsToCompleteLevel += ((int)(System.currentTimeMillis() - timeAtPause)/1000);
+		paused = false;
+		timeAtPause = 0;
 	}
 	
     public boolean getMazeIsCurrent() {
@@ -418,8 +426,7 @@ public class Maze implements Runnable {
      */
     public void helpAlert() {
     	String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
-    	
-		int level = this.getLevel();
+
 		if(level == 1) {
 			goal += "To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
 					"and to avoid the dangerous crabs!\n";
@@ -435,10 +442,8 @@ public class Maze implements Runnable {
 				+ "\n\tCtrl + 1 - Start a new game at level 1"
 				+ "\n\tSpace - Pause the game"
 				+ "\n\tEsc - Resume the game";
-		paused = true;
-		long currTime = System.currentTimeMillis();
+		pause();
 		JOptionPane.showMessageDialog(null, help, "Help", 3);
-		secondsToCompleteLevel += ((int)(System.currentTimeMillis() - currTime)/1000);
-		paused = false;
+		resume();
     }
 }

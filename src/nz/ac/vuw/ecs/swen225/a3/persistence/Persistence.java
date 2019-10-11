@@ -108,7 +108,7 @@ public class Persistence {
     static public void load(JsonObject json) {
 
         //First get game state information
-        //Todo - We don't yet store this
+        //TODO - We don't yet store this
         JsonObject mazeD = json.getJsonObject("Maze");
         int mazeX = mazeD.getInt("x");
         int mazeY = mazeD.getInt("y");
@@ -124,7 +124,7 @@ public class Persistence {
         //Get keys in chaps inventory, then, create a list of "Tiletype" objects
         List<TileType> keys = new ArrayList<>();
 
-        //Todo - Still need to create the Tiletype objects and add to list + test this
+        //TODO - Still need to create the Tiletype objects and add to list + test this
         if (chapInv != null) {
             for (int i = 0; i < chapInv.size(); i++) {
                 JsonObject c = chapInv.getJsonObject(i);
@@ -183,8 +183,9 @@ public class Persistence {
         System.out.println("Read tiles");
 
         //Create a grid of 'empty tiles'
-        //Todo - these need to be +2 for some reason
-        Maze newMaze = new Maze(mazeX, mazeY);
+        //TODO - these need to be +2 for some reason
+        //TODO - needs to know the level number 
+        Maze newMaze = new Maze(mazeX, mazeY, 1);
 
         for (int y = 0; y < mazeY - 2; y++) {
             for (int x = 0; x < mazeX - 2; x++) {
@@ -203,17 +204,17 @@ public class Persistence {
         }
 
         //Handle chap
-        //Todo - could use a cleanup
+        //TODO - could use a cleanup
         Chap newChap = new Chap(chapX, chapY);
         newMaze.setChap(newChap);
         newMaze.setTile(chapX, chapY, TileType.Chap);
         newMaze.setBehindChap(new Tile(TileType.Empty, chapX, chapY));
 
 
-        //Todo - This should be replaced with the saved timeleft
+        //TODO - This should be replaced with the saved timeleft
         //newMaze.updateVariables(0);
 
-        //Todo - Still need to delete old instance of game
+        //TODO - Still need to delete old instance of game
 
         Main.init(newMaze);
 
