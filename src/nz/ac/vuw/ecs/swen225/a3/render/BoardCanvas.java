@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 /**
- * this class is a custom canvas, this is where the tiles will be displayed and the game will take place
+ * this class is a custom canvas, this is where the tiles will be displayed and the game will take place.
  * @author Joshua Harwood----300439084
  */
 public class BoardCanvas extends Canvas {
