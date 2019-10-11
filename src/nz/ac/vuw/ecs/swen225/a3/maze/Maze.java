@@ -23,6 +23,7 @@ public class Maze implements Runnable {
 	private long timeStarted;
 	private int secondsToCompleteLevel;
 	private boolean mazeIsCurrent = true;
+	private boolean paused = false;
 
 	//TODO add checks for invalid characters/boards
 
@@ -70,6 +71,12 @@ public class Maze implements Runnable {
 		Tile newBehind;
 		char nextMove;
 		int x, y, newX, newY;
+		while(paused)
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		for(Enemy enemy : enemies) {
 			x = enemy.getX();
 			y = enemy.getY();
@@ -90,7 +97,8 @@ public class Maze implements Runnable {
 				return false;
 			}
 			
-			if(getTimeLeft() < 0) {
+			if(getTimeLeft() <= 0) {
+				mazeIsCurrent = false;
 				Robot robot;
 				try {
 					robot = new Robot();
@@ -182,6 +190,7 @@ public class Maze implements Runnable {
 						enemies.get(enemyNo).setMoves(enemyMoves);
 						enemyNo++;
 						enemyMoves = new ArrayList<Character>();
+						index--;
 					}
 				}
 				break;
@@ -418,8 +427,18 @@ public class Maze implements Runnable {
 			goal += "\n";
 		}
 		
-		String help = goal +  "good luck!\n\nMovement: Use the W, A, S, D to move Chap\n";
-		
+		String help = goal +  "Good luck!\n\nControls: \n\tUse the WASD or arrow keys to move Chap"
+				+ "\n\tCtrl + S - Save and exit the game"
+				+ "\n\tCtrl + X - Exit the game without saving"
+				+ "\n\tCtrl + R - Load a saved game"
+				+ "\n\tCtrl + P - Start a new game at the last unfinished level"
+				+ "\n\tCtrl + 1 - Start a new game at level 1"
+				+ "\n\tSpace - Pause the game"
+				+ "\n\tEsc - Resume the game";
+		paused = true;
+		long currTime = System.currentTimeMillis();
 		JOptionPane.showMessageDialog(null, help, "Help", 3);
+		secondsToCompleteLevel += ((int)(System.currentTimeMillis() - currTime)/1000);
+		paused = false;
     }
 }
