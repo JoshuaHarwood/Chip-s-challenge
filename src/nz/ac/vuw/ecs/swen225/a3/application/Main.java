@@ -123,9 +123,10 @@ public class Main {
 			maze = new Maze(level2, 120, level);
 		else if(level == 3)
 			maze = new Maze(level3, 180, level);
-
+		else 
+			System.exit(0);
+		
 		init(maze);
-
 		initKeys();
 	}
 
@@ -212,10 +213,10 @@ public class Main {
 						break;
 				case KeyEvent.VK_P:
 					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
-						//TODO starts a new game at the last unfinished level
+						//starts a new game at the last unfinished (current) level
 						maze.cleanUpOldMaze();
 						gui.hideGUI();
-						new Main(level);//currentLevel
+						new Main(level);
 					}
 					break;
 				case KeyEvent.VK_1:
@@ -228,12 +229,12 @@ public class Main {
 					break;
 				}
 				if(levelComplete) {
-					//TODO load next level, save information that that level was completed
+					//loads the next level
 					maze.cleanUpOldMaze();
 					Object[] options = {"OK"};
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
-
-					System.exit(0);
+					gui.hideGUI();
+					new Main(level+1);
 				}
 			}
 			public void keyReleased(KeyEvent e) {
