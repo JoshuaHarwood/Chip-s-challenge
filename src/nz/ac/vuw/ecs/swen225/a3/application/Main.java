@@ -24,39 +24,89 @@ public class Main {
 	public Maze getMaze() {
 		return maze;
 	}
-	
+
 	//TODO when paused, timeLeft should not decrease
 
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
-	//map for board
-	String level1 = "1614" + 
-			"WWWWXWWWWWWWWW" + 
-			"WTEWLWEE1EEEEW" + 
-			"WEEEEEEEWEEEEW" + 
-			"WEEECEEEWTEE6W" + 
-			"W5EEIEE5WW3WWW" + 
-			"WWWWWW1WWEEETW" + 
-			"WTEEEEEEWEEEEW" + 
-			"WWWWWW2WWEWWEW" + 
-			"WTEEEEEEWEETEW" + 
-			"W7EEEYEEWE8EEW" + 
-			"WTEEEWW4WEEEEW" + 
-			"WWWWWWEEWWWWWW" + 
-			"WEETEEEEEETEEW" + 
-			"WTEEEETEEYEEEW" + 
-			"WETEEEEEETEEEW" + 
+	String level1 = "1414" +
+			"WWWWWWWWWWWXWW" +
+			"WTEEEEEEIWWLWW" +
+			"WEEECEEEEEET7W" +
+			"W5EEEEEEEEEEEW" +
+			"WWWWWWWW1W2WWW" +
+			"WTEEEEEEEWEEEW" +
+			"W6EEEEETEWTEEW" +
+			"WWWWWWWWWWETEW" +
+			"WEEETTEEE3EEEW" +
+			"WEEEEETEEWEEEW" +
+			"WEETEETEEWEEEW" +
+			"WEEETETEEWTETW" +
+			"WETEETEEEWTTTW" +
+			"WWWWWWWWWWWWWW";
+
+	String level2 = "1614" +
+			"WWWWXWWWWWWWWW" +
+			"WTEWLWEE1EEEEW" +
+			"WEEEEEEEWEEEEW" +
+			"WEEECEEEWTEE6W" +
+			"W5EEIEE5WW3WWW" +
+			"WWWWWW1WWEEETW" +
+			"WTEEEEEEWEEEEW" +
+			"WWWWWW2WWEWWEW" +
+			"WTEEEEEEWEETEW" +
+			"W7EEEYEEWE8EEW" +
+			"WTEEEWW4WEEEEW" +
+			"WWWWWWEEWWWWWW" +
+			"WEETEEEEEETEEW" +
+			"WTEEEETEEYEEEW" +
+			"WETEEEEEETEEEW" +
 			"WWWWWWWWWWWWWW" +
-			"Y=LDLUURRD" +
-			"Y=LLULLDDRRRUR";
-	
+			"Y=LDLUURRD";
+
+	String level3 = "3030" +
+			"WWWWWWWWWWWXWWWWWWWWWWWWWWWWWW" +
+			"WITEEE5WEEWLWEEEWEEYEEEEEEEEEW" +
+			"WEEECEEWEEEEEEEEEEEEEYEEEEEEEW" +
+			"WETEEEEWEEEEEEEEWEEEEEEEYEEEEW" +
+			"WWWWEWWWWWWWWWWWWWWWWWWWWWEWWW" +
+			"WEEEEEEETEEWEEEEEEEEEEEEEEEEEW" +
+			"WEETEEETEEEWEEEEEEEEEEEEEEEEEW" +
+			"WEEEEEEEEE84EEEEEEEEEEEEEEEEEW" +
+			"WEETEEETEEEWEEEEEEEEEEEEEEEEEW" +
+			"WEEEEEEEEE6WEEEEEEEEEEEEEEEEEW" +
+			"WWWWW1WWWWWWWWWWWWWWWWWWWWWWWW" +
+			"WETEEEEEEEETEEWEEEEEEEEEEEEE7W" +
+			"WEEETEEEEEEEEEWEEEEEEEEEEEEEEW" +
+			"WEETEEEETEEEEEWEEEEEEEEEEEEEEW" +
+			"WEEEEEEEEEEEEE2EEEEEEEEEEEEEEW" +
+			"WEEETEEEETEEEEWEEEEEEEEEEEEEEW" +
+			"WEEEEETEEEEEEEWEEEEEEEEEEEEEEW" +
+			"WWWWWWWWWWWWWWWWWWWWWW3WWWWWWW" +
+			"W8EEEETEEETEEEWEEEEEEEEEEEEEEW" +
+			"WEEEETEEEETEEEWEEEEEEEEEEEEEEW" +
+			"WEEEEEEEEEETEEWEEEEEEEEEEEEEEW" +
+			"WEETEEEEEEEEEEWEEEEEEEEEEEEEEW" +
+			"WEEEEEEEEEEEEEWEEEEEEEEEEEEEEW" +
+			"WEEEEEEEEEEEEEWEEEETEEEEETEEEW" +
+			"WWWWWWW1WWWWWWWWWWWWWEWWWWWWWW" +
+			"WEEEEEEEEEEEEEEEEEEEEEEEEEEEEW" +
+			"WEETEEEEEEEEEEEEEEEEEEEETEEEEW" +
+			"WEEEEEEEEEEEEEEEEEEEEEEEEEEE5W" +
+			"WEEEETEEEEEEEEEEEEEEETEEEEEEEW" +
+			"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+			"Y=DDUU" +
+			"Y=DUUD" +
+			"Y=UUDD";
+	//map for board
+
 	/**
 	 * Creates a new Main object for the program to use.
 	 */
 	public Main() {
 		//TODO add parameter
-		
-		maze = new Maze(level1, 60, 1);
+		maze = new Maze(level3, 60, 3);
+
 
 		init(maze);
 
@@ -156,7 +206,7 @@ public class Main {
 					maze.cleanUpOldMaze();
 					Object[] options = {"OK"};
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
-					
+
 					System.exit(0);
 				}
 			}
@@ -172,7 +222,7 @@ public class Main {
 					maze.cleanUpOldMaze();
 					gui.hideGUI();
 					new Main();
-				} else	
+				} else
 					System.exit(0);
 				}
 				gui.drawBoard();
@@ -188,7 +238,7 @@ public class Main {
 		Thread t1 = new Thread(maze);
 		t1.start();
 	}
-	
+
 	/**
 	 * The method to start the program.
 	 * @param args The arguments (none for this program)
@@ -198,5 +248,3 @@ public class Main {
 		new Main();
 	}
 }
-
-
