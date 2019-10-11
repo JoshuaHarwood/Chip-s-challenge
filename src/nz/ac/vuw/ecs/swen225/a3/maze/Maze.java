@@ -4,7 +4,9 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -96,27 +98,30 @@ public class Maze implements Runnable {
 				newY++;
 
 			newBehind = board[newY][newX];
-			
-			if(getTimeLeft() <= 0 || newBehind instanceof Chap) {
-				mazeIsCurrent = false;
-				Robot robot;
-				try {
-					robot = new Robot();
-					robot.keyPress(KeyEvent.VK_ADD);
-					robot.keyRelease(KeyEvent.VK_ADD);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}	
-				return false;
-			}
-
+			if(newBehind instanceof Chap)
+				endGame();
 			board[newY][newX] = enemy;
 			board[y][x] = enemy.getTileBehindEnemy();
 			enemy.setTileBehindEnemy(newBehind);
 			enemy.setX(newX);
 			enemy.setY(newY);
 		}
+		if(getTimeLeft() <= 0)
+			endGame();
+		if(!mazeIsCurrent)
+			return false;
 		return true;
+	}
+	
+	private void endGame() {
+		mazeIsCurrent = false;
+		Robot robot;
+		try {
+			robot = new Robot();
+			robot.keyRelease(KeyEvent.VK_F);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	/**
@@ -134,6 +139,7 @@ public class Maze implements Runnable {
 				put('T', TileType.Treasure);
 				put('X', TileType.Exit);
 				put('L', TileType.ExitLock);
+				put('U', TileType.ExitUnlock);
 				put('I', TileType.Info);
 				put('1', TileType.Door1);
 				put('2', TileType.Door2);
@@ -219,10 +225,8 @@ public class Maze implements Runnable {
 		if(!board[y][x].chapCanMoveHere(chap.getAllKeys(), treasureLeft == 0))
 			return Trinary.FALSE;
 
-		if(board[y][x] instanceof Enemy) {
-			//gameover
-			System.exit(0);
-		}
+		if(board[y][x] instanceof Enemy)
+			endGame();
 
 		if(board[y][x].type == TileType.Treasure)
 			treasureLeft--;
@@ -339,18 +343,10 @@ public class Maze implements Runnable {
 	}
 
 	/**
-	 * Should be called when a level is completed or failed.
-	 * Quits the thread for enemies.
-	 */
-	public void cleanUpOldMaze() {
-		mazeIsCurrent = false;
-	}
-
-	/**
 	 * Gets the width of the board.
 	 * @return the width
 	 */
-	public int getX(){
+	public int getWidth(){
 		return board[0].length;
 	}
 
@@ -358,7 +354,7 @@ public class Maze implements Runnable {
 	 * Gets the height of the board
 	 * @return the height
 	 */
-	public int getY(){
+	public int getHeight(){
 		return board.length;
 	}
 
@@ -369,13 +365,36 @@ public class Maze implements Runnable {
 	 * @param tile The type of tile to set
 	 */
 	public void setTile(int x, int y, TileType tile){
-	    Tile t = new Tile(tile,x,y);
-	    board[y][x] = t;
+		Tile t;
+		if(tile == TileType.Chap) {
+			t = new Chap(x,y);
+			chap = (Chap)t;
+		}
+		else if(tile == TileType.Enemy) {
+			t = new Enemy(x,y);
+			enemies.add((Enemy)t);
+		}
+		else
+			t = new Tile(tile,x,y);
+	    if(x < board[0].length && y < board.length)
+	    	board[y][x] = t;
     }
+	
+	/**
+	 * Gets a tile from the board
+	 * @param x the x-coordinate of the tile
+	 * @param y the y-coordinate of the tile
+	 * @return the tile
+	 */
+	public Tile getTile(int x, int y) {
+		return board[y][x];
+	}
 
     /**
+     * @deprecated Call Maze.updateVariables(); instead.
      * Sets this maze's chap object
      * @param c The chap object
+     * 
      */
     public void setChap(Chap c){
 	    this.chap = c;
@@ -413,23 +432,34 @@ public class Maze implements Runnable {
 		timeAtPause = 0;
 	}
 	
+	/**
+	 * Checks whether a maze is the current maze or not.
+	 * @return if the maze is current
+	 */
     public boolean getMazeIsCurrent() {
         return mazeIsCurrent;
     }
-
-    public void setMazeIsCurrent(boolean mazeIsCurrent) {
-        this.mazeIsCurrent = mazeIsCurrent;
-    }
+    
+    /**
+	 * Should be called when a level is completed or failed.
+	 * Quits the thread for enemies.
+	 */
+	public void cleanUpOldMaze() {
+		mazeIsCurrent = false;
+	}
+	
+	public List<Enemy> getEnemies() {
+		return Collections.unmodifiableList(enemies);
+	}
     
     /**
      * the method will create a pop-up with help about the level
      */
     public void helpAlert() {
-    	String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n";
-
-		if(level == 1) {
-			goal += "To do this you must collect the different coloured Axes to cut down the corresponding coloured tree\n" +
-					"and to avoid the dangerous crabs!\n";
+    	String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n"
+    				+ "To do this you must collect the different coloured Axes to cut down the corresponding coloured trees.\n";
+		if(level != 1) {
+			goal += "Make sure to avoid the dangerous crabs!\n";
 		} else {
 			goal += "\n";
 		}
