@@ -4,11 +4,14 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 import nz.ac.vuw.ecs.swen225.a3.persistence.Persistence;
 
+import javax.json.Json;
 import javax.json.JsonObject;
 import javax.swing.*;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 /**
@@ -21,9 +24,6 @@ public class Main {
 	private static GUI gui;
 	private static int level;
 
-	//TODO need to save the game before exiting no matter what.
-	//TODO need to load the game
-
 	/**
 	 * Gets the current level's Maze object
 	 * @return the maze
@@ -31,8 +31,6 @@ public class Main {
 	public Maze getMaze() {
 		return maze;
 	}
-
-	//TODO when paused, timeLeft should not decrease
 
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
@@ -225,19 +223,25 @@ public class Main {
 				case KeyEvent.VK_X:
 					if(keysDown.contains(KeyEvent.VK_CONTROL))
 						System.exit(0);
-					//TODO resume the game from the last unfinished level the next time it loads
 					break;
 				case KeyEvent.VK_R:
-					if(keysDown.contains(KeyEvent.VK_CONTROL))
-						//TODO loads a saved game
-						//TODO get JSON from save file
-						//Persistence.load([???]);
+					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
+						JFileChooser fc = new JFileChooser();
+						fc.showOpenDialog(null);
+						File f = fc.getSelectedFile();
+					try {
+
+						JsonObject obj = Json.createReader(new FileInputStream(f))
+								.readObject();
+						Persistence.loadGame(obj, maze);
+
+					} catch (Exception e1) {}
 						break;
+					}
 				case KeyEvent.VK_P:
 					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 						//starts a new game at the last unfinished (current) level
 						maze.cleanUpOldMaze();
-						gui.hideGUI();
 						new Main(maze, level, false);
 					}
 					break;
@@ -245,7 +249,6 @@ public class Main {
 					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 						//starts a new game at level 1
 						maze.cleanUpOldMaze();
-						gui.hideGUI();
 						new Main(maze, 1, false);
 					}
 					break;
@@ -255,7 +258,6 @@ public class Main {
 					maze.cleanUpOldMaze();
 					Object[] options = {"OK"};
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
-					gui.hideGUI();
 					new Main(maze, level+1, false);
 				}
 			}
@@ -270,10 +272,9 @@ public class Main {
 						//OUTTA TIME
 						Object[] options = {"RESTART LEVEL", "QUIT"};
 						int option = JOptionPane.showOptionDialog(gui.getFrame(), message, "Game Over", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+						maze.cleanUpOldMaze();
 						if(option == 0) {
 							//restart level
-							maze.cleanUpOldMaze();
-							gui.hideGUI();
 							new Main(maze, level, false);
 						} else
 							System.exit(0);
@@ -301,7 +302,6 @@ public class Main {
 	public static void main(String[] args) {
 		maze = new Maze(level1, 60, 1);
 		new Main(maze, 1, false);
-		//TODO load a saved game (or previous level)
 	}
 }
 

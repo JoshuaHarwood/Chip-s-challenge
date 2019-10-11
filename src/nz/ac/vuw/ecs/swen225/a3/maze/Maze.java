@@ -460,6 +460,7 @@ public class Maze implements Runnable {
 	 */
 	public void cleanUpOldMaze() {
 		mazeIsCurrent = false;
+		gui.hideGUI();
 	}
 
 	/**
