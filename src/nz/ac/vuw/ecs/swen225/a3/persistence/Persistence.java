@@ -106,14 +106,10 @@ public class Persistence {
         List<Tile> tiles = new ArrayList<>();
 
         //Convert the 2d array of tiles into a list of the tiles
-        for (int i = 0; i < board.length - 1; i++) {
-            for (int j = 0; j < board[i].length - 1; j++) {
-
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
                 Tile t = board[i][j];
-
-//                if (t.type != TileType.Empty && t.type != TileType.Chap) {
-                    tiles.add(t);
-//                }
+                tiles.add(t);
             }
         }
 
