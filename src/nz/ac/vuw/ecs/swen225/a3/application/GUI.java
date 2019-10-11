@@ -38,7 +38,7 @@ import java.util.stream.Stream;
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe  - //TODO add ID number & Joshua Harwood---300439084
+ * @author Henry Stoupe - 300432963 add ID number & Joshua Harwood---300439084
  */
 public class GUI {
 
@@ -118,11 +118,6 @@ public class GUI {
 	    labelCanvas.draw();
 
         showGUI();
-        //TODO update the timer, update the treasureleft
-        //TODO if getTimeLeft < 0 user loses that level
-        //show popup allowing the user to try again or quit
-        //System.out.println(maze.getTimeLeft() + " seconds left");
-        //System.out.println(maze.getTreasureLeft() + " treasures left");
     }
 
 	/**

@@ -205,10 +205,7 @@ public class Persistence {
 
         //Handle chap
         //TODO - could use a cleanup
-        Chap newChap = new Chap(chapX, chapY);
-        newMaze.setChap(newChap);
         newMaze.setTile(chapX, chapY, TileType.Chap);
-        newMaze.setBehindChap(new Tile(TileType.Empty, chapX, chapY));
 
 
         //TODO - This should be replaced with the saved timeleft

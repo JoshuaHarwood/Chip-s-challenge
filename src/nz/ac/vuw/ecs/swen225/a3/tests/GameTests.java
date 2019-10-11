@@ -1,31 +1,24 @@
 package nz.ac.vuw.ecs.swen225.a3.tests;
 
 import nz.ac.vuw.ecs.swen225.a3.application.GUI;
-import nz.ac.vuw.ecs.swen225.a3.application.Main;
-import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Enemy;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 
+import java.util.List;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import java.util.List;
-
-import javax.swing.ImageIcon;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the main game.
+ * @author Matthew Dagger 
+ * 		with some tests written by Joshua Hindley - 300438963
  */
 public class GameTests {
 
@@ -827,16 +820,19 @@ public class GameTests {
     	maze.setTile(1, 1, TileType.Chap);
     	maze.setTile(2, 2, TileType.Enemy);
     	
-    	Tile board[][] = maze.getBoard();
-    	
+    	maze.getBoard();
     	maze.updateVariables(60);
     	assertEquals(0, maze.getTreasureLeft());
     	maze.pause();
     	maze.resume();
     }
     
+    /**
+     * Tests that the reachable parts of
+     * the GUI code works as expected
+     */
     @Test
-    public void MainTest() {
+    public void GUITest() {
     	Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +

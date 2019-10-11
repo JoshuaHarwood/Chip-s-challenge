@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * The Main class.
- * @author //TODO UNKNOWN & Joshua Hindley - 300438963
+ * @author Henry Stoupe - 300432963 & Joshua Hindley - 300438963
  */
 public class Main {
 
@@ -113,16 +113,20 @@ public class Main {
 
 	/**
 	 * Creates a new Main object for the program to use.
+	 * @param l The level number
 	 */
-	public Main() {
-		//TODO add parameter
-		maze = new Maze(level3, 180, 3);
-
+	public Main(int l) {
+		level = l;
+		if(level == 1) 
+			maze = new Maze(level1, 60, level);
+		else if(level == 2)
+			maze = new Maze(level2, 120, level);
+		else if(level == 3)
+			maze = new Maze(level3, 180, level);
 
 		init(maze);
 
 		initKeys();
-
 	}
 
 	/**
@@ -134,7 +138,6 @@ public class Main {
 		maze.addGUI(gui);
 		gui.drawBoard();
 		startThread();
-		//		initKeys();
 	}
 
 	/**
@@ -162,6 +165,7 @@ public class Main {
 						//resume next time the application will be started
 						String name = JOptionPane.showInputDialog("Please enter a name for the save:");
 						Persistence.save(maze, name);
+						maze.cleanUpOldMaze();
 					}
 					else {
 						if(!maze.isPaused())
@@ -202,6 +206,7 @@ public class Main {
 				case KeyEvent.VK_R:
 					if(keysDown.contains(KeyEvent.VK_CONTROL))
 						//TODO loads a saved game
+						//TODO get JSON from save file
 						//Persistence.load([???]);
 						break;
 				case KeyEvent.VK_P:
@@ -209,7 +214,7 @@ public class Main {
 						//TODO starts a new game at the last unfinished level
 						maze.cleanUpOldMaze();
 						gui.hideGUI();
-						new Main();//currentLevel
+						new Main(level);//currentLevel
 					}
 					break;
 				case KeyEvent.VK_1:
@@ -217,7 +222,7 @@ public class Main {
 						//starts a new game at level 1
 						maze.cleanUpOldMaze();
 						gui.hideGUI();
-						new Main();//1
+						new Main(1);
 					}
 					break;
 				}
@@ -245,7 +250,7 @@ public class Main {
 							//restart level
 							maze.cleanUpOldMaze();
 							gui.hideGUI();
-							new Main();
+							new Main(level);
 						} else
 							System.exit(0);
 					}
@@ -270,7 +275,6 @@ public class Main {
 	 * @param args The arguments (none for this program)
 	 */
 	public static void main(String[] args) {
-		//		Main game = new Main();
-		new Main();
+		new Main(1); //TODO start at previous level or load a save game
 	}
 }

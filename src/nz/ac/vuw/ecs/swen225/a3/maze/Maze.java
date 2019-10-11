@@ -27,9 +27,11 @@ public class Maze implements Runnable {
 	private boolean mazeIsCurrent = true;
 	private boolean paused = false;
 	private long timeAtPause = 0;
+	/**
+	 * The level that this maze is (e.g. Level 1)
+	 */
 	public final int level;
-
-	//TODO add checks for invalid characters/boards
+	
 
 	public void run(){
 		while(mazeIsCurrent) {
@@ -48,6 +50,7 @@ public class Maze implements Runnable {
 	 * Creates a maze.
 	 * @param board this level's board as a string
 	 * @param timeToComplete 
+	 * @param level the level of this maze
 	 */
 	public Maze(String board, int timeToComplete, int level) {
 		generateBoard(board);
@@ -61,6 +64,7 @@ public class Maze implements Runnable {
 	 * This is the constructor used when loading from JSON.
 	 * @param width The width of the maze
 	 * @param height The height of the maze
+	 * @param level The level of this maze
 	 */
 	public Maze(int width, int height, int level) {
 		board = new Tile[height][width];
@@ -70,7 +74,7 @@ public class Maze implements Runnable {
 	/**
 	 * Takes the enemy's turn
 	 * @return a boolean. True if the game is still playing
-	 * 		False if time ran out or ch
+	 * 		False if time ran out or maze is not current
 	 */
 	public boolean takeEnemyTurn() {
 		Tile newBehind;
@@ -268,8 +272,6 @@ public class Maze implements Runnable {
 		chap.setX(x);
 		chap.setY(y);
 
-		//TODO Call mainframeController.redraw() here ?
-
 		return Trinary.TRUE;
 	}
 
@@ -298,7 +300,6 @@ public class Maze implements Runnable {
 	}
 
 	/**
-	 * TODO make sure this actually works
 	 * Updates the variables of this Maze object.
 	 * To be called when a level is loaded from a JSON file.
 	 * @param timeLeft
@@ -309,12 +310,8 @@ public class Maze implements Runnable {
 		treasureLeft = 0;
 		for(Tile[] t: board)
 			for(Tile tile : t)
-				if(tile instanceof Chap)
-					chap = (Chap) tile;
-				else if(tile.type == TileType.Treasure)
+				if(tile.type == TileType.Treasure)
 					treasureLeft++;
-				else if(tile instanceof Enemy)
-					enemies.add((Enemy)tile);
 
 		//updates time left
 		timeStarted = System.currentTimeMillis();
@@ -367,12 +364,16 @@ public class Maze implements Runnable {
 	public void setTile(int x, int y, TileType tile){
 		Tile t;
 		if(tile == TileType.Chap) {
-			t = new Chap(x,y);
-			chap = (Chap)t;
+			Chap c = new Chap(x,y);
+			t = c;
+			chap = c;
+			behindChap = new Tile(TileType.Empty,x,y);
 		}
 		else if(tile == TileType.Enemy) {
-			t = new Enemy(x,y);
-			enemies.add((Enemy)t);
+			Enemy e = new Enemy(x,y);
+			t = e;
+			enemies.add(e);
+			e.setTileBehindEnemy(new Tile(TileType.Empty,x,y));
 		}
 		else
 			t = new Tile(tile,x,y);
@@ -381,7 +382,7 @@ public class Maze implements Runnable {
 	}
 
 	/**
-	 * Gets a tile from the board
+	 * Gets a tile from the board.
 	 * @param x the x-coordinate of the tile
 	 * @param y the y-coordinate of the tile
 	 * @return the tile
@@ -390,18 +391,14 @@ public class Maze implements Runnable {
 		return board[y][x];
 	}
 
+	
 	/**
-	 * @deprecated Call Maze.updateVariables(); instead.
-	 * Sets this maze's chap object
-	 * @param c The chap object
-	 * 
+	 * Sets an enemy's moves.
+	 * @param enemyNo the number of this enemy (0 is the first enemy)
+	 * @param moves the arraylist of this enemy's moves
 	 */
-	public void setChap(Chap c){
-		this.chap = c;
-	}
-
-	public void setBehindChap(Tile t){
-		behindChap = t;
+	public void setEnemyMoves(int enemyNo, ArrayList<Character> moves) {
+		enemies.get(enemyNo).setMoves(moves);
 	}
 
 	/**
@@ -433,6 +430,10 @@ public class Maze implements Runnable {
 		paused = false;
 	}
 
+	/**
+	 * Returns if the game is paused or not.
+	 * @return if the game is paused
+	 */
 	public boolean isPaused() {
 		return paused;
 	}
@@ -453,6 +454,10 @@ public class Maze implements Runnable {
 		mazeIsCurrent = false;
 	}
 
+	/**
+	 * Gets all the enemies in the current maze
+	 * @return an unmodifiable list of the enemies in this maze
+	 */
 	public List<Enemy> getEnemies() {
 		return Collections.unmodifiableList(enemies);
 	}
@@ -460,7 +465,8 @@ public class Maze implements Runnable {
 
 
 	/**
-	 * the method will create a pop-up with help about the level
+	 * Opens an alert window to show the player how to play the game (i.e. the controls, the aim)
+	 * @param openWindow should be true, except for tests
 	 */
 	public void helpAlert(boolean openWindow) {
 		String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n"
