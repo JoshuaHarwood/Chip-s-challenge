@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * the enemies class (these are the mobs that will move around and attack the player)
- * @author Joshua Harwood----300439084.
+ * @author Joshua Harwood - 300439084
  * 			with additions from Joshua Hindley - 300438963
  */
 public class Enemy extends GameCharacter {

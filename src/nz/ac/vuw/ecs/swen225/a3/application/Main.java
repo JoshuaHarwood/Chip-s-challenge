@@ -16,7 +16,8 @@ import java.util.ArrayList;
 
 /**
  * The Main class.
- * @author Henry Stoupe - 300432963 & Joshua Hindley - 300438963
+ * @author Henry Stoupe - 300432963
+ * @author Joshua Hindley - 300438963
  */
 public class Main {
 

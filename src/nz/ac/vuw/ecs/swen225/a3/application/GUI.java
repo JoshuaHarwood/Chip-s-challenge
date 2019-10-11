@@ -34,7 +34,8 @@ import java.awt.event.MouseEvent;
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe - 300432963 add ID number & Joshua Harwood---300439084
+ * @author Henry Stoupe - 300432963
+ * @author Joshua Harwood - 300439084
  */
 public class GUI {
 

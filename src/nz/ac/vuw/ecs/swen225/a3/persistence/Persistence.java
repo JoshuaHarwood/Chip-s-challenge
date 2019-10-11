@@ -18,7 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * Responsible for reading map files and reading/writing files representing the current game state (in JSON format).
  * @author Liam Hide - 300451675
+ * @author Henry Stoupe - 300432963
  */
 public class Persistence {
 
@@ -179,15 +181,22 @@ public class Persistence {
 		//=====CREATING NEW MAZE=====//
 		currentMaze.cleanUpOldMaze();
 
-		createNewMaze(timeLeft, treasureLeft, level, mazeDimensions, chapPosition, keys, tiles, enemies);
+		createNewMaze(timeLeft, treasureLeft, level, mazeDimensions, keys, tiles, enemies);
 
 	}
 
 
-
-
-
-	private static void createNewMaze(int timeLeft, int treasureLeft, int levelNo, Point mazeDimensions, Point chapPosition, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
+	/**
+	 * Create a new maze from information extracted from a JSON save file.
+	 * @param timeLeft
+	 * @param treasureLeft
+	 * @param levelNo
+	 * @param mazeDimensions
+	 * @param keys
+	 * @param tiles
+	 * @param enemies
+	 */
+	private static void createNewMaze(int timeLeft, int treasureLeft, int levelNo, Point mazeDimensions, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
 
 
 		StringBuilder level = new StringBuilder();
@@ -201,7 +210,6 @@ public class Persistence {
 
 		System.out.println(level.toString());
 
-
 		Maze newMaze = new Maze(level.toString(), 60, levelNo); // <- load level # here
 
 		new Main(newMaze, levelNo, true);
@@ -212,8 +220,11 @@ public class Persistence {
 	}
 
 
-
-
+	/**
+	 * Load enemy info from a JSON Array and parse as Enemies.
+	 * @param ENEMIES
+	 * @return an ArrayList of Enemies
+	 */
 	private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
 		ArrayList<Enemy> enemiesl = new ArrayList<>();
@@ -248,9 +259,9 @@ public class Persistence {
 	}
 
     /**
-     *
+     * Set Chap's position as a point.
      * @param CHAP
-     * @return
+     * @return a point with Chap's x & y coordinates
      */
     private static Point loadChapPosition(JsonObject CHAP) {
         int chapX = CHAP.getInt("x");
@@ -260,7 +271,7 @@ public class Persistence {
     }
 
     /**
-     *
+     * Set Chap's maze directions.
      * @param MAZE
      * @return
      */
@@ -272,7 +283,7 @@ public class Persistence {
 	}
 
     /**
-     * Load tiles into a list from a Json array of tiles
+     * Load tiles into a list from a Json array of tiles.
      * @param TILES
      * @return a list of tiles
      */
@@ -327,7 +338,7 @@ public class Persistence {
 
 
     /**
-     * Handles write of a json object into a file
+     * Handles write of a json object into a file.
      * @param json
      * @param saveName
      */

@@ -5,7 +5,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 
 /**
  * 
- * @author Joshua Harwood---300439084
+ * @author Joshua Harwood - 300439084
  *
  */
 public class GameCharacter extends Tile {
