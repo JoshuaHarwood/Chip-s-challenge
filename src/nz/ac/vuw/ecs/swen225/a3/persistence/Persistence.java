@@ -7,7 +7,7 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.application.GUI;
-import nz.ac.vuw.ecs.swen225.a3.application.Main;
+import nz.ac.vuw.ecs.swen225.a3.application.*;
 import nz.ac.vuw.ecs.swen225.a3.maze.*;
 
 import javax.json.*;

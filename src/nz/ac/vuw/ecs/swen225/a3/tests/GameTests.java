@@ -9,11 +9,13 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.*;
+//import static org.junit.Assert.assertTrue;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for the main game.
@@ -562,7 +564,7 @@ public class GameTests {
                 "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
-        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key1));
+        assertTrue(maze.getChap().getAllKeys().contains(TileType.Key1));
         Assertions.assertEquals(maze.toString(),
                 "WWWWXWWWW" +
                         "WEEWLWEEW" +
@@ -591,7 +593,7 @@ public class GameTests {
                 "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
-        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key2));
+        assertTrue(maze.getChap().getAllKeys().contains(TileType.Key2));
         Assertions.assertEquals(maze.toString(),
                 "WWWWXWWWW" +
                         "WEEWLWEEW" +
@@ -620,7 +622,7 @@ public class GameTests {
                 "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
-        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key3));
+        assertTrue(maze.getChap().getAllKeys().contains(TileType.Key3));
         Assertions.assertEquals(maze.toString(),
                 "WWWWXWWWW" +
                         "WEEWLWEEW" +
@@ -649,7 +651,7 @@ public class GameTests {
                 "WWWWWWWWW",30,1);
 
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.TRUE) ;
-        Assertions.assertTrue(maze.getChap().getAllKeys().contains(TileType.Key4));
+        assertTrue(maze.getChap().getAllKeys().contains(TileType.Key4));
         Assertions.assertEquals(maze.toString(),
                 "WWWWXWWWW" +
                         "WEEWLWEEW" +
@@ -743,7 +745,7 @@ public class GameTests {
                 "WWWWWWWWW" +
                 "Y=LR",0,1);
         maze.takeEnemyTurn();
-        Assertions.assertFalse(maze.isCurrent());
+        assertFalse(maze.isCurrent());
     }
 
     /**
