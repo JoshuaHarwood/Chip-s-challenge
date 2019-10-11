@@ -117,8 +117,15 @@ public class Main {
 	 * Creates a new Main object for the program to use.
 	 * @param l The level number
 	 */
-	public Main(int l) {
-		updateMaze(l);
+	public Main(Maze m, int l, boolean loadingFromSave) {
+
+		if (loadingFromSave) {
+			maze = m;
+
+		}
+		else
+			updateMaze(l);
+
 		init(maze);
 		initKeys();
 	}
@@ -230,7 +237,7 @@ public class Main {
 						//starts a new game at the last unfinished (current) level
 						maze.cleanUpOldMaze();
 						gui.hideGUI();
-						new Main(level);
+						new Main(maze, level, false);
 					}
 					break;
 				case KeyEvent.VK_1:
@@ -238,7 +245,7 @@ public class Main {
 						//starts a new game at level 1
 						maze.cleanUpOldMaze();
 						gui.hideGUI();
-						new Main(1);
+						new Main(maze, 1, false);
 					}
 					break;
 				}
@@ -248,7 +255,7 @@ public class Main {
 					Object[] options = {"OK"};
 					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
 					gui.hideGUI();
-					new Main(level+1);
+					new Main(maze, level+1, false);
 				}
 			}
 			public void keyReleased(KeyEvent e) {
@@ -266,7 +273,7 @@ public class Main {
 							//restart level
 							maze.cleanUpOldMaze();
 							gui.hideGUI();
-							new Main(level);
+							new Main(maze, level, false);
 						} else
 							System.exit(0);
 					}
@@ -291,7 +298,8 @@ public class Main {
 	 * @param args The arguments (none for this program)
 	 */
 	public static void main(String[] args) {
-		new Main(1);
+		maze = new Maze(level1, 60, 1);
+		new Main(maze, 1, false);
 		//TODO load a saved game (or previous level)
 	}
 }

@@ -95,7 +95,7 @@ public class Persistence {
         //Next, get information regarding 'special' tiles
 
         Tile[][] board = maze.getBoard();
-        List<Tile> specialTiles = new ArrayList<>();
+        List<Tile> tiles = new ArrayList<>();
 
         //Convert the 2d array of tiles into a list of the "Special tiles"
         for (int i = 0; i < board.length - 2; i++) {
@@ -103,13 +103,13 @@ public class Persistence {
 
                 Tile t = board[i][j];
 
-                if (t.type != TileType.Empty && t.type != TileType.Chap) {
-                    specialTiles.add(t);
-                }
+//                if (t.type != TileType.Empty && t.type != TileType.Chap) {
+                    tiles.add(t);
+//                }
             }
         }
 
-        JsonArrayBuilder tile = convertTiles(specialTiles);
+        JsonArrayBuilder tile = convertTiles(tiles);
         JsonArray tileArr = tile.build();
         System.out.println("Successfully saved tiles");
 
@@ -209,7 +209,7 @@ public class Persistence {
     private static void createNewMaze(Point mazeDimensions, Point chapPosition, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
 
 
-        Maze newMaze = new Maze(mazeDimensions.x, mazeDimensions.y, 1);
+
 
 
         StringBuilder level = new StringBuilder();
@@ -218,11 +218,31 @@ public class Persistence {
         level.append(mazeDimensions.x);
         level.append(mazeDimensions.y);
 
+
+
         for (Tile tile : tiles) {
             level.append(tile.type);
         }
 
-        newMaze.generateBoard(level.toString());
+
+
+        int LEVEL_HERE = 1;
+
+
+        Maze newMaze = new Maze(level.toString(), 60, LEVEL_HERE); // <- load level # here
+//        newMaze.generateBoard(level.toString());
+//        newMaze.setChapPosition(chapPosition);
+
+        new Main(newMaze, LEVEL_HERE, true);
+
+//        Main.init(newMaze);
+
+//        newMaze.generateBoard(level.toString());
+
+
+//        for(TileType t : keys){
+//            newMaze.getChap().addKey(t);
+//        }
 
 
 
@@ -251,16 +271,14 @@ public class Persistence {
 
 
         //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient
-        newMaze.setEnemies(enemies);
-        newMaze.setChapPosition(chapPosition);
-
-        for(TileType t : keys){
-            newMaze.getChap().addKey(t);
-        }
+//        newMaze.setEnemies(enemies);
+//        newMaze.setChapPosition(chapPosition);
 
 
 
-        Main.init(newMaze);
+
+
+
 
 
 
