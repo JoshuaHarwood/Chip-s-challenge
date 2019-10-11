@@ -4,8 +4,6 @@ import java.awt.*;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -30,8 +28,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-
-import java.util.stream.Stream;
 
 
 /**
@@ -206,7 +202,7 @@ public class GUI {
 
 
 
-				Persistence.load(obj);
+				Persistence.loadGame(obj, maze);
 			}
 		});
 
