@@ -316,7 +316,7 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
         JsonArray MOVES = enemyObject.getJsonArray("moves");
 
-            for(int j = 0; i < MOVES.size(); i++){
+            for(int j = 0; j < MOVES.size(); j++){
                 JsonObject move = ENEMIES.getJsonObject(i);
                 Character c = move.getString("move").charAt(1);
                 movesl.add(c);
@@ -385,8 +385,8 @@ private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
             for (int i = 0; i < chapInv.size(); i++) {
                 JsonObject c = chapInv.getJsonObject(i);
                 String key = c.getString("key");
-
-                keys.add(lettersToTiles.get(key));
+                char k = key.charAt(0);
+                keys.add(lettersToTiles.get(k));
             }
         }
 

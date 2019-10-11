@@ -191,7 +191,6 @@ public class GUI {
 				File f = fc.getSelectedFile();
 
 				try {
-					InputStream i = new FileInputStream(f);
 
 					JsonObject obj = Json.createReader(new FileInputStream(f))
 							.readObject();
@@ -328,6 +327,8 @@ public class GUI {
 	}
 
 	private class SwingAction extends AbstractAction {
+
+		private static final long serialVersionUID = 1L;
 		public SwingAction() {
 			putValue(NAME, "SwingAction");
 			putValue(SHORT_DESCRIPTION, "Some short description");

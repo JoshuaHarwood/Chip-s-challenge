@@ -119,11 +119,7 @@ public class Main {
 	 */
 	public Main(Maze m, int l, boolean loadingFromSave) {
 
-		if (loadingFromSave) {
-			maze = m;
-
-		}
-		else
+		if (!loadingFromSave) 
 			updateMaze(l);
 
 		init(maze);
