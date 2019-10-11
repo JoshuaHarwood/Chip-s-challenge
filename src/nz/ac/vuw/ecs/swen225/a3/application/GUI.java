@@ -222,7 +222,7 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				maze.helpAlert();
+				maze.helpAlert(true);
 			}
 		});
 

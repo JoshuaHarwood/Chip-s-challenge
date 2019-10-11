@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.tests;
 
 import nz.ac.vuw.ecs.swen225.a3.application.GUI;
+import nz.ac.vuw.ecs.swen225.a3.application.Main;
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Enemy;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
@@ -8,9 +9,14 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -744,7 +750,7 @@ public class GameTests {
                 "WWWWWWWWW" +
                 "Y=LR",0,1);
         maze.takeEnemyTurn();
-        Assertions.assertFalse(maze.getMazeIsCurrent());
+        Assertions.assertFalse(maze.isCurrent());
     }
 
     /**
@@ -830,7 +836,7 @@ public class GameTests {
     }
     
     @Test
-    public void GuiTest() {
+    public void MainTest() {
     	Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -840,7 +846,23 @@ public class GameTests {
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
                 "WWWWWWWWW",30,1);
-    	GUI gui = new GUI(maze);
+    	Maze maze2 = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEYEEEW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW",30,2);
+    	
+			maze.addGUI(new GUI(maze));
+	    	assertTrue(maze.isCurrent());
+	    	maze.cleanUpOldMaze();
+	    	assertFalse(maze.isCurrent());
+	    	maze.helpAlert(false);
+	    	maze2.helpAlert(false);
     }
 
+    //TODO add persistence tests
 }

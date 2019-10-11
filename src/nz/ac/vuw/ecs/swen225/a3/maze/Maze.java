@@ -66,7 +66,7 @@ public class Maze implements Runnable {
 		board = new Tile[height][width];
 		this.level = level;
 	}
-	
+
 	/**
 	 * Takes the enemy's turn
 	 * @return a boolean. True if the game is still playing
@@ -112,7 +112,7 @@ public class Maze implements Runnable {
 			return false;
 		return true;
 	}
-	
+
 	private void endGame() {
 		mazeIsCurrent = false;
 		Robot robot;
@@ -247,7 +247,7 @@ public class Maze implements Runnable {
 		else if(board[y][x].type == TileType.Door4)
 			chap.removeKey(TileType.Key4);
 		else if(board[y][x].type == TileType.Info)
-			helpAlert();
+			helpAlert(true);
 
 		//remove Chap from the board
 		board[chap.getY()][chap.getX()] = behindChap;
@@ -376,10 +376,10 @@ public class Maze implements Runnable {
 		}
 		else
 			t = new Tile(tile,x,y);
-	    if(x < board[0].length && y < board.length)
-	    	board[y][x] = t;
-    }
-	
+		if(x < board[0].length && y < board.length)
+			board[y][x] = t;
+	}
+
 	/**
 	 * Gets a tile from the board
 	 * @param x the x-coordinate of the tile
@@ -390,19 +390,19 @@ public class Maze implements Runnable {
 		return board[y][x];
 	}
 
-    /**
-     * @deprecated Call Maze.updateVariables(); instead.
-     * Sets this maze's chap object
-     * @param c The chap object
-     * 
-     */
-    public void setChap(Chap c){
-	    this.chap = c;
-    }
-    
-    public void setBehindChap(Tile t){
-	    behindChap = t;
-    }
+	/**
+	 * @deprecated Call Maze.updateVariables(); instead.
+	 * Sets this maze's chap object
+	 * @param c The chap object
+	 * 
+	 */
+	public void setChap(Chap c){
+		this.chap = c;
+	}
+
+	public void setBehindChap(Tile t){
+		behindChap = t;
+	}
 
 	/**
 	 * Gets the number of seconds that the user has left to complete the level.
@@ -411,59 +411,66 @@ public class Maze implements Runnable {
 	public int getTimeLeft() {
 		return (int) (secondsToCompleteLevel - (System.currentTimeMillis() - timeStarted) / 1000);
 	}
-	
+
 	/**
 	 * Pauses the game.
 	 * The enemies will not move and the clock will not tick.
 	 */
 	public void pause() {
-		paused = true;
-		timeAtPause = System.currentTimeMillis();
+		if(!paused) {
+			timeAtPause = System.currentTimeMillis();
+			paused = true;
+		}
 	}
-	
+
 	/**
 	 * Resumes the game.
 	 * The clock will resume and enemies will move again.
 	 */
 	public void resume() {
-		if(timeAtPause != 0)
+		if(paused)
 			secondsToCompleteLevel += ((int)(System.currentTimeMillis() - timeAtPause)/1000);
 		paused = false;
-		timeAtPause = 0;
 	}
-	
+
+	public boolean isPaused() {
+		return paused;
+	}
+
 	/**
 	 * Checks whether a maze is the current maze or not.
 	 * @return if the maze is current
 	 */
-    public boolean getMazeIsCurrent() {
-        return mazeIsCurrent;
-    }
-    
-    /**
+	public boolean isCurrent() {
+		return mazeIsCurrent;
+	}
+
+	/**
 	 * Should be called when a level is completed or failed.
 	 * Quits the thread for enemies.
 	 */
 	public void cleanUpOldMaze() {
 		mazeIsCurrent = false;
 	}
-	
+
 	public List<Enemy> getEnemies() {
 		return Collections.unmodifiableList(enemies);
 	}
-    
-    /**
-     * the method will create a pop-up with help about the level
-     */
-    public void helpAlert() {
-    	String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n"
-    				+ "To do this you must collect the different coloured Axes to cut down the corresponding coloured trees.\n";
+
+
+
+	/**
+	 * the method will create a pop-up with help about the level
+	 */
+	public void helpAlert(boolean openWindow) {
+		String goal = "The goal here is to collect all the coconuts to fill in the hole in order to leave this Island.\n"
+				+ "To do this you must collect the different coloured Axes to cut down the corresponding coloured trees.\n";
 		if(level != 1) {
 			goal += "Make sure to avoid the dangerous crabs!\n";
 		} else {
 			goal += "\n";
 		}
-		
+
 		String help = goal +  "Good luck!\n\nControls: \n\tUse the WASD or arrow keys to move Chap"
 				+ "\n\tCtrl + S - Save and exit the game"
 				+ "\n\tCtrl + X - Exit the game without saving"
@@ -473,7 +480,8 @@ public class Maze implements Runnable {
 				+ "\n\tSpace - Pause the game"
 				+ "\n\tEsc - Resume the game";
 		pause();
-		JOptionPane.showMessageDialog(null, help, "Help", 3);
+		if(openWindow)
+			JOptionPane.showMessageDialog(null, help, "Help", 3);
 		resume();
-    }
+	}
 }

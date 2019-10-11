@@ -152,8 +152,9 @@ public class Main {
 				//moving the character
 				case KeyEvent.VK_W:
 				case KeyEvent.VK_UP:
-					if(maze.moveChap("UP") == Trinary.DONE)
-						levelComplete = true;
+					if(!maze.isPaused())
+						if(maze.moveChap("UP") == Trinary.DONE)
+							levelComplete = true;
 					break;
 				case KeyEvent.VK_S:
 					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
@@ -163,30 +164,34 @@ public class Main {
 						Persistence.save(maze, name);
 					}
 					else {
-						if (maze.moveChap("DOWN") == Trinary.DONE)
-							levelComplete = true;
+						if(!maze.isPaused())
+							if (maze.moveChap("DOWN") == Trinary.DONE)
+								levelComplete = true;
 					}
 					break;
 				case KeyEvent.VK_DOWN:
-					if(maze.moveChap("DOWN") == Trinary.DONE)
-						levelComplete = true;
+					if(!maze.isPaused())
+						if(maze.moveChap("DOWN") == Trinary.DONE)
+							levelComplete = true;
 					break;
 				case KeyEvent.VK_A:
 				case KeyEvent.VK_LEFT:
-					if(maze.moveChap("LEFT") == Trinary.DONE)
-						levelComplete = true;
+					if(!maze.isPaused())
+						if(maze.moveChap("LEFT") == Trinary.DONE)
+							levelComplete = true;
 					break;
 				case KeyEvent.VK_D:
 				case KeyEvent.VK_RIGHT:
-					if(maze.moveChap("RIGHT") == Trinary.DONE)
-						levelComplete = true;
+					if(!maze.isPaused())
+						if(maze.moveChap("RIGHT") == Trinary.DONE)
+							levelComplete = true;
 					break;
 					//pausing and resuming the game
 				case KeyEvent.VK_SPACE:
-					//TODO pause the game bringing up the game paused dialog
+					maze.pause();
 					break;
 				case KeyEvent.VK_ESCAPE:
-					//TODO resume the game closing the game paused dialog
+					maze.resume();
 					break;
 					//performing commands with ctrl
 				case KeyEvent.VK_X:
@@ -228,22 +233,25 @@ public class Main {
 			public void keyReleased(KeyEvent e) {
 				if(keysDown.indexOf(e.getKeyCode()) != -1)
 					keysDown.remove(keysDown.indexOf(e.getKeyCode()));
-				if(maze.getTimeLeft() <= 0 || !maze.getMazeIsCurrent()) {
-					String message = "You ran out of time.";
-					if(maze.getTimeLeft() > 0)
-						message = "You were eaten by a crab.";
-					//OUTTA TIME
-					Object[] options = {"RESTART LEVEL", "QUIT"};
-					int option = JOptionPane.showOptionDialog(gui.getFrame(), message, "Game Over", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
-					if(option == 0) {
-						//restart level
-						maze.cleanUpOldMaze();
-						gui.hideGUI();
-						new Main();
-					} else
-						System.exit(0);
+				if(!maze.isPaused()) {
+					if(maze.getTimeLeft() <= 0 || !maze.isCurrent()) {
+						String message = "You ran out of time.";
+						if(maze.getTimeLeft() > 0)
+							message = "You were eaten by a crab.";
+						//OUTTA TIME
+						Object[] options = {"RESTART LEVEL", "QUIT"};
+						int option = JOptionPane.showOptionDialog(gui.getFrame(), message, "Game Over", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+						if(option == 0) {
+							//restart level
+							maze.cleanUpOldMaze();
+							gui.hideGUI();
+							new Main();
+						} else
+							System.exit(0);
+					}
+					if(maze.getTimeLeft() > 0 && maze.isCurrent())
+						gui.drawBoard();
 				}
-				gui.drawBoard();
 			}
 		});
 	}
