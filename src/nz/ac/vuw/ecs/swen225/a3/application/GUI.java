@@ -35,6 +35,7 @@ import javax.swing.Action;
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
  * @author Henry Stoupe - 300432963 add ID number & Joshua Harwood---300439084
+ * Some loading/saving additions by Liam Hide-Tobin 300451675
  */
 public class GUI {
 
