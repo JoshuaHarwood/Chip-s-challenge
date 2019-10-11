@@ -190,7 +190,6 @@ public class GUI {
 				fc.showOpenDialog(frame);
 				File f = fc.getSelectedFile();
 
-
 				try {
 					InputStream i = new FileInputStream(f);
 
@@ -201,8 +200,8 @@ public class GUI {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-
-				maze.resume();			
+				
+				maze.resume();				
 			}
 		});
 
