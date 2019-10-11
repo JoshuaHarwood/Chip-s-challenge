@@ -1,8 +1,20 @@
 package nz.ac.vuw.ecs.swen225.a3.tests;
 
+import nz.ac.vuw.ecs.swen225.a3.application.GUI;
+import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
+import nz.ac.vuw.ecs.swen225.a3.maze.Enemy;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
+import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
+
+import javax.swing.ImageIcon;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -753,14 +765,82 @@ public class GameTests {
         Assertions.assertEquals(maze.moveChap("UP"), Trinary.FALSE) ;
         Assertions.assertEquals(maze.toString(),
                  "WWWWXWWWW" +
-                        "WEEWLWEEW" +
-                        "WEEECEEEW" +
-                        "WEEEYEEEW" +
-                        "W5EEEEEEW" +
-                        "WWWWWW1WW" +
-                        "WTEEEEEEW" +
-                        "WWWWWWWWW"
+                 "WEEWLWEEW" +
+                 "WEEECEEEW" +
+                 "WEEEYEEEW" +
+                 "W5EEEEEEW" +
+                 "WWWWWW1WW" +
+                 "WTEEEEEEW" +
+                 "WWWWWWWWW"
         );
+    }
+    
+    /**
+     * Testing that the right tile is behind the enemy
+     * and the toStrings are correct
+     */
+    @Test
+    public void BehindEnemy() {
+    	Maze maze = new Maze("0406"+
+    				  "WWWWWW"
+    				+ "WCI67W"
+    				+ "WEYU8W"
+    				+ "WWWWWW"
+    				+ "Y=LR",30,1);
+    	List<Enemy> enemies = maze.getEnemies();
+    	assertEquals(1, enemies.size());
+    	Enemy e = enemies.get(0);
+    	Tile t = e.getTileBehindEnemy();
+    	assertEquals(TileType.Empty, t.type);
+    	assertEquals(e.getX(), t.getX());
+    	assertEquals(e.getY(), t.getY());
+    	t.getImage();
+    	assertEquals("6", maze.getTile(3, 1).toString());
+    	assertEquals("7", maze.getTile(4, 1).toString());
+    	assertEquals("8", maze.getTile(4, 2).toString());
+    	assertEquals("I", maze.getTile(2, 1).toString());
+    	assertEquals("U", maze.getTile(3, 2).toString());
+    	
+    }
+    
+    /**
+     * Tests creating a maze from integers.
+     */
+    @Test
+    public void MazeFromInts() {
+    	Maze maze = new Maze(5, 4, 1);
+    	assertEquals(5, maze.getWidth());
+    	assertEquals(4, maze.getHeight());
+    	assertEquals(1, maze.level);
+    	
+    	for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 5; x++) {
+                maze.setTile(x, y, TileType.Empty);
+            }
+        }
+    	maze.setTile(1, 1, TileType.Chap);
+    	maze.setTile(2, 2, TileType.Enemy);
+    	
+    	Tile board[][] = maze.getBoard();
+    	
+    	maze.updateVariables(60);
+    	assertEquals(0, maze.getTreasureLeft());
+    	maze.pause();
+    	maze.resume();
+    }
+    
+    @Test
+    public void GuiTest() {
+    	Maze maze = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEYEEEW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW",30,1);
+    	GUI gui = new GUI(maze);
     }
 
 }
