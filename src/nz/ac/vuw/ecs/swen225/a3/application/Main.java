@@ -56,7 +56,7 @@ public class Main {
 	public Main() {
 		//TODO add parameter
 		
-		maze = new Maze(level1, 60);
+		maze = new Maze(level1, 60, 1);
 
 		init(maze);
 
