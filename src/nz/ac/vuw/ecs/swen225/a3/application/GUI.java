@@ -156,6 +156,7 @@ public class GUI {
 				if(input==0) {
 					System.exit(0);
 				}
+				maze.resume();
 			}
 		});
 
@@ -174,8 +175,10 @@ public class GUI {
 		JMenuItem saveButton = new JMenuItem("Save Game");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				maze.pause();
 				String name = JOptionPane.showInputDialog("Please enter a name for the save");
 				Persistence.save(maze, name);
+				maze.resume();
 			}
 		});
 
@@ -183,7 +186,7 @@ public class GUI {
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JsonObject obj = null;
-
+				maze.pause();
 				final JFileChooser fc = new JFileChooser();
 				fc.showOpenDialog(frame);
 				File f = fc.getSelectedFile();
@@ -200,7 +203,7 @@ public class GUI {
 				}
 
 
-
+				maze.resume();
 				Persistence.load(obj);
 			}
 		});
@@ -216,7 +219,6 @@ public class GUI {
 		menuHelp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 				maze.helpAlert(true);
 			}
 		});

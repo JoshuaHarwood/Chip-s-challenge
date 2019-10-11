@@ -163,9 +163,10 @@ public class Main {
 					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
 						//exit the game, saves the game state, game will
 						//resume next time the application will be started
+						maze.pause();
 						String name = JOptionPane.showInputDialog("Please enter a name for the save:");
 						Persistence.save(maze, name);
-						maze.cleanUpOldMaze();
+						System.exit(0);
 					}
 					else {
 						if(!maze.isPaused())
