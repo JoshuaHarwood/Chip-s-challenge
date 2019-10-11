@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
 
+import netscape.javascript.JSObject;
 import nz.ac.vuw.ecs.swen225.a3.application.*;
 
 import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
@@ -159,13 +160,15 @@ public class Persistence {
         //TODO:
         // - TIME REMAINING
         // - TREASURE REMAINING
+        // - LEVEL
+        // - ENEMIES
 
 
         JsonObject MAZE = json.getJsonObject("Maze");
         JsonObject CHAP = json.getJsonObject("Chap");
         JsonArray CHAP_INV = CHAP.getJsonArray("Inventory");
         JsonArray TILES = json.getJsonArray("Tiles");
-        JsonArray enemies = json.getJsonArray("Enemies");
+        JsonArray ENEMIES = json.getJsonArray("Enemies");
 
 
         //=====MAZE=====//
@@ -191,24 +194,16 @@ public class Persistence {
 
         //=====ENEMIES=====//
 
-        ArrayList<Enemy> enemies1 = new ArrayList<>();
 
-        for(int i = 0; i < enemies.size(); i++){
-            JsonObject enemyObject = enemies.getJsonObject(i);
 
-            int x = enemyObject.getInt("x");
-            int y = enemyObject.getInt("y");
+        ArrayList<Enemy> enemies = loadEnemiesInfo(ENEMIES);
 
-            Enemy e = new Enemy(x,y);
-            enemies1.add(e);
-        }
 
-        System.out.println("Read enemies");
 
 
         //=====CREATING NEW MAZE=====//
         currentMaze.cleanUpOldMaze();
-        createNewMaze(mazeDimensions, chapPosition, keys, tiles, enemies1);
+        createNewMaze(mazeDimensions, chapPosition, keys, tiles, enemies);
 
     }
 
@@ -283,7 +278,37 @@ public class Persistence {
 
 
 
+private static ArrayList<Enemy> loadEnemiesInfo(JsonArray ENEMIES){
 
+        ArrayList<Enemy> enemiesl = new ArrayList<>();
+
+    for(int i = 0; i < ENEMIES.size(); i++){
+        ArrayList<Character> movesl = new ArrayList<>();
+
+        JsonObject enemyObject = ENEMIES.getJsonObject(i);
+
+
+        int x = enemyObject.getInt("x");
+        int y = enemyObject.getInt("y");
+
+        JsonArray MOVES = enemyObject.getJsonArray("moves");
+
+            for(int j = 0; i < MOVES.size(); i++){
+                JsonObject move = ENEMIES.getJsonObject(i);
+                Character c = move.getString("move").charAt(1);
+                movesl.add(c);
+            }
+
+
+        Enemy e = new Enemy(x,y);
+        e.setMoves(movesl);
+        enemiesl.add(e);
+    }
+
+
+    return enemiesl;
+
+}
 
 
     private static Point loadChapPosition(JsonObject CHAP) {
