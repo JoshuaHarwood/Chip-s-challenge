@@ -175,6 +175,9 @@ public class Persistence {
 
         //Maze Dimensions
         Point mazeDimensions = loadMazeDimensions(MAZE);
+        int timeLeft = MAZE.getInt("timeLeft");
+        int treasureLeft = MAZE.getInt("treasureLeft");
+        int level = MAZE.getInt("level");
 
 
         //=====CHAP=====//
@@ -203,7 +206,7 @@ public class Persistence {
 
         //=====CREATING NEW MAZE=====//
         currentMaze.cleanUpOldMaze();
-        createNewMaze(mazeDimensions, chapPosition, keys, tiles, enemies);
+        createNewMaze(timeLeft, treasureLeft, level, mazeDimensions, chapPosition, keys, tiles, enemies);
 
     }
 
@@ -211,10 +214,10 @@ public class Persistence {
 
 
 
-    private static void createNewMaze(Point mazeDimensions, Point chapPosition, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
+    private static void createNewMaze(int timeLeft, int treasureLeft, int levelNo, Point mazeDimensions, Point chapPosition, List<TileType> keys, List<Tile> tiles, ArrayList<Enemy> enemies) {
 
 
-        Maze newMaze = new Maze(mazeDimensions.x, mazeDimensions.y, 1);
+        Maze newMaze = new Maze(mazeDimensions.x, mazeDimensions.y, levelNo);
 
 
         StringBuilder level = new StringBuilder();
@@ -253,6 +256,11 @@ public class Persistence {
 //
 //            newMaze.setTile(x, y, ty);
 //        }
+
+        newMaze.setTimeLeft(timeLeft);
+        newMaze.setTreasureLeft(treasureLeft);
+
+
 
 
         //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient

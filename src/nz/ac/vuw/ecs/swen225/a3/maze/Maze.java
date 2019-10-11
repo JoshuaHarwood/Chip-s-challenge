@@ -480,6 +480,15 @@ public class Maze implements Runnable {
 
 	}
 
+	public void setTimeLeft(int time){
+		secondsToCompleteLevel = time;
+	}
+
+	public void setTreasureLeft(int num){
+		this.treasureLeft = num;
+	}
+
+
 
 
 	/**
