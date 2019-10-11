@@ -1,10 +1,7 @@
 package nz.ac.vuw.ecs.swen225.a3.persistence;
 import nz.ac.vuw.ecs.swen225.a3.application.GUI;
 import nz.ac.vuw.ecs.swen225.a3.application.Main;
-import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
-import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
-import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
-import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
+import nz.ac.vuw.ecs.swen225.a3.maze.*;
 
 import javax.json.*;
 import java.io.FileNotFoundException;
@@ -51,6 +48,12 @@ public class Persistence {
         JsonArray invArr = inv.build();
         System.out.println("Successfully saved chap");
 
+        //Next, get the 'Enemies'
+        List<Enemy> enemiesToSave  = maze.getEnemies();
+        JsonArrayBuilder enemy = convertEnemies(enemiesToSave);
+        JsonArray enemyArr = enemy.build();
+        System.out.println("Successfully saved enemies");
+
 
         //Next, get information regarding 'special' tiles
         //Need to store: x,y and type (and status?? - maybe)
@@ -83,6 +86,7 @@ public class Persistence {
                 .add("Maze", Json.createObjectBuilder()
                         .add("x", mazeX)
                         .add("y", mazeY))
+                .add("Enemies", enemyArr)
                 .add("Chap", Json.createObjectBuilder()
                         .add("x", chapX)
                         .add("y", chapY)
@@ -106,6 +110,7 @@ public class Persistence {
      * @return The maze object the represents the game
      */
     static public void load(JsonObject json) {
+
 
         //First get game state information
         //TODO - We don't yet store this
@@ -134,6 +139,25 @@ public class Persistence {
         }
 
         System.out.println("Read chap");
+
+
+        //Read enemies
+        JsonArray enemies = json.getJsonArray("Enemies");
+        ArrayList<Enemy> enemies1 = new ArrayList<>();
+
+        for(int i = 0; i < enemies.size(); i++){
+            JsonObject enemyObject = enemies.getJsonObject(i);
+
+            int x = enemyObject.getInt("x");
+            int y = enemyObject.getInt("y");
+
+            Enemy e = new Enemy(x,y);
+            enemies1.add(e);
+        }
+
+        System.out.println("Read enemies");
+
+
 
         //Third, get grid information
 
@@ -203,6 +227,13 @@ public class Persistence {
             newMaze.setTile(x, y, ty);
         }
 
+
+        //Handle enemies
+        newMaze.setEnemies(enemies1);
+
+
+
+
         //Handle chap
         //TODO - could use a cleanup
         Chap newChap = new Chap(chapX, chapY);
@@ -270,6 +301,24 @@ public class Persistence {
 
         }
         return tilesBuilder;
+    }
+
+    private static JsonArrayBuilder convertEnemies(List<Enemy> list){
+
+        JsonArrayBuilder enemiesBuilder = Json.createArrayBuilder();
+
+        for(Enemy e : list){
+
+            enemiesBuilder.add(
+                    Json.createObjectBuilder()
+                        .add("x", e.getX())
+                        .add("y", e.getY())
+                        .add("nextMove", e.getNextMove())
+            );
+
+        }
+        return enemiesBuilder;
+
     }
 
 

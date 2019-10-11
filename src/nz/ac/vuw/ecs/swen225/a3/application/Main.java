@@ -118,7 +118,7 @@ public class Main {
 		//TODO add parameter
 		maze = new Maze(level3, 180, 3);
 
-
+		gui = new GUI(maze);
 		init(maze);
 
 		initKeys();
@@ -130,7 +130,9 @@ public class Main {
 	 * @param m The current maze
 	 */
 	public static void init(Maze m) {
-		gui = new GUI(maze);
+		maze = m;
+		//gui = new GUI(maze);
+		gui.setMaze(maze);
 		maze.addGUI(gui);
 		gui.drawBoard();
 		startThread();

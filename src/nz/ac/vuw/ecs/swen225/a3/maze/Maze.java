@@ -451,8 +451,10 @@ public class Maze implements Runnable {
 	public List<Enemy> getEnemies() {
 		return Collections.unmodifiableList(enemies);
 	}
-    
-    /**
+
+	public void setEnemies(ArrayList<Enemy> enemies) {this.enemies = enemies;}
+
+	/**
      * the method will create a pop-up with help about the level
      */
     public void helpAlert() {
