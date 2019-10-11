@@ -100,7 +100,7 @@ public class Maze implements Runnable {
 				newY--;
 			else if(nextMove == 'D')
 				newY++;
-
+			if(newY != y || newX != x) {
 			newBehind = board[newY][newX];
 			if(newBehind instanceof Chap)
 				endGame();
@@ -109,6 +109,7 @@ public class Maze implements Runnable {
 			enemy.setTileBehindEnemy(newBehind);
 			enemy.setX(newX);
 			enemy.setY(newY);
+			}
 		}
 		if(getTimeLeft() <= 0)
 			endGame();
