@@ -34,7 +34,7 @@ import javax.swing.Action;
  * A GUI with a canvas for displaying the game, as well as other
  * information related to the game state, options and more.
  * (Partly generated using Eclipse's WindowBuilder plugin)
- * @author Henry Stoupe  - //TODO add ID number & Joshua Harwood---300439084
+ * @author Henry Stoupe - 300432963 add ID number & Joshua Harwood---300439084
  */
 public class GUI {
 
@@ -114,11 +114,6 @@ public class GUI {
 	    labelCanvas.draw();
 
         showGUI();
-        //TODO update the timer, update the treasureleft
-        //TODO if getTimeLeft < 0 user loses that level
-        //show popup allowing the user to try again or quit
-        //System.out.println(maze.getTimeLeft() + " seconds left");
-        //System.out.println(maze.getTreasureLeft() + " treasures left");
     }
 
 	/**
@@ -157,6 +152,7 @@ public class GUI {
 				if(input==0) {
 					System.exit(0);
 				}
+				maze.resume();
 			}
 		});
 
@@ -175,8 +171,10 @@ public class GUI {
 		JMenuItem saveButton = new JMenuItem("Save Game");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				maze.pause();
 				String name = JOptionPane.showInputDialog("Please enter a name for the save");
 				Persistence.save(maze, name);
+				maze.resume();
 			}
 		});
 
@@ -184,7 +182,7 @@ public class GUI {
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JsonObject obj = null;
-
+				maze.pause();
 				final JFileChooser fc = new JFileChooser();
 				fc.showOpenDialog(frame);
 				File f = fc.getSelectedFile();
@@ -201,8 +199,9 @@ public class GUI {
 				}
 
 
-
+				maze.resume();
 				Persistence.loadGame(obj, maze);
+				
 			}
 		});
 
@@ -217,8 +216,7 @@ public class GUI {
 		menuHelp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				maze.helpAlert();
+				maze.helpAlert(true);
 			}
 		});
 

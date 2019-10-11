@@ -1,25 +1,24 @@
 package nz.ac.vuw.ecs.swen225.a3.tests;
 
 import nz.ac.vuw.ecs.swen225.a3.application.GUI;
-import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Enemy;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
 import nz.ac.vuw.ecs.swen225.a3.maze.Trinary;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the main game.
+ * @author Matthew Dagger 
+ * 		with some tests written by Joshua Hindley - 300438963
  */
 public class GameTests {
 
@@ -744,7 +743,7 @@ public class GameTests {
                 "WWWWWWWWW" +
                 "Y=LR",0,1);
         maze.takeEnemyTurn();
-        Assertions.assertFalse(maze.getMazeIsCurrent());
+        Assertions.assertFalse(maze.isCurrent());
     }
 
     /**
@@ -821,16 +820,19 @@ public class GameTests {
     	maze.setTile(1, 1, TileType.Chap);
     	maze.setTile(2, 2, TileType.Enemy);
     	
-    	Tile board[][] = maze.getBoard();
-    	
+    	maze.getBoard();
     	maze.updateVariables(60);
     	assertEquals(0, maze.getTreasureLeft());
     	maze.pause();
     	maze.resume();
     }
     
+    /**
+     * Tests that the reachable parts of
+     * the GUI code works as expected
+     */
     @Test
-    public void GuiTest() {
+    public void GUITest() {
     	Maze maze = new Maze("0809" +
                 "WWWWXWWWW" +
                 "WEEWLWEEW" +
@@ -840,7 +842,23 @@ public class GameTests {
                 "WWWWWW1WW" +
                 "WTEEEEEEW" +
                 "WWWWWWWWW",30,1);
-    	GUI gui = new GUI(maze);
+    	Maze maze2 = new Maze("0809" +
+                "WWWWXWWWW" +
+                "WEEWLWEEW" +
+                "WEEECEEEW" +
+                "WEEEYEEEW" +
+                "W5EEEEEEW" +
+                "WWWWWW1WW" +
+                "WTEEEEEEW" +
+                "WWWWWWWWW",30,2);
+    	
+			maze.addGUI(new GUI(maze));
+	    	assertTrue(maze.isCurrent());
+	    	maze.cleanUpOldMaze();
+	    	assertFalse(maze.isCurrent());
+	    	maze.helpAlert(false);
+	    	maze2.helpAlert(false);
     }
 
+    //TODO add persistence tests
 }
