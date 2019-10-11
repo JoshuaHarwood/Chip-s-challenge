@@ -20,8 +20,10 @@ public class Main {
 	private static Maze maze;
 	private static GUI gui;
 	private static int level;
-	//TODO use this level variable
-
+	
+	//TODO need to save the game before exiting no matter what.
+	//TODO need to load the game 
+	
 	/**
 	 * Gets the current level's Maze object
 	 * @return the maze
@@ -117,14 +119,19 @@ public class Main {
 	 */
 	public Main(int l) {
 		level = l;
+		
 		if(level == 1) 
 			maze = new Maze(level1, 60, level);
 		else if(level == 2)
 			maze = new Maze(level2, 120, level);
 		else if(level == 3)
 			maze = new Maze(level3, 180, level);
-		else 
+		else {
+			Object[] options = {"OK"};
+			JOptionPane.showOptionDialog(gui.getFrame(), "Well done, you have completed the game!\nThanks for playing.\n The program will now exit.", "You Win!", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+			level = 1;
 			System.exit(0);
+		}
 		
 		init(maze);
 		initKeys();
@@ -232,7 +239,7 @@ public class Main {
 					//loads the next level
 					maze.cleanUpOldMaze();
 					Object[] options = {"OK"};
-					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!\n Now exiting.", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+					JOptionPane.showOptionDialog(gui.getFrame(), "LEVEL COMPLETE!", "Level Complete", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
 					gui.hideGUI();
 					new Main(level+1);
 				}
@@ -277,6 +284,7 @@ public class Main {
 	 * @param args The arguments (none for this program)
 	 */
 	public static void main(String[] args) {
-		new Main(1); //TODO start at previous level or load a save game
+		new Main(1); 
+		//TODO load a saved game (or previous level)
 	}
 }

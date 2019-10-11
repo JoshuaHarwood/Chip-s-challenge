@@ -27,6 +27,8 @@ public class Enemy extends GameCharacter {
 	 * @return The next move ('U', 'D', 'L', or 'R')
 	 */
 	public Character getNextMove() {	
+		if(moves == null)
+			return ' ';
 		currentMove = moves.remove(0);
 		moves.add(currentMove);
 		return currentMove;
