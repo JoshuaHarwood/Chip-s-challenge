@@ -244,16 +244,8 @@ public class Persistence {
 
 		return enemiesl;
 
+
 	}
-
-
-	private static Point loadChapPosition(JsonObject CHAP) {
-		int chapX = CHAP.getInt("x");
-		int chapY = CHAP.getInt("y");
-
-    return enemiesl;
-
-}
 
     /**
      *
