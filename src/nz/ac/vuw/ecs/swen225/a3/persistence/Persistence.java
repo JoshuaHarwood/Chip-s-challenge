@@ -7,8 +7,6 @@ import nz.ac.vuw.ecs.swen225.a3.maze.Chap;
 import nz.ac.vuw.ecs.swen225.a3.maze.Maze;
 import nz.ac.vuw.ecs.swen225.a3.maze.Tile;
 import nz.ac.vuw.ecs.swen225.a3.maze.TileType;
-import nz.ac.vuw.ecs.swen225.a3.application.GUI;
-import nz.ac.vuw.ecs.swen225.a3.application.*;
 import nz.ac.vuw.ecs.swen225.a3.maze.*;
 
 import javax.json.*;
@@ -101,7 +99,6 @@ public class Persistence {
 
 
         //Next, get information regarding all tiles
-
         Tile[][] board = maze.getBoard();
         List<Tile> tiles = new ArrayList<>();
 
@@ -119,7 +116,6 @@ public class Persistence {
 
 
         //Finally, Construct the JSon file
-
         JsonObject json = Json.createObjectBuilder()
                 //Level details will go here
                 .add("Maze", Json.createObjectBuilder()
@@ -153,13 +149,6 @@ public class Persistence {
      */
     static public void loadGame(JsonObject json, Maze currentMaze) {
 
-        //TODO:
-        // - TIME REMAINING
-        // - TREASURE REMAINING
-        // - LEVEL
-        // - ENEMIES
-
-
         JsonObject MAZE = json.getJsonObject("Maze");
         JsonObject CHAP = json.getJsonObject("Chap");
         JsonArray CHAP_INV = CHAP.getJsonArray("Inventory");
@@ -186,17 +175,12 @@ public class Persistence {
 
 
         //=====TILES=====//
-
         List<Tile> tiles = loadTilesInfo(TILES);
 
 
 
         //=====ENEMIES=====//
-
-
-
         ArrayList<Enemy> enemies = loadEnemiesInfo(ENEMIES);
-
 
 
 
@@ -226,22 +210,11 @@ public class Persistence {
 
 
         Maze newMaze = new Maze(level.toString(), 60, levelNo); // <- load level # here
-//        newMaze.generateBoard(level.toString());
-//        newMaze.setChapPosition(chapPosition);
 
         new Main(newMaze, levelNo, true);
 
         newMaze.setTimeLeft(timeLeft);
         newMaze.setTreasureLeft(treasureLeft);
-
-
-        //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient
-        // Chap newChap = new Chap(chapPosition.x,chapPosition.y);
-        // newMaze.setChap(newChap);
-
-        // newMaze.setEnemies(enemies);
-        // newMaze.setChapPosition(chapPosition);
-
 
     }
 
