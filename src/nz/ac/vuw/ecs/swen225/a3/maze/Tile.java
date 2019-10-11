@@ -19,7 +19,7 @@ public class Tile {
 	public final TileType type;
 	private int x, y;
 
-    private Map<String, ImageIcon> tileMap = new HashMap<>();
+	private Map<String, ImageIcon> tileMap = new HashMap<>();
 
 	/**
 	 * Creates a new tile.
@@ -32,11 +32,12 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 
-		int numImages = new File("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons").listFiles().length;
+		File[] f = new File("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons").listFiles();
+		int numImages = f==null ? 0 : f.length;
 
-        for (int i = 0; i < numImages; i++) {
-            tileMap.put(this.type.name(), new ImageIcon("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\" + this.type.name() + ".png"));
-        }
+		for (int i = 0; i < numImages; i++) {
+			tileMap.put(this.type.name(), new ImageIcon("src\\nz\\ac\\vuw\\ecs\\swen225\\a3\\maze\\icons\\" + this.type.name() + ".png"));
+		}
 	}
 
 	/**
@@ -106,7 +107,7 @@ public class Tile {
 	 * @return the image
 	 */
 	public Image getImage() {
-        ImageIcon icon = tileMap.get(this.type.name());
+		ImageIcon icon = tileMap.get(this.type.name());
 		return icon.getImage();
 	}
 

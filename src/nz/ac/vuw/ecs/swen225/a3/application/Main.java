@@ -20,10 +20,10 @@ public class Main {
 	private static Maze maze;
 	private static GUI gui;
 	private static int level;
-	
+
 	//TODO need to save the game before exiting no matter what.
 	//TODO need to load the game 
-	
+
 	/**
 	 * Gets the current level's Maze object
 	 * @return the maze
@@ -36,7 +36,7 @@ public class Main {
 
 	private ArrayList<Integer> keysDown = new ArrayList<Integer>();
 
-	String level1 = "1414" +
+	static String level1 = "1414" +
 			"WWWWWWWWWWWXWW" +
 			"WTEEEEEEIWWLWW" +
 			"WEEECEEEEEET7W" +
@@ -52,7 +52,7 @@ public class Main {
 			"WETEETEEEWTTTW" +
 			"WWWWWWWWWWWWWW";
 
-	String level2 = "1614" +
+	static String level2 = "1614" +
 			"WWWWXWWWWWWWWW" +
 			"WTEWLWEE1EEEEW" +
 			"WEEEEEEEWEEEEW" +
@@ -71,7 +71,7 @@ public class Main {
 			"WWWWWWWWWWWWWW" +
 			"Y=LDLUURRD";
 
-	String level3 = "2530" +
+	static String level3 = "2530" +
 			"WWWWWWWWWWWXWWWWWWWWWWWWWWWWWW" +
 			"WITEEE5WEEWLWEEEWEEYEEEEEYEEEW" +
 			"WEEECEEWEEEEEEEEEEEEEYEEEEEEEW" +
@@ -118,8 +118,18 @@ public class Main {
 	 * @param l The level number
 	 */
 	public Main(int l) {
+		updateMaze(l);
+		init(maze);
+		initKeys();
+	}
+
+	/**
+	 * Updates the maze.
+	 * @param l the level to update the maze to.
+	 */
+	private static void updateMaze(int l) {
 		level = l;
-		
+
 		if(level == 1) 
 			maze = new Maze(level1, 60, level);
 		else if(level == 2)
@@ -132,9 +142,6 @@ public class Main {
 			level = 1;
 			System.exit(0);
 		}
-		
-		init(maze);
-		initKeys();
 	}
 
 	/**
