@@ -20,7 +20,12 @@ public class Main {
 	private static Maze maze;
 	private static GUI gui;
 	private static int level;
+	//TODO use this level variable
 
+	/**
+	 * Gets the current level's Maze object
+	 * @return the maze
+	 */
 	public Maze getMaze() {
 		return maze;
 	}
@@ -114,12 +119,16 @@ public class Main {
 
 	}
 
+	/**
+	 * Initializes the GUI and starts the thread for enemies
+	 * @param m The current maze
+	 */
 	public static void init(Maze m) {
 		gui = new GUI(maze);
 		maze.addGUI(gui);
 		gui.drawBoard();
 		startThread();
-//		initKeys();
+		//		initKeys();
 	}
 
 	/**
@@ -134,72 +143,72 @@ public class Main {
 				int action = e.getKeyCode();
 				keysDown.add(action);
 				switch(action) {
-					//moving the character
-					case KeyEvent.VK_W:
-					case KeyEvent.VK_UP:
-						if(maze.moveChap("UP") == Trinary.DONE)
+				//moving the character
+				case KeyEvent.VK_W:
+				case KeyEvent.VK_UP:
+					if(maze.moveChap("UP") == Trinary.DONE)
+						levelComplete = true;
+					break;
+				case KeyEvent.VK_S:
+					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
+						//exit the game, saves the game state, game will
+						//resume next time the application will be started
+						String name = JOptionPane.showInputDialog("Please enter a name for the save:");
+						Persistence.save(maze, name);
+					}
+					else {
+						if (maze.moveChap("DOWN") == Trinary.DONE)
 							levelComplete = true;
-						break;
-					case KeyEvent.VK_S:
-						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
-							//exit the game, saves the game state, game will
-							//resume next time the application will be started
-							String name = JOptionPane.showInputDialog("Please enter a name for the save:");
-							Persistence.save(maze, name);
-						}
-						else {
-							if (maze.moveChap("DOWN") == Trinary.DONE)
-								levelComplete = true;
-						}
-						break;
-					case KeyEvent.VK_DOWN:
-						if(maze.moveChap("DOWN") == Trinary.DONE)
-							levelComplete = true;
-						break;
-					case KeyEvent.VK_A:
-					case KeyEvent.VK_LEFT:
-						if(maze.moveChap("LEFT") == Trinary.DONE)
-							levelComplete = true;
-						break;
-					case KeyEvent.VK_D:
-					case KeyEvent.VK_RIGHT:
-						if(maze.moveChap("RIGHT") == Trinary.DONE)
-							levelComplete = true;
-						break;
+					}
+					break;
+				case KeyEvent.VK_DOWN:
+					if(maze.moveChap("DOWN") == Trinary.DONE)
+						levelComplete = true;
+					break;
+				case KeyEvent.VK_A:
+				case KeyEvent.VK_LEFT:
+					if(maze.moveChap("LEFT") == Trinary.DONE)
+						levelComplete = true;
+					break;
+				case KeyEvent.VK_D:
+				case KeyEvent.VK_RIGHT:
+					if(maze.moveChap("RIGHT") == Trinary.DONE)
+						levelComplete = true;
+					break;
 					//pausing and resuming the game
-					case KeyEvent.VK_SPACE:
-						//TODO pause the game bringing up the game paused dialog
-						break;
-					case KeyEvent.VK_ESCAPE:
-						//TODO resume the game closing the game paused dialog
-						break;
+				case KeyEvent.VK_SPACE:
+					//TODO pause the game bringing up the game paused dialog
+					break;
+				case KeyEvent.VK_ESCAPE:
+					//TODO resume the game closing the game paused dialog
+					break;
 					//performing commands with ctrl
-					case KeyEvent.VK_X:
-						if(keysDown.contains(KeyEvent.VK_CONTROL))
-							System.exit(0);
-						//TODO resume the game from the last unfinished level the next time it loads
+				case KeyEvent.VK_X:
+					if(keysDown.contains(KeyEvent.VK_CONTROL))
+						System.exit(0);
+					//TODO resume the game from the last unfinished level the next time it loads
+					break;
+				case KeyEvent.VK_R:
+					if(keysDown.contains(KeyEvent.VK_CONTROL))
+						//TODO loads a saved game
+						//Persistence.load([???]);
 						break;
-					case KeyEvent.VK_R:
-						if(keysDown.contains(KeyEvent.VK_CONTROL))
-							//TODO loads a saved game
-							//Persistence.load([???]);
-							break;
-					case KeyEvent.VK_P:
-						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
-							//TODO starts a new game at the last unfinished level
-							maze.cleanUpOldMaze();
-							gui.hideGUI();
-							new Main();//currentLevel
-						}
-							break;
-					case KeyEvent.VK_1:
-						if(keysDown.contains(KeyEvent.VK_CONTROL)) {
-							//starts a new game at level 1
-							maze.cleanUpOldMaze();
-							gui.hideGUI();
-							new Main();//1
-						}
-						break;
+				case KeyEvent.VK_P:
+					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
+						//TODO starts a new game at the last unfinished level
+						maze.cleanUpOldMaze();
+						gui.hideGUI();
+						new Main();//currentLevel
+					}
+					break;
+				case KeyEvent.VK_1:
+					if(keysDown.contains(KeyEvent.VK_CONTROL)) {
+						//starts a new game at level 1
+						maze.cleanUpOldMaze();
+						gui.hideGUI();
+						new Main();//1
+					}
+					break;
 				}
 				if(levelComplete) {
 					//TODO load next level, save information that that level was completed
@@ -213,18 +222,22 @@ public class Main {
 			public void keyReleased(KeyEvent e) {
 				if(keysDown.indexOf(e.getKeyCode()) != -1)
 					keysDown.remove(keysDown.indexOf(e.getKeyCode()));
-				if(maze.getTimeLeft() < 0) {
+				if(maze.getTimeLeft() <= 0 || !maze.getMazeIsCurrent()) {
+					String message = "You ran out of time.";
+					if(maze.getTimeLeft() > 0)
+						message = "You were eaten by a crab.";
 					//OUTTA TIME
 					Object[] options = {"RESTART LEVEL", "QUIT"};
-				int option = JOptionPane.showOptionDialog(gui.getFrame(), "Out of time.", "Out of time", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
-				if(option == 0) {
-					//restart level
-					maze.cleanUpOldMaze();
-					gui.hideGUI();
-					new Main();
-				} else
-					System.exit(0);
+					int option = JOptionPane.showOptionDialog(gui.getFrame(), message, "Game Over", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);//level complete
+					if(option == 0) {
+						//restart level
+						maze.cleanUpOldMaze();
+						gui.hideGUI();
+						new Main();
+					} else
+						System.exit(0);
 				}
+				else if(!maze.getMazeIsCurrent())
 				gui.drawBoard();
 			}
 		});
@@ -244,7 +257,7 @@ public class Main {
 	 * @param args The arguments (none for this program)
 	 */
 	public static void main(String[] args) {
-//		Main game = new Main();
+		//		Main game = new Main();
 		new Main();
 	}
 }
