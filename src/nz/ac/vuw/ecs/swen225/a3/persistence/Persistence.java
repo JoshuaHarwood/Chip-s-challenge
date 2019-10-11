@@ -120,7 +120,10 @@ public class Persistence {
                 //Level details will go here
                 .add("Maze", Json.createObjectBuilder()
                         .add("x", mazeX)
-                        .add("y", mazeY))
+                        .add("y", mazeY)
+                        .add("timeLeft", timeLeft)
+                        .add("treasureLeft", treasureLeft)
+                        .add("level", level))
                 .add("Enemies", enemyArr)
                 .add("Chap", Json.createObjectBuilder()
                         .add("x", chapX)
@@ -251,6 +254,9 @@ public class Persistence {
 
 
         //Setup new maze - This is just 'filling in' the stuff that needs to be done, is likely inefficient
+        Chap newChap = new Chap(chapPosition.x,chapPosition.y);
+        newMaze.setChap(newChap);
+
         newMaze.setEnemies(enemies);
         newMaze.setChapPosition(chapPosition);
 
